@@ -54,12 +54,15 @@ export async function readLegacyPage(filename: string): Promise<LegacyPage> {
   body = body.replace(/(["'(])assets\//g, '$1/assets/');
 
   // Re-write internal HTML links to clean Next.js routes:
-  //   "index.html" -> "/"
-  //   "servicios.html"        -> "/servicios"
-  //   "servicios.html#bodas"  -> "/servicios#bodas"
-  body = body.replace(/(href|action)="([a-z][a-z0-9-]*)\.html(#[a-z0-9-]+)?"/gi, (_match, attr, page, hash = '') => {
+  //   "index.html"               -> "/"
+  //   "servicios.html"           -> "/servicios"
+  //   "servicios.html#bodas"     -> "/servicios#bodas"
+  //   "tienda.html?cat=regalos"  -> "/tienda?cat=regalos"
+  //   "producto.html..."         -> "/tienda"   (no hay slug; mandamos al catálogo)
+  body = body.replace(/(href|action)="([a-z][a-z0-9-]*)\.html([^"]*)"/gi, (_match, attr, page, suffix) => {
+    if (page === 'producto') return `${attr}="/tienda"`;
     const route = page === 'index' ? '/' : `/${page}`;
-    return `${attr}="${route}${hash}"`;
+    return `${attr}="${route}${suffix}"`;
   });
 
   return { body, styles };
