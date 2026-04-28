@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Lo que dicen nuestros clientes — testimonios reales de bodas, comuniones y celebraciones producidas por Nudo Studio.">
+<link rel="icon" href="assets/logo-nudo-trim.png">
+<title>Testimonios — Nudo Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=2">
+<style>
+  .t-hero { padding: 80px 0 56px; }
+  .t-hero h1 {
+    font-size: clamp(48px, 7vw, 110px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+    max-width: 16ch;
+  }
+
+  .t-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+  }
+  .t-card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    padding: 36px;
+    background: var(--bg);
+    display: flex; flex-direction: column;
+  }
+  .t-card.dark { background: linear-gradient(160deg, oklch(0.65 0.13 30), var(--bg-dark) 80%); color: var(--ink-on-dark); border-color: var(--ink); }
+  .t-card.accent { background: var(--accent-soft); border-color: transparent; }
+  .t-card.span-6 { grid-column: span 6; }
+  .t-card.span-4 { grid-column: span 4; }
+  .t-card.span-8 { grid-column: span 8; }
+  .t-card.span-12 { grid-column: span 12; }
+
+  @media (max-width: 900px) {
+    .t-card.span-4, .t-card.span-6, .t-card.span-8, .t-card.span-12 { grid-column: span 12; }
+  }
+
+  .t-quote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(22px, 2.6vw, 36px);
+    line-height: 1.35;
+  }
+  .t-card.span-12 .t-quote { font-size: clamp(28px, 3.5vw, 52px); max-width: 22ch; }
+
+  .t-foot {
+    margin-top: auto;
+    padding-top: 28px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .t-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+  }
+  .t-card.dark .t-avatar { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.18); }
+  .t-name { font-weight: 500; font-size: 15px; }
+  .t-meta { font-size: 13px; color: var(--ink-3); }
+  .t-card.dark .t-meta { color: var(--ink-on-dark-2); }
+
+  .stats {
+    margin: 80px 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding: 48px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  @media (max-width: 700px) { .stats { grid-template-columns: 1fr 1fr; } }
+  .stat .num {
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 1; font-weight: 600; letter-spacing: -0.04em;
+  }
+  .stat .lbl { margin-top: 8px; font-size: 14px; color: var(--ink-3); max-width: 22ch; }
+</style>
+</head>
+<body data-page="testimonios.html" data-screen-label="Testimonios">
+
+<div data-slot="header"></div>
+
+<section class="t-hero">
+  <div class="container-wide">
+    <span class="eyebrow">Testimonios · 2018 — 2026</span>
+    <h1 style="margin-top: 18px;">Lo que dicen <span class="serif">después</span>.</h1>
+  </div>
+</section>
+
+<div class="container-wide">
+  <div class="t-grid">
+    <div class="t-card dark span-12">
+      <p class="t-quote">"Nos sentimos invitados en nuestra propia boda. Cada detalle estaba pensado, y ningún detalle pesaba."</p>
+      <div class="t-foot">
+        <div class="t-avatar"></div>
+        <div><div class="t-name">Marta y Diego</div><div class="t-meta">Boda · Finca El Espinar · 2025</div></div>
+      </div>
+    </div>
+    <div class="t-card span-6">
+      <p class="t-quote">"Las cajas que regalamos a los padrinos siguen en sus salones. Eso lo dice todo."</p>
+      <div class="t-foot"><div class="t-avatar"></div><div><div class="t-name">Lucía P.</div><div class="t-meta">Comunión · Madrid · 2025</div></div></div>
+    </div>
+    <div class="t-card accent span-6">
+      <p class="t-quote">"Encontramos al estudio por Pinterest. Nos quedamos por la primera reunión."</p>
+      <div class="t-foot"><div class="t-avatar"></div><div><div class="t-name">Carolina &amp; Iván</div><div class="t-meta">Boda destino · La Habana · 2024</div></div></div>
+    </div>
+    <div class="t-card span-4">
+      <p class="t-quote">"El asistente nos resolvió la paleta y el presupuesto un domingo a las once de la noche."</p>
+      <div class="t-foot"><div class="t-avatar"></div><div><div class="t-name">Andrea T.</div><div class="t-meta">Bridal shower · 2026</div></div></div>
+    </div>
+    <div class="t-card span-4">
+      <p class="t-quote">"Nuestro press day SS26 fue el primero del que la gente habló por la decoración, no por el producto."</p>
+      <div class="t-foot"><div class="t-avatar"></div><div><div class="t-name">Inés R.</div><div class="t-meta">Casa de moda · 2026</div></div></div>
+    </div>
+    <div class="t-card span-4">
+      <p class="t-quote">"Lo que más recuerdo es la calma. En ningún momento sentí que algo se nos iba de las manos."</p>
+      <div class="t-foot"><div class="t-avatar"></div><div><div class="t-name">Pablo &amp; Tania</div><div class="t-meta">Boda · Sierra Madrid · 2024</div></div></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="num">+180</div><div class="lbl">Eventos producidos</div></div>
+    <div class="stat"><div class="num">9,8/10</div><div class="lbl">Valoración media · Google</div></div>
+    <div class="stat"><div class="num">71%</div><div class="lbl">Clientes vienen por recomendación</div></div>
+    <div class="stat"><div class="num">2</div><div class="lbl">Sedes · Madrid &amp; Habana</div></div>
+  </div>
+</div>
+
+<div data-slot="footer"></div>
+<div data-slot="fab"></div>
+<script src="assets/chrome.js?v=2"></script>
+</body>
+</html>

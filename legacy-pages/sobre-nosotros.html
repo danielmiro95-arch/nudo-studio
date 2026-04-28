@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="El estudio detrás de Nudo: equipo, filosofía y sedes en Madrid y La Habana. Diseño íntimo, producción cercana.">
+<link rel="icon" href="assets/logo-nudo-trim.png">
+<title>El estudio — Nudo Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=2">
+<style>
+  .about-hero {
+    padding: 80px 0 0;
+  }
+  .about-hero h1 {
+    font-size: clamp(48px, 8vw, 132px);
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+    font-weight: 600;
+    max-width: 14ch;
+  }
+  .about-hero h1 .serif { color: var(--ink-3); }
+
+  .about-lead {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 64px;
+    padding: 56px 0;
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 900px) { .about-lead { grid-template-columns: 1fr; gap: 24px; } }
+  .about-lead .label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--ink-3);
+  }
+  .about-lead p {
+    font-size: clamp(20px, 2vw, 28px);
+    line-height: 1.4;
+    letter-spacing: -0.015em;
+    color: var(--ink-2);
+  }
+  .about-lead p + p { margin-top: 16px; }
+
+  .full-img {
+    aspect-ratio: 16/9;
+    border-radius: var(--radius-lg);
+    margin: 0 var(--container-pad-x) 80px;
+  }
+
+  .values {
+    background: var(--bg-soft);
+    padding: var(--section-pad-y) 0;
+  }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 48px;
+  }
+  @media (max-width: 800px) { .values-grid { grid-template-columns: 1fr; } }
+  .value {
+    background: white;
+    border-radius: var(--radius-card);
+    padding: 32px;
+  }
+  .value h3 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .value p { color: var(--ink-3); font-size: 15px; line-height: 1.55; }
+
+  .team {
+    padding: var(--section-pad-y) 0;
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  @media (max-width: 800px) { .team-grid { grid-template-columns: 1fr; } }
+  .person .img-ph { aspect-ratio: 4/5; border-radius: var(--radius-card); margin-bottom: 16px; }
+  .person .name { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+  .person .role { font-size: 14px; color: var(--ink-3); margin-top: 2px; }
+  .person p { margin-top: 12px; font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+</style>
+</head>
+<body data-page="sobre-nosotros.html" data-screen-label="Estudio">
+
+<div data-slot="header"></div>
+
+<section class="about-hero">
+  <div class="container-wide">
+    <span class="eyebrow">El estudio · desde 2018</span>
+    <h1 style="margin-top: 18px;">Pequeñas <span class="serif">manos</span>, grandes celebraciones.</h1>
+    <div class="about-lead">
+      <div><span class="label">Manifiesto · 01</span></div>
+      <div>
+        <p>Nudo nació en un piso pequeño en Madrid, atando lazos a mano para los regalos de boda de una amiga. Hoy somos un estudio de eventos con sedes en Madrid y La Habana — pero seguimos atando los lazos a mano.</p>
+        <p>Creemos en celebraciones diseñadas con calma, sin moldes y con el cuidado de quien sabe que un día así no se repite.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="full-img img-ph has-photo" style="--photo: url('assets/photo-finca.jpg');"><span class="img-ph-label">Foto del estudio · taller en Madrid</span></div>
+
+<section class="values">
+  <div class="container-wide">
+    <div class="section-head">
+      <span class="eyebrow">02 · Cómo trabajamos</span>
+      <h2 class="display-h2">Tres reglas que <span class="serif">nunca</span> rompemos.</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value">
+        <h3>Diseño antes que decorado</h3>
+        <p>Cada evento tiene una dirección creativa. La decoración es la consecuencia, no el punto de partida.</p>
+      </div>
+      <div class="value">
+        <h3>Producción cercana</h3>
+        <p>Trabajamos con artesanos, floristas y proveedores con los que hemos construido confianza. No subcontratamos a ciegas.</p>
+      </div>
+      <div class="value">
+        <h3>Un equipo, no una agenda</h3>
+        <p>Aceptamos un número limitado de eventos al año. Su celebración no compite con otras tres en nuestro calendario.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="team">
+  <div class="container-wide">
+    <div class="section-head">
+      <span class="eyebrow">03 · Equipo</span>
+      <h2 class="display-h2">Quienes están <span class="serif">detrás</span>.</h2>
+    </div>
+    <div class="team-grid">
+      <div class="person">
+        <div class="img-ph"><span class="img-ph-label">Foto · Yamila</span></div>
+        <div class="name">Yamila Pérez</div>
+        <div class="role">Fundadora · Dirección creativa</div>
+        <p>Diseñadora de interiores y autora del estilo Nudo. Lleva 18 años produciendo eventos en Madrid y La Habana.</p>
+      </div>
+      <div class="person">
+        <div class="img-ph"><span class="img-ph-label">Foto · coordinadora</span></div>
+        <div class="name">Lía Martín</div>
+        <div class="role">Coordinación de eventos</div>
+        <p>Quien lleva la batuta el día del evento. Entrenada en hostelería y producción. Imperturbable.</p>
+      </div>
+      <div class="person">
+        <div class="img-ph"><span class="img-ph-label">Foto · atelier</span></div>
+        <div class="name">Atelier Nudo</div>
+        <div class="role">Producción y regalos</div>
+        <p>Cuatro manos en el taller. Hacen las cajas, las velas, la papelería y los detalles que nadie más haría.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div data-slot="footer"></div>
+<div data-slot="fab"></div>
+<script src="assets/chrome.js?v=2"></script>
+</body>
+</html>

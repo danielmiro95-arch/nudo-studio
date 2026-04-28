@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Caja regalo "Antigua" — pieza del atelier Nudo Studio. Hecha a mano, papelería personalizable.">
+<link rel="icon" href="assets/logo-nudo-trim.png">
+<title>Caja "Antigua" M — Nudo Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=2">
+<style>
+  .breadcrumb {
+    padding: 24px 0 8px;
+    font-size: 13px;
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    letter-spacing: 0.06em;
+  }
+  .breadcrumb a:hover { color: var(--ink); }
+
+  .pdp {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 64px;
+    padding: 24px 0 80px;
+  }
+  @media (max-width: 900px) { .pdp { grid-template-columns: 1fr; } }
+
+  .pdp-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .pdp-gallery .img-ph { border-radius: var(--radius-card); }
+  .pdp-gallery .img-ph.main { grid-column: span 2; aspect-ratio: 4/3; }
+  .pdp-gallery .img-ph.thumb { aspect-ratio: 1/1; }
+
+  .pdp-info { padding-top: 12px; position: sticky; top: 96px; align-self: start; }
+  .pdp-info h1 {
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+    margin-top: 16px;
+  }
+  .pdp-info .price {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-top: 16px;
+  }
+  .pdp-info .desc {
+    margin-top: 24px;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+
+  .opt-group { margin-top: 32px; }
+  .opt-group h4 {
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .opt-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .opt {
+    padding: 12px 18px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: white;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .opt:hover { border-color: var(--ink); }
+  .opt.active { background: var(--ink); color: var(--ink-on-dark); border-color: var(--ink); }
+
+  .qty-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 32px;
+  }
+  .qty {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: white;
+  }
+  .qty button { width: 44px; height: 44px; font-size: 18px; }
+  .qty span { min-width: 32px; text-align: center; font-weight: 500; }
+
+  .add-btn {
+    flex: 1;
+    padding: 16px 24px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--ink-on-dark);
+    font-weight: 500;
+    transition: background 0.18s;
+  }
+  .add-btn:hover { background: var(--ink-2); }
+
+  .pdp-meta {
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    font-size: 14px;
+  }
+  .pdp-meta div { display: flex; flex-direction: column; }
+  .pdp-meta .lbl { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; color: var(--ink-3); text-transform: uppercase; }
+  .pdp-meta .val { color: var(--ink-2); margin-top: 4px; }
+
+  /* Cart drawer */
+  .drawer-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s;
+    z-index: 95;
+  }
+  .drawer-overlay.open { opacity: 1; pointer-events: auto; }
+  .drawer {
+    position: fixed; top: 0; right: 0; bottom: 0;
+    width: min(440px, 100%);
+    background: var(--bg);
+    z-index: 96;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex; flex-direction: column;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    padding: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid var(--line);
+  }
+  .drawer-head h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
+  .drawer-close {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    display: grid; place-items: center;
+  }
+  .drawer-body { flex: 1; overflow-y: auto; padding: 16px 24px; }
+  .cart-line {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .cart-line .img-ph { width: 64px; height: 64px; border-radius: 12px; }
+  .cart-line .name { font-size: 14px; font-weight: 500; }
+  .cart-line .meta { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+  .cart-line .price { font-size: 14px; font-weight: 500; }
+  .drawer-foot { padding: 24px; border-top: 1px solid var(--line); }
+  .total-row { display: flex; justify-content: space-between; font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+
+  .toast {
+    position: fixed;
+    bottom: 90px; right: 24px;
+    background: var(--ink);
+    color: var(--ink-on-dark);
+    padding: 14px 20px;
+    border-radius: 999px;
+    font-size: 14px;
+    z-index: 100;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body data-page="producto.html" data-screen-label="Ficha de producto">
+
+<div data-slot="header"></div>
+
+<div class="container-wide">
+  <div class="breadcrumb">
+    <a href="tienda.html">Tienda</a> / <a href="tienda.html?cat=regalos">Regalos a mano</a> / Caja "Antigua" — M
+  </div>
+
+  <div class="pdp">
+    <div class="pdp-gallery">
+      <div class="img-ph main"><span class="img-ph-label">Caja regalo · plano cenital</span></div>
+      <div class="img-ph thumb"><span class="img-ph-label">Detalle textura</span></div>
+      <div class="img-ph thumb"><span class="img-ph-label">Interior</span></div>
+      <div class="img-ph thumb"><span class="img-ph-label">Lazo de seda</span></div>
+      <div class="img-ph thumb"><span class="img-ph-label">En contexto</span></div>
+    </div>
+
+    <div class="pdp-info">
+      <span class="eyebrow">Atelier · Edición continua</span>
+      <h1>Caja "Antigua" — M</h1>
+      <div class="price" id="price">48 €</div>
+      <p class="desc">Caja de cartón texturizado, montada y forrada en taller. Lazo de seda natural, papel vegetal interior y sello de lacre con sus iniciales si lo desea. Pensada para guardar ramos secos, papelería o regalos pequeños.</p>
+
+      <div class="opt-group">
+        <h4>Tono</h4>
+        <div class="opt-row">
+          <button class="opt active">Crudo</button>
+          <button class="opt">Tinta</button>
+          <button class="opt">Terracota</button>
+          <button class="opt">Verde musgo</button>
+        </div>
+      </div>
+
+      <div class="opt-group">
+        <h4>Personalización</h4>
+        <div class="opt-row">
+          <button class="opt active" data-extra="0">Sin personalizar</button>
+          <button class="opt" data-extra="6">+ Iniciales en lacre (+6 €)</button>
+          <button class="opt" data-extra="14">+ Tarjeta caligráfica (+14 €)</button>
+        </div>
+      </div>
+
+      <div class="qty-row">
+        <div class="qty">
+          <button id="qty-down">−</button>
+          <span id="qty">1</span>
+          <button id="qty-up">+</button>
+        </div>
+        <button class="add-btn" id="add-btn">Añadir al carrito · <span id="add-price">48 €</span></button>
+      </div>
+
+      <div class="pdp-meta">
+        <div><span class="lbl">Medidas</span><span class="val">22 × 16 × 9 cm</span></div>
+        <div><span class="lbl">Tiempo de hechura</span><span class="val">3–5 días</span></div>
+        <div><span class="lbl">Envío</span><span class="val">Península 24/48 h</span></div>
+        <div><span class="lbl">Cuidado</span><span class="val">Evitar humedad</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cart drawer -->
+<div class="drawer-overlay" id="drawer-ov"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h3>Su carrito</h3>
+    <button class="drawer-close" id="drawer-close" aria-label="Cerrar">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+  <div class="drawer-foot">
+    <div class="total-row"><span>Subtotal</span><span id="drawer-total">0 €</span></div>
+    <a href="carrito.html" class="btn btn-primary btn-lg" style="width: 100%;">Ir a checkout</a>
+  </div>
+</aside>
+
+<div class="toast" id="toast">Añadido al carrito ✓</div>
+
+<div data-slot="footer"></div>
+<div data-slot="fab"></div>
+<script src="assets/chrome.js?v=2"></script>
+<script>
+  // Option toggling
+  document.querySelectorAll(".opt-group").forEach(g => {
+    g.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+      g.querySelectorAll(".opt").forEach(x => x.classList.remove("active"));
+      b.classList.add("active");
+      updatePrice();
+    }));
+  });
+
+  // Qty
+  let qty = 1;
+  const qtyEl = document.getElementById("qty");
+  document.getElementById("qty-up").onclick = () => { qty++; qtyEl.textContent = qty; updatePrice(); };
+  document.getElementById("qty-down").onclick = () => { if (qty>1) qty--; qtyEl.textContent = qty; updatePrice(); };
+
+  function updatePrice() {
+    const base = 48;
+    const extraEl = document.querySelector(".opt-group:nth-of-type(2) .opt.active");
+    const extra = extraEl ? Number(extraEl.dataset.extra || 0) : 0;
+    const total = (base + extra) * qty;
+    document.getElementById("price").textContent = (base + extra) + " €";
+    document.getElementById("add-price").textContent = total + " €";
+  }
+
+  // Cart logic
+  function readCart() { try { return JSON.parse(localStorage.getItem("nudo_cart") || "[]"); } catch(e) { return []; }}
+  function writeCart(c) { localStorage.setItem("nudo_cart", JSON.stringify(c)); refreshBadge(); }
+  function refreshBadge() {
+    const c = readCart();
+    const n = c.reduce((s,x) => s + x.qty, 0);
+    document.querySelectorAll("[data-cart-count]").forEach(el => {
+      el.textContent = n; el.style.display = n === 0 ? "none" : "grid";
+    });
+  }
+
+  document.getElementById("add-btn").onclick = () => {
+    const tone = document.querySelector(".opt-group:nth-of-type(1) .opt.active").textContent;
+    const personal = document.querySelector(".opt-group:nth-of-type(2) .opt.active").textContent;
+    const base = 48;
+    const extra = Number(document.querySelector(".opt-group:nth-of-type(2) .opt.active").dataset.extra || 0);
+    const cart = readCart();
+    cart.push({
+      name: 'Caja "Antigua" — M',
+      meta: `${tone} · ${personal}`,
+      price: base + extra,
+      qty
+    });
+    writeCart(cart);
+    showToast();
+    openDrawer();
+  };
+
+  function showToast() {
+    const t = document.getElementById("toast");
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 1800);
+  }
+
+  function openDrawer() {
+    renderDrawer();
+    document.getElementById("drawer").classList.add("open");
+    document.getElementById("drawer-ov").classList.add("open");
+  }
+  function closeDrawer() {
+    document.getElementById("drawer").classList.remove("open");
+    document.getElementById("drawer-ov").classList.remove("open");
+  }
+  document.getElementById("drawer-close").onclick = closeDrawer;
+  document.getElementById("drawer-ov").onclick = closeDrawer;
+
+  function renderDrawer() {
+    const c = readCart();
+    const body = document.getElementById("drawer-body");
+    if (c.length === 0) { body.innerHTML = '<p style="text-align:center; color: var(--ink-3); padding: 40px 0;">El carrito está vacío.</p>'; document.getElementById("drawer-total").textContent = "0 €"; return; }
+    body.innerHTML = c.map((it,i) => `
+      <div class="cart-line">
+        <div class="img-ph"><span style="font-size:0;">.</span></div>
+        <div>
+          <div class="name">${it.name}</div>
+          <div class="meta">${it.meta || ""} · ${it.qty} u.</div>
+        </div>
+        <div class="price">${it.price * it.qty} €</div>
+      </div>
+    `).join("");
+    const total = c.reduce((s,x) => s + x.price * x.qty, 0);
+    document.getElementById("drawer-total").textContent = total + " €";
+  }
+
+  // init
+  refreshBadge();
+</script>
+</body>
+</html>

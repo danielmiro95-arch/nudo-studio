@@ -1,0 +1,5 @@
+/* Nudo Studio — global styles
+ * Toda la sistemática vive en /public/assets/styles.css.
+ * Este archivo lo importa para que Next.js lo aplique al layout root.
+ */
+@import url('/assets/styles.css');

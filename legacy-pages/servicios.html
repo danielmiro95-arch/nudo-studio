@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Servicios de Nudo Studio: bodas, comuniones, fiestas privadas, eventos corporativos, baby & bridal showers y coordinación. Madrid · La Habana.">
+<link rel="icon" href="assets/logo-nudo-trim.png">
+<title>Servicios — Nudo Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=2">
+<style>
+  .page-hero {
+    padding: 80px 0 60px;
+    border-bottom: 1px solid var(--line);
+  }
+  .page-hero h1 {
+    font-size: clamp(48px, 7vw, 110px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+    max-width: 14ch;
+  }
+  .page-hero .lead { margin-top: 24px; max-width: 60ch; }
+
+  .service-block {
+    padding: clamp(80px, 9vw, 140px) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .service-block:nth-child(even) { background: var(--bg-soft); }
+  .sb-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .sb-grid.reverse { direction: rtl; }
+  .sb-grid.reverse > * { direction: ltr; }
+  @media (max-width: 900px) { .sb-grid, .sb-grid.reverse { grid-template-columns: 1fr; direction: ltr; } }
+
+  .sb-block-title {
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.0;
+    letter-spacing: -0.035em;
+    font-weight: 600;
+    max-width: 14ch;
+    margin-top: 18px;
+  }
+  .sb-block-title .serif { color: var(--ink-3); }
+
+  .sb-feature-list {
+    list-style: none;
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 32px;
+  }
+  .sb-feature-list li {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+    font-size: 15px;
+  }
+  .sb-feature-list li .num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.16em;
+    padding-top: 3px;
+  }
+
+  .sb-visual {
+    aspect-ratio: 4/5;
+    border-radius: var(--radius-lg);
+  }
+
+  .price-tag {
+    display: inline-flex;
+    flex-direction: column;
+    margin-top: 36px;
+    padding: 18px 22px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: white;
+  }
+  .price-tag .from { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; color: var(--ink-3); text-transform: uppercase; }
+  .price-tag .price { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-top: 4px; }
+  .price-tag .meta { font-size: 13px; color: var(--ink-3); margin-top: 4px; }
+
+  .actions { margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap; }
+</style>
+</head>
+<body data-page="servicios.html" data-screen-label="Servicios">
+
+<div data-slot="header"></div>
+
+<section class="page-hero">
+  <div class="container-wide">
+    <span class="eyebrow">Servicios</span>
+    <h1 style="margin-top: 18px;">Cinco maneras<br>de celebrar <span class="serif">bien</span>.</h1>
+    <p class="lead">Cada celebración es distinta. Por eso nuestros servicios no son paquetes cerrados, sino un punto de partida que adaptamos a su historia, su agenda y su presupuesto.</p>
+  </div>
+</section>
+
+<!-- BODAS -->
+<section class="service-block" id="bodas">
+  <div class="container-wide">
+    <div class="sb-grid">
+      <div>
+        <span class="eyebrow">01 · Servicio insignia</span>
+        <h2 class="sb-block-title">Bodas con <span class="serif">narrativa propia</span>.</h2>
+        <p class="lead" style="margin-top: 24px;">Diseño integral, dirección creativa, decoración floral, papelería, regalos para invitados y coordinación del día. De 30 a 250 invitados, en Madrid o destino.</p>
+        <ul class="sb-feature-list">
+          <li><span class="num">A</span> Dirección creativa y mood-board</li>
+          <li><span class="num">B</span> Decoración floral y mobiliario</li>
+          <li><span class="num">C</span> Papelería e identidad del evento</li>
+          <li><span class="num">D</span> Welcome packs y regalos</li>
+          <li><span class="num">E</span> Coordinación integral del día</li>
+          <li><span class="num">F</span> Gestión de proveedores</li>
+        </ul>
+        <div class="price-tag">
+          <span class="from">Desde</span>
+          <span class="price">8.500 €</span>
+          <span class="meta">Presupuesto adaptado tras consulta</span>
+        </div>
+        <div class="actions">
+          <a href="contacto.html?servicio=bodas" class="btn btn-primary btn-lg">Reservar consulta</a>
+          <a href="galeria.html?cat=bodas" class="btn btn-outline btn-lg">Ver bodas</a>
+        </div>
+      </div>
+      <div class="img-ph sb-visual has-photo" style="--photo: url('assets/photo-archway.jpg');"><span class="img-ph-label">Boda · ceremonia exterior</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMUNIONES -->
+<section class="service-block" id="comuniones">
+  <div class="container-wide">
+    <div class="sb-grid reverse">
+      <div>
+        <span class="eyebrow">02 · Familia</span>
+        <h2 class="sb-block-title">Comuniones y <span class="serif">bautizos</span>.</h2>
+        <p class="lead" style="margin-top: 24px;">Tarde de jardín, mesas dulces, recordatorios y detalles que el peque guardará durante años. Ambientación, papelería e invitados felices.</p>
+        <ul class="sb-feature-list">
+          <li><span class="num">A</span> Ambientación completa</li>
+          <li><span class="num">B</span> Mesa dulce + catering coord.</li>
+          <li><span class="num">C</span> Recordatorios para invitados</li>
+          <li><span class="num">D</span> Photobooth con encanto</li>
+        </ul>
+        <div class="price-tag">
+          <span class="from">Desde</span>
+          <span class="price">2.400 €</span>
+        </div>
+        <div class="actions">
+          <a href="contacto.html?servicio=comuniones" class="btn btn-primary btn-lg">Reservar consulta</a>
+        </div>
+      </div>
+      <div class="img-ph sb-visual has-photo" style="--photo: url('assets/photo-mesa.jpg');"><span class="img-ph-label">Comunión · mesa dulce</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVADAS -->
+<section class="service-block" id="privados">
+  <div class="container-wide">
+    <div class="sb-grid">
+      <div>
+        <span class="eyebrow">03 · Privado</span>
+        <h2 class="sb-block-title">Cumpleaños y <span class="serif">fiestas privadas</span>.</h2>
+        <p class="lead" style="margin-top: 24px;">Celebraciones íntimas en casa o en espacios alquilados. Desde una cena de 12 hasta un cumpleaños redondo de 60 invitados.</p>
+        <div class="price-tag">
+          <span class="from">Desde</span>
+          <span class="price">1.200 €</span>
+        </div>
+        <div class="actions"><a href="contacto.html?servicio=privados" class="btn btn-primary btn-lg">Reservar consulta</a></div>
+      </div>
+      <div class="img-ph sb-visual has-photo" style="--photo: url('assets/photo-detalle.jpg');"><span class="img-ph-label">Cena privada</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CORPORATIVO -->
+<section class="service-block" id="corporativo">
+  <div class="container-wide">
+    <div class="sb-grid reverse">
+      <div>
+        <span class="eyebrow">04 · Corporativo</span>
+        <h2 class="sb-block-title">Cenas, lanzamientos y <span class="serif">press days</span>.</h2>
+        <p class="lead" style="margin-top: 24px;">Eventos de marca con cuidado de boutique. Trabajamos para casas de moda, hoteles y agencias buscando experiencias memorables, no banales.</p>
+        <div class="price-tag">
+          <span class="from">Presupuesto a medida</span>
+          <span class="price" style="font-size: 22px;">Solicitar dossier</span>
+        </div>
+        <div class="actions"><a href="contacto.html?servicio=corp" class="btn btn-primary btn-lg">Solicitar dossier</a></div>
+      </div>
+      <div class="img-ph sb-visual has-photo" style="--photo: url('assets/photo-recepcion.jpg');"><span class="img-ph-label">Evento corporativo</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWERS -->
+<section class="service-block" id="showers">
+  <div class="container-wide">
+    <div class="sb-grid">
+      <div>
+        <span class="eyebrow">05 · Íntimo</span>
+        <h2 class="sb-block-title">Baby showers y <span class="serif">bridal showers</span>.</h2>
+        <p class="lead" style="margin-top: 24px;">Una mañana en casa con las personas que importan. Decoración suave, mesa dulce y regalos de bienvenida para los invitados.</p>
+        <div class="price-tag">
+          <span class="from">Desde</span>
+          <span class="price">680 €</span>
+        </div>
+        <div class="actions"><a href="contacto.html?servicio=showers" class="btn btn-primary btn-lg">Reservar consulta</a></div>
+      </div>
+      <div class="img-ph sb-visual has-photo" style="--photo: url('assets/photo-comuniones.jpg');"><span class="img-ph-label">Bridal shower</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- COORDINACIÓN -->
+<section class="service-block section-dark" id="coordinacion" style="background: var(--bg-dark); color: var(--ink-on-dark); border-bottom: none;">
+  <div class="container-wide">
+    <div class="sb-grid reverse">
+      <div>
+        <span class="eyebrow" style="color: var(--ink-on-dark-2);">06 · Solo coordinación</span>
+        <h2 class="sb-block-title">¿Lo organiza usted? <span class="serif">Lo coordinamos nosotras.</span></h2>
+        <p class="lead" style="color: var(--ink-on-dark-2); margin-top: 24px;">Para quienes prefieren decidir todo, pero no quieren llevar el día. Entramos en las dos últimas semanas: cuadramos proveedores, hacemos el plan minuto a minuto y dirigimos el evento.</p>
+        <div class="actions"><a href="contacto.html?servicio=coord" class="btn btn-light btn-lg">Reservar consulta</a></div>
+      </div>
+      <div class="img-ph dark sb-visual"><span class="img-ph-label">Coordinación · checklist</span></div>
+    </div>
+  </div>
+</section>
+
+<div data-slot="footer"></div>
+<div data-slot="fab"></div>
+<script src="assets/chrome.js?v=2"></script>
+</body>
+</html>

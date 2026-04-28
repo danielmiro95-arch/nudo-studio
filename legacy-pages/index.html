@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Nudo Studio — Estudio de eventos íntimos y atelier de regalos a mano. Bodas, comuniones y celebraciones con dirección de diseño. Madrid · La Habana.">
+<link rel="icon" href="assets/logo-nudo-trim.png">
+<title>Nudo Studio — Eventos & Regalos a mano</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=2">
+<style>
+  /* ==== HERO REVOLUT ==== */
+  .hero-revolut {
+    height: 100vh;
+    position: relative;
+  }
+  .hero-revolut-sticky {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--bg-soft);
+  }
+
+  /* ① BACKGROUND IMAGE */
+  .hero-image-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+  .hero-image-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: calc(50% - 20px) calc(50% - 74px);
+    display: block;
+  }
+
+  /* ③ RING que se expande y deja al descubierto el fondo crema */
+  #heroCardRing {
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+    background: transparent;
+  }
+
+  /* ② CARD central */
+  .hero-image-mask {
+    position: absolute;
+    overflow: hidden;
+    z-index: 3;
+  }
+  .hero-image-mask img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: calc(50% - 7px) 4px;
+    transform-origin: top center;
+    display: block;
+  }
+
+  /* Overlay de copy sobre la card central */
+  .hero-card-copy {
+    position: absolute;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: linear-gradient(to top, rgba(20,12,6,0.65) 0%, transparent 60%);
+    padding: 28px 22px 22px;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .hero-card-copy h3 {
+    margin: 0 0 6px;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    color: #fff;
+    font-weight: 600;
+  }
+  .hero-card-copy p {
+    margin: 0;
+    color: rgba(255,255,255,0.82);
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  /* Título final tras el scroll */
+  .hero-end-title {
+    position: absolute;
+    z-index: 5;
+    top: 0; left: 0; right: 0;
+    height: 55%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    padding: 0 24px;
+  }
+  .hero-end-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 18px;
+  }
+  .hero-end-heading {
+    font-family: var(--font-display, 'Cormorant Garamond', serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(72px, 11vw, 168px);
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    text-align: center;
+    line-height: 0.88;
+    margin: 0;
+    text-transform: none;
+  }
+  .hero-end-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 36px;
+    padding: 16px 28px;
+    background: var(--ink);
+    color: var(--ink-on-dark);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    text-decoration: none;
+    border-radius: 999px;
+    pointer-events: auto;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.08) inset,
+      0 18px 40px -10px rgba(0,0,0,0.35);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .hero-end-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.08) inset,
+      0 22px 50px -12px rgba(0,0,0,0.45);
+  }
+
+  /* Cards laterales */
+  .service-card-scroll {
+    position: absolute;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 28px 72px rgba(0,0,0,0.12);
+    overflow: hidden;
+  }
+  .service-card-scroll a {
+    display: block;
+    position: relative;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
+  .service-card-scroll img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+    margin: 0;
+    display: block;
+  }
+  .scroll-card-copy {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 28px 18px 18px;
+    background: linear-gradient(to top, rgba(20,12,6,0.7) 0%, transparent 100%);
+  }
+  .scroll-card-copy h3 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+  .scroll-card-copy p {
+    margin: 0;
+    color: rgba(255,255,255,0.78);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .left-card  { z-index: 4; opacity: 0; }
+  .right-card { z-index: 4; opacity: 0; }
+
+  /* Copy inicial sobre la imagen */
+  .front-copy {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 96px 7vw 0;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .front-copy-box {
+    max-width: 640px;
+    text-align: left;
+    pointer-events: auto;
+  }
+  .eyebrow-front {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 28px;
+    padding: 8px 14px;
+    background: rgba(0,0,0,0.28);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.18);
+  }
+  .front-copy-box h1 {
+    font-size: clamp(40px, 6vw, 88px);
+    font-weight: 600;
+    color: #fff;
+    line-height: 0.96;
+    letter-spacing: -0.04em;
+    margin: 0 0 20px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.28);
+  }
+  .front-copy-box h1 em {
+    font-family: var(--font-display, 'Cormorant Garamond', serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent-blush, oklch(0.88 0.06 20));
+  }
+  .front-copy-box p {
+    color: rgba(255,255,255,0.92);
+    font-size: clamp(15px, 1.4vw, 18px);
+    line-height: 1.5;
+    max-width: 520px;
+    text-shadow: 0 1px 12px rgba(0,0,0,0.25);
+    margin: 0;
+  }
+
+  @media (max-width: 760px) {
+    .front-copy { padding: 80px 6vw 0; }
+    .front-copy-box h1 { font-size: clamp(32px, 9vw, 48px); }
+    .hero-end-heading { font-size: clamp(56px, 16vw, 88px); }
+  }
+
+  /* ==== Marquee values ==== */
+  .values-marquee .marquee-item .serif { color: var(--ink); }
+
+  /* ==== Bento servicios ==== */
+  .services {
+    padding: var(--section-pad-y) 0;
+  }
+  .services-bento {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: 220px;
+    gap: 16px;
+  }
+  .sb { display: flex; flex-direction: column; justify-content: space-between; }
+  .sb-bodas       { grid-column: span 7; grid-row: span 2; background: var(--bg-dark); color: var(--ink-on-dark); border-radius: var(--radius-lg); padding: 40px; position: relative; overflow: hidden; }
+  .sb-comuniones  { grid-column: span 5; background: var(--accent-soft); border-radius: var(--radius-lg); padding: 36px; }
+  .sb-privadas    { grid-column: span 5; background: oklch(0.91 0.025 130); border-radius: var(--radius-lg); padding: 36px; }
+  .sb-corp        { grid-column: span 4; background: var(--bg-soft); border-radius: var(--radius-lg); padding: 36px; }
+  .sb-showers     { grid-column: span 4; background: var(--accent-blush); border-radius: var(--radius-lg); padding: 36px; }
+  .sb-coord       { grid-column: span 4; background: var(--bg-dark); color: var(--ink-on-dark); border-radius: var(--radius-lg); padding: 36px; }
+
+  .sb h3 {
+    font-size: clamp(22px, 2.4vw, 36px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+    max-width: 14ch;
+  }
+  .sb-bodas h3 { font-size: clamp(36px, 4vw, 64px); max-width: 12ch; }
+  .sb p { font-size: 15px; color: var(--ink-3); margin-top: 12px; max-width: 32ch; }
+  .sb-bodas p, .sb-coord p { color: var(--ink-on-dark-2); }
+  .sb-meta {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 20px;
+  }
+
+  .sb-bodas .bg-mark {
+    position: absolute;
+    bottom: -40px;
+    right: -20px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 360px;
+    line-height: 1;
+    opacity: 0.07;
+    color: var(--ink-on-dark);
+    pointer-events: none;
+  }
+
+  @media (max-width: 1100px) {
+    .services-bento { grid-template-columns: repeat(6, 1fr); grid-auto-rows: 200px; }
+    .sb-bodas { grid-column: span 6; grid-row: span 2; }
+    .sb-comuniones, .sb-privadas { grid-column: span 3; grid-row: span 1; }
+    .sb-corp, .sb-showers, .sb-coord { grid-column: span 2; grid-row: span 1; }
+  }
+  @media (max-width: 700px) {
+    .services-bento { grid-template-columns: 1fr; grid-auto-rows: auto; }
+    .sb-bodas, .sb-comuniones, .sb-privadas, .sb-corp, .sb-showers, .sb-coord { grid-column: span 1; grid-row: span 1; min-height: 240px; }
+  }
+
+  /* ==== Sección oscura tienda ==== */
+  .shop-section {
+    background: var(--bg-dark);
+    color: var(--ink-on-dark);
+    border-radius: clamp(28px, 4vw, 48px);
+    margin: 0 var(--container-pad-x);
+    padding: clamp(64px, 8vw, 120px) clamp(32px, 5vw, 80px);
+    position: relative;
+    overflow: hidden;
+  }
+  .shop-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 64px;
+    align-items: center;
+  }
+  @media (max-width: 900px) { .shop-grid { grid-template-columns: 1fr; } }
+  .shop-section h2 {
+    font-size: clamp(40px, 5vw, 76px);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    font-weight: 600;
+    max-width: 12ch;
+  }
+  .shop-section .lead { color: var(--ink-on-dark-2); margin-top: 24px; }
+  .shop-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .shop-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-card);
+    padding: 18px;
+    transition: background 0.2s;
+  }
+  .shop-card:hover { background: rgba(255,255,255,0.07); }
+  .shop-card .img-ph { aspect-ratio: 4/5; margin-bottom: 16px; }
+  .shop-card .name { font-size: 15px; font-weight: 500; }
+  .shop-card .price { font-size: 14px; color: var(--ink-on-dark-2); margin-top: 4px; }
+
+  /* ==== AI Asistente ==== */
+  .ai-section {
+    padding: var(--section-pad-y) 0;
+  }
+  .ai-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  @media (max-width: 900px) { .ai-grid { grid-template-columns: 1fr; } }
+  .ai-mock {
+    background: var(--accent-softest);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    border: 1px solid var(--line);
+  }
+  .ai-mock-bubble {
+    background: white;
+    border-radius: 20px 20px 20px 4px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    max-width: 80%;
+    font-size: 15px;
+    line-height: 1.45;
+    border: 1px solid var(--line);
+  }
+  .ai-mock-bubble.user {
+    margin-left: auto;
+    border-radius: 20px 20px 4px 20px;
+    background: var(--ink);
+    color: var(--ink-on-dark);
+    border-color: var(--ink);
+  }
+  .ai-mock-input {
+    margin-top: 20px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--ink-4);
+    font-size: 15px;
+  }
+  .ai-mock-input button {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--ink-on-dark);
+    display: grid; place-items: center;
+  }
+  .ai-mock-head {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .ai-mock-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--bg-soft) url('assets/logo-asistente-trim.png') center/82% no-repeat;
+    box-shadow: 0 0 0 1px var(--line) inset;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .ai-mock-avatar::after {
+    content: "";
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 12px; height: 12px;
+    background: oklch(0.7 0.15 145);
+    border-radius: 50%;
+    border: 2px solid var(--bg-soft);
+  }
+
+  /* ==== Process ==== */
+  .process {
+    background: var(--accent-softest);
+    padding: var(--section-pad-y) 0;
+  }
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin-top: 48px;
+  }
+  @media (max-width: 900px) { .process-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .process-grid { grid-template-columns: 1fr; } }
+  .process-step {
+    border-top: 1px solid var(--ink);
+    padding-top: 20px;
+  }
+  .process-step .step-num {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--ink-3);
+  }
+  .process-step h4 {
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    margin: 12px 0 8px;
+  }
+  .process-step p {
+    font-size: 15px;
+    color: var(--ink-3);
+  }
+
+  /* ==== Testimonios ==== */
+  .quotes {
+    padding: var(--section-pad-y) 0;
+  }
+  .quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 900px) { .quotes-grid { grid-template-columns: 1fr; } }
+  .quote-card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .quote-card.feature {
+    background: linear-gradient(160deg, oklch(0.65 0.13 30), var(--bg-dark) 80%);
+    color: var(--ink-on-dark);
+    border-color: var(--ink);
+  }
+  .quote-card .q-text {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+  .quote-card.feature .q-text { color: var(--ink-on-dark); }
+  .quote-card .q-foot {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .q-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+  }
+  .quote-card.feature .q-avatar { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+  .q-name { font-size: 14px; font-weight: 500; }
+  .q-meta { font-size: 13px; color: var(--ink-3); }
+  .quote-card.feature .q-meta { color: var(--ink-on-dark-2); }
+
+  /* ==== CTA final ==== */
+  .cta {
+    padding: var(--section-pad-y) 0;
+  }
+  .cta-card {
+    background: linear-gradient(135deg, var(--accent-soft) 0%, var(--accent-blush) 100%);
+    border-radius: clamp(28px, 4vw, 56px);
+    padding: clamp(48px, 8vw, 120px) clamp(32px, 5vw, 80px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-card h2 {
+    font-size: clamp(40px, 6vw, 96px);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+    max-width: 16ch;
+    margin: 0 auto;
+  }
+  .cta-card p { margin-top: 24px; }
+  .cta-card .cta-actions { margin-top: 36px; display: inline-flex; gap: 12px; }
+
+  /* Tweaks panel root */
+  body.tweaks-active .reorder-handle { opacity: 1; }
+  .reorder-handle {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--ink-3);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+</style>
+</head>
+<body data-page="index.html" data-screen-label="Home">
+
+<div data-slot="header"></div>
+
+<!-- ============= HERO REVOLUT ============= -->
+<section class="hero-revolut" id="section-hero">
+  <div class="hero-revolut-sticky" id="heroSticky">
+
+    <!-- ① BACKGROUND IMAGE: full-screen -->
+    <div class="hero-image-bg" id="heroBg">
+      <img src="assets/photo-bodas.jpg" alt="" aria-hidden="true">
+    </div>
+
+    <div id="heroCardRing"></div>
+
+    <!-- ② CARD central -->
+    <div class="hero-image-mask" id="heroMask">
+      <img src="assets/photo-bodas.jpg" alt="Portada Nudo Studio">
+    </div>
+
+    <!-- Label overlay sobre la card -->
+    <div class="hero-card-copy" id="heroCardCopy">
+      <h3>Bodas editoriales</h3>
+      <p>Flores suaves, luz natural y una puesta en escena impecable.</p>
+    </div>
+
+    <!-- Card lateral izquierda -->
+    <article class="service-card-scroll left-card" id="leftCard">
+      <a href="servicios.html#comuniones">
+        <img src="assets/photo-comuniones.jpg" alt="Comuniones">
+        <div class="scroll-card-copy">
+          <h3>Comuniones</h3>
+          <p>Atmósfera cálida y mesas pensadas para los pequeños del día.</p>
+        </div>
+      </a>
+    </article>
+
+    <!-- Card lateral derecha -->
+    <article class="service-card-scroll right-card" id="rightCard">
+      <a href="tienda.html">
+        <img src="assets/photo-regalos.jpg" alt="Regalos">
+        <div class="scroll-card-copy">
+          <h3>Regalos a mano</h3>
+          <p>Welcome packs y detalles cosidos uno a uno en el atelier.</p>
+        </div>
+      </a>
+    </article>
+
+    <!-- Título final tras el scroll -->
+    <div class="hero-end-title" id="heroEndTitle">
+      <span class="hero-end-eyebrow">Estudio de eventos · Madrid · La Habana</span>
+      <h2 class="hero-end-heading">Nudo<br>Studio</h2>
+      <a class="hero-end-btn" href="contacto.html">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Reservar consulta
+      </a>
+    </div>
+
+    <!-- Copy inicial superpuesto -->
+    <div class="front-copy" id="frontCopy">
+      <div class="front-copy-box">
+        <span class="eyebrow-front">Estudio de eventos · Madrid · La Habana</span>
+        <h1>
+          Eventos que se recuerdan,<br>
+          <em>detalles</em> que se guardan.
+        </h1>
+        <p>Diseñamos bodas, comuniones y celebraciones íntimas con la calma de un atelier y la mirada de un estudio de diseño.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============= MARQUEE VALORES ============= -->
+<div class="marquee values-marquee">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="serif">Hecho a mano</span><span class="dot"></span></span>
+    <span class="marquee-item"><span class="serif">Diseño íntimo</span><span class="dot"></span></span>
+    <span class="marquee-item"><span class="serif">Producción cercana</span><span class="dot"></span></span>
+    <span class="marquee-item"><span class="serif">Madrid · La Habana</span><span class="dot"></span></span>
+    <span class="marquee-item"><span class="serif">Sin moldes</span><span class="dot"></span></span>
+    <span class="marquee-item"><span class="serif">Hecho a mano</span><span class="dot"></span></span>
+    <span class="marquee-item"><span class="serif">Diseño íntimo</span><span class="dot"></span></span>
+    <span class="marquee-item"><span class="serif">Producción cercana</span><span class="dot"></span></span>
+    <span class="marquee-item"><span class="serif">Madrid · La Habana</span><span class="dot"></span></span>
+    <span class="marquee-item"><span class="serif">Sin moldes</span><span class="dot"></span></span>
+  </div>
+</div>
+
+<!-- ============= SERVICIOS BENTO ============= -->
+<section class="services" id="section-servicios">
+  <div class="container-wide">
+    <div class="section-head">
+      <span class="eyebrow">01 — Servicios</span>
+      <h2 class="display-h2">Producimos celebraciones <span class="serif">a su medida</span>, no por catálogo.</h2>
+      <p class="lead">Desde la primera reunión hasta el último brindis, llevamos cada detalle. Diseño, decoración, coordinación y atelier de regalos — todo bajo el mismo techo.</p>
+    </div>
+
+    <div class="services-bento">
+      <a href="servicios.html#bodas" class="sb sb-bodas">
+        <div>
+          <div class="card-eyebrow" style="color: var(--ink-on-dark-2);">Servicio insignia</div>
+          <h3>Bodas con narrativa propia.</h3>
+          <p>Diseño integral, decoración floral, papelería y coordinación del día. Capacidad de 30 a 250 invitados.</p>
+        </div>
+        <div class="sb-meta">
+          <span class="chip" style="background: rgba(255,255,255,0.06); color: var(--ink-on-dark); border-color: rgba(255,255,255,0.1);"><span class="chip-dot"></span> Disponibilidad 2026</span>
+          <span class="chip" style="background: rgba(255,255,255,0.06); color: var(--ink-on-dark); border-color: rgba(255,255,255,0.1);">Madrid + destinos</span>
+        </div>
+        <span class="bg-mark">N</span>
+      </a>
+
+      <a href="servicios.html#comuniones" class="sb sb-comuniones">
+        <div class="card-eyebrow">Familia</div>
+        <h3>Comuniones y bautizos con alma de tarde de jardín.</h3>
+        <div class="sb-meta">
+          <span class="chip">Catering opcional</span>
+        </div>
+      </a>
+
+      <a href="servicios.html#privados" class="sb sb-privadas">
+        <div class="card-eyebrow">Privado</div>
+        <h3>Cumpleaños y fiestas privadas.</h3>
+        <div class="sb-meta">
+          <span class="chip">Desde 12 invitados</span>
+        </div>
+      </a>
+
+      <a href="servicios.html#corporativo" class="sb sb-corp">
+        <div class="card-eyebrow">Corporativo</div>
+        <h3>Cenas, lanzamientos y press days.</h3>
+      </a>
+
+      <a href="servicios.html#showers" class="sb sb-showers">
+        <div class="card-eyebrow">Íntimo</div>
+        <h3>Baby showers y bridal showers.</h3>
+      </a>
+
+      <a href="servicios.html#coordinacion" class="sb sb-coord">
+        <div class="card-eyebrow" style="color: var(--ink-on-dark-2);">Solo coordinación</div>
+        <h3>Estás organizando tú. Nosotras llevamos el día.</h3>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============= TIENDA OSCURA ============= -->
+<section class="container-wide" id="section-tienda" style="padding: 32px 0;">
+  <div class="shop-section">
+    <div class="shop-grid">
+      <div>
+        <span class="eyebrow" style="color: var(--ink-on-dark-2);">02 — Atelier de regalos</span>
+        <h2 style="margin-top: 18px;">Regalos hechos a mano, <span class="serif">uno a uno</span>.</h2>
+        <p class="lead">Cajas, ramos, velas, papelería y piezas de decoración. Producción limitada, materiales nobles, envoltorio impecable. Envíos a península y Cuba.</p>
+        <div style="margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap;">
+          <a href="tienda.html" class="btn btn-light btn-lg">Ver toda la tienda</a>
+          <a href="tienda.html?cat=regalos" class="btn btn-outline-light btn-lg">Regalos personalizados</a>
+        </div>
+      </div>
+      <div class="shop-cards">
+        <a href="producto.html" class="shop-card">
+          <div class="img-ph dark"><span class="img-ph-label">Caja regalo · M</span></div>
+          <div class="name">Caja "Antigua" — M</div>
+          <div class="price">desde 48 €</div>
+        </a>
+        <a href="producto.html" class="shop-card">
+          <div class="img-ph dark"><span class="img-ph-label">Vela artesanal</span></div>
+          <div class="name">Vela cera de soja · ámbar</div>
+          <div class="price">22 €</div>
+        </a>
+        <a href="producto.html" class="shop-card">
+          <div class="img-ph dark"><span class="img-ph-label">Ramo seco</span></div>
+          <div class="name">Ramo preservado "Habana"</div>
+          <div class="price">64 €</div>
+        </a>
+        <a href="producto.html" class="shop-card">
+          <div class="img-ph dark"><span class="img-ph-label">Papelería</span></div>
+          <div class="name">Set papelería personalizada</div>
+          <div class="price">desde 32 €</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= ASISTENTE IA ============= -->
+<section class="ai-section" id="section-ia">
+  <div class="container-wide">
+    <div class="ai-grid">
+      <div>
+        <span class="eyebrow">03 — Asistente Nudo</span>
+        <h2 class="display-h2" style="margin-top: 18px;">Ayuda real, a cualquier hora.<br><span class="serif">Sin formularios.</span></h2>
+        <p class="lead" style="margin-top: 24px;">
+          Cuéntele a Nudo qué celebra, cuántos serán y la fecha. En segundos le proponemos
+          paletas, mood-boards, ideas de regalos y un primer presupuesto. Si prefiere persona,
+          le pasamos al estudio.
+        </p>
+        <ul style="margin-top: 28px; display: flex; flex-direction: column; gap: 10px; list-style: none;">
+          <li style="display:flex; gap: 10px; align-items:center;"><span class="chip-dot"></span> Mood-boards inmediatos por estilo</li>
+          <li style="display:flex; gap: 10px; align-items:center;"><span class="chip-dot"></span> Estimación de presupuesto</li>
+          <li style="display:flex; gap: 10px; align-items:center;"><span class="chip-dot"></span> Recomendaciones de la tienda</li>
+          <li style="display:flex; gap: 10px; align-items:center;"><span class="chip-dot"></span> Reserva de consulta humana en 1 clic</li>
+        </ul>
+        <div style="margin-top: 36px; display:flex; gap: 12px; flex-wrap: wrap;">
+          <a href="asistente.html" class="btn btn-primary btn-lg">Hablar con Nudo</a>
+          <a href="contacto.html" class="btn btn-outline btn-lg">Prefiero email</a>
+        </div>
+      </div>
+      <div class="ai-mock" aria-hidden="true">
+        <div class="ai-mock-head">
+          <div class="ai-mock-avatar"></div>
+          <div>
+            <div style="font-weight:500;">Nudo · Asistente</div>
+            <div style="font-size:13px; color: var(--ink-3);">en línea · responde al instante</div>
+          </div>
+        </div>
+        <div class="ai-mock-bubble">Buenas tardes. Soy Nudo, ¿qué celebración tenemos entre manos?</div>
+        <div class="ai-mock-bubble user">Una boda íntima en septiembre, en una finca cerca de Madrid, 70 invitados.</div>
+        <div class="ai-mock-bubble">Anotado. ¿Le sugiero tres direcciones estéticas — mediterránea, jardín inglés y minimal cubano — con presupuestos orientativos?</div>
+        <div class="ai-mock-input">
+          <span>Escriba su mensaje…</span>
+          <button aria-label="Enviar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= PROCESO ============= -->
+<section class="process" id="section-proceso">
+  <div class="container-wide">
+    <div class="section-head">
+      <span class="eyebrow">04 — Cómo trabajamos</span>
+      <h2 class="display-h2">Cuatro pasos, ninguna prisa.</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <h4>Conversación</h4>
+        <p>Una llamada o café para entender la celebración, el calendario y el presupuesto.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <h4>Propuesta</h4>
+        <p>Dirección creativa, mood-board, planos de mesas y presupuesto detallado.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <h4>Producción</h4>
+        <p>Atelier propio, proveedores de confianza y un equipo dedicado al evento.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <h4>El día</h4>
+        <p>Coordinación completa. Ustedes solo tienen que vivirlo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= TESTIMONIOS ============= -->
+<section class="quotes" id="section-testimonios">
+  <div class="container-wide">
+    <div class="section-head">
+      <span class="eyebrow">05 — Lo que dicen</span>
+      <h2 class="display-h2">Confianza <span class="serif">ganada</span> en cada celebración.</h2>
+    </div>
+    <div class="quotes-grid">
+      <div class="quote-card feature">
+        <p class="q-text">"Nos sentimos invitados en nuestra propia boda. Cada detalle estaba pensado, y ningún detalle pesaba."</p>
+        <div class="q-foot">
+          <div class="q-avatar"></div>
+          <div>
+            <div class="q-name">Marta y Diego</div>
+            <div class="q-meta">Boda · Finca El Espinar · 2025</div>
+          </div>
+        </div>
+      </div>
+      <div class="quote-card">
+        <p class="q-text">"Las cajas que regalamos a los padrinos siguen en sus salones. Eso lo dice todo."</p>
+        <div class="q-foot">
+          <div class="q-avatar"></div>
+          <div>
+            <div class="q-name">Lucía P.</div>
+            <div class="q-meta">Comunión · Madrid · 2025</div>
+          </div>
+        </div>
+      </div>
+      <div class="quote-card">
+        <p class="q-text">"El asistente nos resolvió la paleta y el presupuesto un domingo a las once de la noche."</p>
+        <div class="q-foot">
+          <div class="q-avatar"></div>
+          <div>
+            <div class="q-name">Andrea & Tomás</div>
+            <div class="q-meta">Bridal shower · 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= CTA FINAL ============= -->
+<section class="cta">
+  <div class="container-wide">
+    <div class="cta-card">
+      <span class="eyebrow">Comencemos</span>
+      <h2 style="margin-top: 18px;">Cuéntenos qué celebran. <span class="serif">Nosotros lo hacemos posible.</span></h2>
+      <p class="lead" style="margin: 24px auto 0;">Respondemos en menos de 24 horas. Sin compromisos hasta firmar propuesta.</p>
+      <div class="cta-actions">
+        <a href="contacto.html" class="btn btn-primary btn-lg">Pedir presupuesto</a>
+        <a href="asistente.html" class="btn btn-outline btn-lg">Hablar con Nudo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div data-slot="footer"></div>
+<div data-slot="fab"></div>
+
+<script src="assets/chrome.js?v=2"></script>
+<script src="assets/hero-revolut.js?v=4"></script>
+
+
+</body>
+</html>

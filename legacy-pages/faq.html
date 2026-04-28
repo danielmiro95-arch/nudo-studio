@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Preguntas frecuentes sobre los servicios y la tienda de Nudo Studio. Envíos, plazos, presupuestos.">
+<link rel="icon" href="assets/logo-nudo-trim.png">
+<title>FAQ — Nudo Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=2">
+<style>
+  .faq-page { padding: 64px 0 80px; display: grid; grid-template-columns: 1fr 1.6fr; gap: 80px; }
+  @media (max-width: 900px) { .faq-page { grid-template-columns: 1fr; gap: 48px; } }
+  .faq-page h1 {
+    font-size: clamp(40px, 5vw, 84px);
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    font-weight: 600;
+  }
+  .faq-page .lead { margin-top: 24px; }
+
+  .faq-cats {
+    display: flex; flex-direction: column; gap: 6px;
+    margin-top: 32px;
+  }
+  .faq-cats a {
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 10px;
+    color: var(--ink-2);
+  }
+  .faq-cats a.active { background: var(--ink); color: var(--ink-on-dark); }
+
+  .faq-list .item {
+    border-bottom: 1px solid var(--line);
+  }
+  .faq-list .q {
+    width: 100%;
+    text-align: left;
+    padding: 24px 0;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: clamp(17px, 1.6vw, 22px);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    gap: 24px;
+  }
+  .faq-list .q .plus {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    display: grid; place-items: center;
+    transition: transform 0.2s, background 0.2s, color 0.2s;
+    flex-shrink: 0;
+  }
+  .faq-list .item.open .q .plus { background: var(--ink); color: var(--ink-on-dark); transform: rotate(45deg); }
+  .faq-list .a {
+    display: none;
+    padding: 0 0 28px;
+    color: var(--ink-2);
+    line-height: 1.6;
+    max-width: 60ch;
+    font-size: 16px;
+  }
+  .faq-list .item.open .a { display: block; }
+</style>
+</head>
+<body data-page="faq.html" data-screen-label="FAQ">
+
+<div data-slot="header"></div>
+
+<div class="container-wide">
+  <div class="faq-page">
+    <aside>
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h1 style="margin-top: 18px;">Lo que <span class="serif">suelen</span> preguntar.</h1>
+      <p class="lead">¿No encuentra su pregunta? Hable con Nudo o escríbanos directamente.</p>
+      <div class="faq-cats">
+        <a class="active" href="#">Eventos</a>
+        <a href="#">Tienda &amp; envíos</a>
+        <a href="#">Presupuestos</a>
+        <a href="#">Asistente IA</a>
+        <a href="#">Bodas destino</a>
+      </div>
+      <div style="margin-top: 36px; display: flex; gap: 8px; flex-wrap: wrap;">
+        <a href="asistente.html" class="btn btn-primary">Hablar con Nudo</a>
+        <a href="contacto.html" class="btn btn-outline">Escribirnos</a>
+      </div>
+    </aside>
+
+    <div class="faq-list" id="faq-list">
+      <div class="item open"><button class="q">¿Con cuánta antelación hay que reservar una boda?<span class="plus">+</span></button><div class="a">Lo ideal son entre 9 y 14 meses, especialmente si la fecha cae entre mayo y septiembre. Aceptamos un número limitado de eventos al año, así que cuanto antes mejor. Para celebraciones más pequeñas (showers, cumpleaños) trabajamos con 4–6 semanas.</div></div>
+      <div class="item"><button class="q">¿Trabajan fuera de Madrid?<span class="plus">+</span></button><div class="a">Sí. Hacemos eventos en toda la península y producimos bodas destino en La Habana, donde tenemos sede. Para destinos fuera de estas zonas pedimos cubrir desplazamiento del equipo.</div></div>
+      <div class="item"><button class="q">¿Pueden trabajar con mi presupuesto?<span class="plus">+</span></button><div class="a">Lo más probable es que sí. Adaptamos cada propuesta al presupuesto del cliente, ajustando el alcance del servicio y los proveedores. Tenemos un mínimo orientativo de 8.500 € para bodas con producción completa.</div></div>
+      <div class="item"><button class="q">¿Qué incluye el servicio de coordinación del día?<span class="plus">+</span></button><div class="a">Reunión previa, plan minuto a minuto, gestión de proveedores, briefing al equipo de catering, montaje y desmontaje, y dos coordinadoras presentes durante todo el evento.</div></div>
+      <div class="item"><button class="q">¿Puedo comprar regalos sin contratar evento?<span class="plus">+</span></button><div class="a">Por supuesto. La tienda online del atelier es independiente. Hacemos envíos a península en 24–48 h y a Cuba en 7–10 días.</div></div>
+      <div class="item"><button class="q">¿Qué fiabilidad tiene el asistente IA?<span class="plus">+</span></button><div class="a">El asistente está entrenado con nuestro proceso, paletas y referencias reales de eventos hechos por el estudio. Sus presupuestos son orientativos: para una propuesta firme siempre hace falta una consulta humana de 30 minutos.</div></div>
+      <div class="item"><button class="q">¿Hacen sólo la decoración sin coordinar?<span class="plus">+</span></button><div class="a">Sí. Es uno de nuestros formatos: diseño y producción de la decoración, instalación y retirada. La coordinación del día se contrata aparte si la necesita.</div></div>
+      <div class="item"><button class="q">Política de cancelación.<span class="plus">+</span></button><div class="a">La señal del 30% confirma la fecha y no es reembolsable. El resto se factura a 30 días del evento. Si la cancelación viene de fuerza mayor (enfermedad, restricciones), buscamos juntos una nueva fecha sin coste adicional.</div></div>
+    </div>
+  </div>
+</div>
+
+<div data-slot="footer"></div>
+<div data-slot="fab"></div>
+<script src="assets/chrome.js?v=2"></script>
+<script>
+  document.querySelectorAll(".faq-list .q").forEach(q => q.addEventListener("click", () => {
+    const item = q.closest(".item");
+    item.classList.toggle("open");
+  }));
+</script>
+</body>
+</html>

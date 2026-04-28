@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Diario editorial de Nudo Studio: ideas, paletas, paso a paso y reportajes de eventos producidos.">
+<link rel="icon" href="assets/logo-nudo-trim.png">
+<title>Diario — Nudo Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=2">
+<style>
+  .blog-hero { padding: 80px 0 56px; }
+  .blog-hero h1 {
+    font-size: clamp(48px, 7vw, 110px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+  }
+
+  .feat {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 48px;
+    padding: 32px 0 64px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    align-items: center;
+  }
+  @media (max-width: 800px) { .feat { grid-template-columns: 1fr; } }
+  .feat .img-ph { aspect-ratio: 4/3; border-radius: var(--radius-lg); }
+  .feat h2 {
+    font-size: clamp(28px, 3.5vw, 44px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+    margin-top: 14px;
+  }
+
+  .post-grid {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 24px;
+    margin-bottom: 80px;
+  }
+  @media (max-width: 800px) { .post-grid { grid-template-columns: 1fr; } }
+  .post .img-ph { aspect-ratio: 4/3; border-radius: var(--radius-card); margin-bottom: 18px; }
+  .post .meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; color: var(--ink-3); text-transform: uppercase; }
+  .post h3 {
+    font-size: 22px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+  .post p { margin-top: 8px; color: var(--ink-3); font-size: 14px; }
+</style>
+</head>
+<body data-page="blog.html" data-screen-label="Diario">
+
+<div data-slot="header"></div>
+
+<section class="blog-hero">
+  <div class="container-wide">
+    <span class="eyebrow">Diario · Inspiración</span>
+    <h1 style="margin-top: 18px;">Notas del <span class="serif">estudio</span>.</h1>
+  </div>
+</section>
+
+<div class="container-wide">
+  <article class="feat">
+    <div class="img-ph"><span class="img-ph-label">Reportaje principal</span></div>
+    <div>
+      <span class="meta" style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; color: var(--ink-3); text-transform: uppercase;">Bodas · 12 min</span>
+      <h2>Cómo diseñamos una boda íntima en una finca de Madrid sin caer en el típico "rústico-elegante".</h2>
+      <p style="margin-top: 14px; color: var(--ink-3); max-width: 56ch;">El proceso, los proveedores, el presupuesto real y los tres errores que casi cometemos. Una crónica de la boda de M&D, septiembre de 2025.</p>
+      <a href="#" class="btn btn-outline" style="margin-top: 24px;">Leer →</a>
+    </div>
+  </article>
+
+  <div class="post-grid">
+    <article class="post">
+      <div class="img-ph"><span class="img-ph-label">Paleta otoño</span></div>
+      <div class="meta">Estilo · 6 min</div>
+      <h3>Paletas de otoño que no son ni rojo ni naranja.</h3>
+      <p>Cinco direcciones cromáticas para celebrar entre octubre y noviembre.</p>
+    </article>
+    <article class="post">
+      <div class="img-ph"><span class="img-ph-label">Mesa</span></div>
+      <div class="meta">Diseño · 4 min</div>
+      <h3>Una mesa bonita no necesita centro de mesa.</h3>
+      <p>Cuándo prescindir del centro y qué poner en su lugar.</p>
+    </article>
+    <article class="post">
+      <div class="img-ph"><span class="img-ph-label">Atelier</span></div>
+      <div class="meta">Atelier · 8 min</div>
+      <h3>El recorrido de una caja Nudo, de la idea al lazo.</h3>
+      <p>Cómo se hace cada caja en el taller, paso a paso.</p>
+    </article>
+    <article class="post">
+      <div class="img-ph"><span class="img-ph-label">Habana</span></div>
+      <div class="meta">Crónica · 10 min</div>
+      <h3>Tres días produciendo una boda en La Habana Vieja.</h3>
+      <p>Logística, materiales locales y el clima como variable.</p>
+    </article>
+    <article class="post">
+      <div class="img-ph"><span class="img-ph-label">Comunión</span></div>
+      <div class="meta">Familia · 5 min</div>
+      <h3>Comuniones sin disfraces de adulto pequeño.</h3>
+      <p>Diez ideas para que el día sea de los niños, no de los adultos.</p>
+    </article>
+    <article class="post">
+      <div class="img-ph"><span class="img-ph-label">Regalos</span></div>
+      <div class="meta">Atelier · 3 min</div>
+      <h3>Cinco regalos que no se quedan en un cajón.</h3>
+      <p>La diferencia entre un regalo bonito y un regalo útil.</p>
+    </article>
+  </div>
+</div>
+
+<div data-slot="footer"></div>
+<div data-slot="fab"></div>
+<script src="assets/chrome.js?v=2"></script>
+</body>
+</html>

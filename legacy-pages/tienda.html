@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Catálogo del atelier Nudo Studio: cajas regalo, velas, ramos preservados, papelería y decoración hecha a mano. Envíos a península y Cuba.">
+<link rel="icon" href="assets/logo-nudo-trim.png">
+<title>Tienda — Nudo Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=2">
+<style>
+  .shop-hero { padding: 80px 0 40px; }
+  .shop-hero h1 {
+    font-size: clamp(48px, 7vw, 110px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+    max-width: 14ch;
+  }
+
+  .shop-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 48px;
+  }
+  .cat-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+  .cat-pill {
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    font-size: 14px;
+    background: white;
+    font-weight: 500;
+    transition: all 0.18s;
+  }
+  .cat-pill.active { background: var(--ink); color: var(--ink-on-dark); border-color: var(--ink); }
+  .sort-select {
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: white;
+    font-size: 14px;
+    font-family: inherit;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px 16px;
+  }
+  @media (max-width: 1100px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 800px)  { .product-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .product-card {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  .product-card:hover { transform: translateY(-2px); }
+  .product-card .img-ph {
+    aspect-ratio: 4/5;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .product-card .tag {
+    position: absolute;
+    top: 14px; left: 14px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 999px;
+  }
+  .product-card .quick-add {
+    position: absolute;
+    bottom: 14px; right: 14px;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--ink-on-dark);
+    display: grid; place-items: center;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .product-card:hover .quick-add { opacity: 1; }
+  .product-card .quick-add:hover { transform: scale(1.08); }
+  .product-card .name {
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+  .product-card .meta {
+    font-size: 13px;
+    color: var(--ink-3);
+    margin-top: 2px;
+  }
+  .product-card .price {
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 8px;
+  }
+
+  .shop-banner {
+    background: var(--bg-dark);
+    color: var(--ink-on-dark);
+    border-radius: var(--radius-lg);
+    padding: 60px;
+    margin: 96px 0 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 32px;
+  }
+  @media (max-width: 800px) { .shop-banner { grid-template-columns: 1fr; padding: 40px; } }
+  .shop-banner h3 {
+    font-size: clamp(28px, 3.5vw, 44px);
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+    max-width: 16ch;
+  }
+</style>
+</head>
+<body data-page="tienda.html" data-screen-label="Tienda">
+
+<div data-slot="header"></div>
+
+<section class="shop-hero">
+  <div class="container-wide">
+    <span class="eyebrow">Tienda · Atelier Nudo</span>
+    <h1 style="margin-top: 18px;">Hecho a mano,<br>uno a uno.</h1>
+    <p class="lead" style="margin-top: 24px;">Decoración para casas y celebraciones, y regalos para los días que se recuerdan. Producción limitada en nuestro estudio.</p>
+  </div>
+</section>
+
+<div class="container-wide">
+  <div class="shop-toolbar">
+    <div class="cat-pills">
+      <button class="cat-pill active">Todo (24)</button>
+      <button class="cat-pill">Decoración (12)</button>
+      <button class="cat-pill">Regalos a mano (9)</button>
+      <button class="cat-pill">Velas (5)</button>
+      <button class="cat-pill">Floral (7)</button>
+      <button class="cat-pill">Papelería (6)</button>
+    </div>
+    <select class="sort-select">
+      <option>Ordenar: Destacados</option>
+      <option>Precio (asc)</option>
+      <option>Precio (desc)</option>
+      <option>Novedades</option>
+    </select>
+  </div>
+
+  <div class="product-grid">
+    <a href="producto.html" class="product-card">
+      <div class="img-ph"><span class="tag">Best-seller</span><span class="img-ph-label">Caja regalo M</span><span class="quick-add">+</span></div>
+      <div class="name">Caja "Antigua" — M</div>
+      <div class="meta">Cartón texturizado · seda</div>
+      <div class="price">48 €</div>
+    </a>
+    <a href="producto.html" class="product-card">
+      <div class="img-ph"><span class="img-ph-label">Vela ámbar</span><span class="quick-add">+</span></div>
+      <div class="name">Vela cera de soja · ámbar</div>
+      <div class="meta">220 g · 38 horas</div>
+      <div class="price">22 €</div>
+    </a>
+    <a href="producto.html" class="product-card">
+      <div class="img-ph"><span class="tag">Edición ltd.</span><span class="img-ph-label">Ramo "Habana"</span><span class="quick-add">+</span></div>
+      <div class="name">Ramo preservado "Habana"</div>
+      <div class="meta">Pampas · trigo · eucalipto</div>
+      <div class="price">64 €</div>
+    </a>
+    <a href="producto.html" class="product-card">
+      <div class="img-ph"><span class="img-ph-label">Set papelería</span><span class="quick-add">+</span></div>
+      <div class="name">Suite papelería personalizada</div>
+      <div class="meta">Invitación + sobre + lacre</div>
+      <div class="price">desde 32 €</div>
+    </a>
+    <a href="producto.html" class="product-card">
+      <div class="img-ph"><span class="img-ph-label">Jarrón cerámica</span><span class="quick-add">+</span></div>
+      <div class="name">Jarrón "Trinidad" — torneado</div>
+      <div class="meta">Cerámica · 28 cm</div>
+      <div class="price">86 €</div>
+    </a>
+    <a href="producto.html" class="product-card">
+      <div class="img-ph"><span class="img-ph-label">Vela rosé</span><span class="quick-add">+</span></div>
+      <div class="name">Vela cera de soja · rosé</div>
+      <div class="meta">220 g · 38 horas</div>
+      <div class="price">22 €</div>
+    </a>
+    <a href="producto.html" class="product-card">
+      <div class="img-ph"><span class="tag">Nuevo</span><span class="img-ph-label">Welcome pack</span><span class="quick-add">+</span></div>
+      <div class="name">Welcome pack para invitados</div>
+      <div class="meta">Mín. 30 unidades</div>
+      <div class="price">desde 14 €/u</div>
+    </a>
+    <a href="producto.html" class="product-card">
+      <div class="img-ph"><span class="img-ph-label">Centro de mesa</span><span class="quick-add">+</span></div>
+      <div class="name">Centro de mesa floral</div>
+      <div class="meta">Flor fresca · estación</div>
+      <div class="price">desde 58 €</div>
+    </a>
+
+    <a href="producto.html" class="product-card">
+      <div class="img-ph"><span class="img-ph-label">Caja regalo L</span><span class="quick-add">+</span></div>
+      <div class="name">Caja "Antigua" — L</div>
+      <div class="meta">Cartón texturizado · seda</div>
+      <div class="price">68 €</div>
+    </a>
+    <a href="producto.html" class="product-card">
+      <div class="img-ph"><span class="tag">Best-seller</span><span class="img-ph-label">Lacre marca</span><span class="quick-add">+</span></div>
+      <div class="name">Sello de lacre · iniciales</div>
+      <div class="meta">Personalizado</div>
+      <div class="price">42 €</div>
+    </a>
+    <a href="producto.html" class="product-card">
+      <div class="img-ph"><span class="img-ph-label">Mantel lino</span><span class="quick-add">+</span></div>
+      <div class="name">Mantel lino crudo</div>
+      <div class="meta">Lavado a la piedra · 240×180</div>
+      <div class="price">120 €</div>
+    </a>
+    <a href="producto.html" class="product-card">
+      <div class="img-ph"><span class="img-ph-label">Servilletas</span><span class="quick-add">+</span></div>
+      <div class="name">Servilletas lino · pack 6</div>
+      <div class="meta">Bordado a mano opcional</div>
+      <div class="price">58 €</div>
+    </a>
+  </div>
+
+  <div class="shop-banner">
+    <div>
+      <span class="eyebrow" style="color: var(--ink-on-dark-2);">Personalizado</span>
+      <h3 style="margin-top: 12px;">¿Busca algo a medida? <span class="serif">Lo hacemos.</span></h3>
+      <p style="margin-top: 14px; color: var(--ink-on-dark-2);">Encargos especiales, regalos corporativos, cestas para hoteles. Pedido mínimo 20 unidades.</p>
+    </div>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-self: end;">
+      <a href="contacto.html" class="btn btn-light btn-lg">Pedir presupuesto</a>
+      <a href="asistente.html" class="btn btn-outline-light btn-lg">Hablar con Nudo</a>
+    </div>
+  </div>
+</div>
+
+<div data-slot="footer"></div>
+<div data-slot="fab"></div>
+<script src="assets/chrome.js?v=2"></script>
+<script>
+  document.querySelectorAll(".cat-pill").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll(".cat-pill").forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+  }));
+</script>
+</body>
+</html>

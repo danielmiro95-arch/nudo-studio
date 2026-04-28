@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Contacta con Nudo Studio para tu boda, comunión, evento o regalo personalizado. Madrid · La Habana.">
+<link rel="icon" href="assets/logo-nudo-trim.png">
+<title>Contacto — Nudo Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=2">
+<style>
+  .contact {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    padding: 64px 0 96px;
+  }
+  @media (max-width: 900px) { .contact { grid-template-columns: 1fr; gap: 48px; } }
+  .contact h1 {
+    font-size: clamp(40px, 5.5vw, 84px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+    max-width: 14ch;
+  }
+  .contact .lead { margin-top: 24px; }
+
+  .contact-info {
+    margin-top: 48px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .contact-info .row {
+    border-top: 1px solid var(--line);
+    padding-top: 18px;
+  }
+  .contact-info .lbl {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .contact-info .val { font-size: 17px; font-weight: 500; }
+
+  .contact-form {
+    background: var(--bg-soft);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+  }
+  .contact-form .grid-2 {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  }
+  @media (max-width: 600px) { .contact-form .grid-2 { grid-template-columns: 1fr; } }
+  .contact-form .stack { display: flex; flex-direction: column; gap: 14px; margin-top: 14px; }
+  .contact-form textarea { min-height: 140px; resize: vertical; }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip-toggle {
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: white;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .chip-toggle.active { background: var(--ink); color: var(--ink-on-dark); border-color: var(--ink); }
+</style>
+</head>
+<body data-page="contacto.html" data-screen-label="Contacto">
+
+<div data-slot="header"></div>
+
+<div class="container-wide">
+  <div class="contact">
+    <div>
+      <span class="eyebrow">Contacto</span>
+      <h1 style="margin-top: 18px;">Cuéntenos su <span class="serif">celebración</span>.</h1>
+      <p class="lead">Respondemos en menos de 24 horas, de lunes a sábado. Para presupuestos firmes pedimos una consulta de 30 minutos sin coste.</p>
+
+      <div class="contact-info">
+        <div class="row"><div class="lbl">Estudio Madrid</div><div class="val">C/ Hortaleza 64, 2º · 28004 Madrid</div></div>
+        <div class="row"><div class="lbl">Estudio La Habana</div><div class="val">Habana Vieja · Cita previa</div></div>
+        <div class="row"><div class="lbl">Email</div><div class="val">hola@nudostudio.com</div></div>
+        <div class="row"><div class="lbl">Teléfono / WhatsApp</div><div class="val">+34 612 34 56 78</div></div>
+        <div class="row"><div class="lbl">Horario</div><div class="val">L–V · 10:00 — 19:00 · Sáb · cita previa</div></div>
+      </div>
+    </div>
+
+    <form class="contact-form" onsubmit="event.preventDefault(); alert('Mensaje enviado · le respondemos en menos de 24 h.');">
+      <span class="eyebrow">Pedir presupuesto</span>
+      <h2 class="display-h3" style="margin-top: 12px; margin-bottom: 24px;">Empezamos por aquí.</h2>
+
+      <div class="grid-2">
+        <div class="field"><label>Nombre</label><input placeholder="Su nombre"></div>
+        <div class="field"><label>Email</label><input type="email" placeholder="email@dominio.com"></div>
+      </div>
+      <div class="stack">
+        <div class="field">
+          <label>¿Qué celebra?</label>
+          <div class="chip-row">
+            <button type="button" class="chip-toggle active">Boda</button>
+            <button type="button" class="chip-toggle">Comunión / bautizo</button>
+            <button type="button" class="chip-toggle">Cumpleaños</button>
+            <button type="button" class="chip-toggle">Corporativo</button>
+            <button type="button" class="chip-toggle">Shower</button>
+            <button type="button" class="chip-toggle">Solo regalo</button>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label>Fecha aproximada</label><input type="month"></div>
+          <div class="field"><label>N.º de invitados</label><input type="number" placeholder="Ej. 70"></div>
+        </div>
+        <div class="field"><label>Mensaje</label><textarea placeholder="Cuéntenos un poco sobre su evento, la ubicación y cualquier idea que tenga ya…"></textarea></div>
+        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; justify-content: center;">Enviar mensaje</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div data-slot="footer"></div>
+<div data-slot="fab"></div>
+<script src="assets/chrome.js?v=2"></script>
+<script>
+  document.querySelectorAll(".chip-toggle").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll(".chip-toggle").forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+  }));
+</script>
+</body>
+</html>

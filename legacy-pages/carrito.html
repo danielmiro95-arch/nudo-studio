@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Tu carrito de Nudo Studio. Atelier de regalos a mano y decoración.">
+<link rel="icon" href="assets/logo-nudo-trim.png">
+<title>Checkout — Nudo Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=2">
+<style>
+  .checkout {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 80px;
+    padding: 56px 0 96px;
+    align-items: start;
+  }
+  @media (max-width: 900px) { .checkout { grid-template-columns: 1fr; gap: 48px; } }
+
+  .step-tabs {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 40px;
+  }
+  .step-tab {
+    flex: 1;
+    padding: 16px 0;
+    font-size: 13px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    position: relative;
+  }
+  .step-tab.active { color: var(--ink); border-bottom-color: var(--ink); }
+  .step-tab .num { display: inline-block; margin-right: 8px; }
+
+  h1 {
+    font-size: clamp(36px, 4.5vw, 56px);
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+  }
+
+  .form-block { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+  .form-block .full { grid-column: span 2; }
+  @media (max-width: 600px) { .form-block { grid-template-columns: 1fr; } .form-block .full { grid-column: span 1; } }
+
+  .pay-options { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+  .pay-opt {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 18px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: white;
+    cursor: pointer;
+    transition: border 0.15s;
+  }
+  .pay-opt.active { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(0,0,0,0.04); }
+  .pay-opt .left { display: flex; gap: 12px; align-items: center; }
+  .pay-opt .icon {
+    width: 40px; height: 28px;
+    border-radius: 6px;
+    background: var(--bg-soft);
+    display: grid; place-items: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .pay-opt .name { font-size: 15px; font-weight: 500; }
+  .pay-opt .meta { font-size: 13px; color: var(--ink-3); }
+
+  .summary {
+    background: var(--bg-soft);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    position: sticky; top: 96px;
+  }
+  .summary h3 { font-size: 16px; font-weight: 600; margin-bottom: 20px; }
+  .sum-line {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .sum-line .img-ph { width: 56px; height: 56px; border-radius: 12px; }
+  .sum-line .name { font-size: 14px; font-weight: 500; }
+  .sum-line .meta { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+  .sum-line .price { font-size: 14px; font-weight: 500; }
+
+  .totals { padding: 16px 0; }
+  .totals .row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; color: var(--ink-2); }
+  .totals .total-row { border-top: 1px solid var(--line); padding-top: 14px; margin-top: 12px; font-size: 18px; font-weight: 600; color: var(--ink); }
+
+  .promo-row { display: flex; gap: 8px; margin-top: 20px; }
+  .promo-row input { flex: 1; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; font-family: inherit; }
+
+  .secure {
+    margin-top: 28px;
+    display: flex; gap: 8px; align-items: center;
+    font-size: 12px; color: var(--ink-3);
+  }
+
+  .empty {
+    text-align: center;
+    padding: 80px 0;
+    color: var(--ink-3);
+  }
+</style>
+</head>
+<body data-page="carrito.html" data-screen-label="Checkout">
+
+<div data-slot="header"></div>
+
+<div class="container-wide">
+  <div class="checkout">
+    <div>
+      <div class="step-tabs">
+        <div class="step-tab active"><span class="num">01</span> Cesta</div>
+        <div class="step-tab active"><span class="num">02</span> Envío</div>
+        <div class="step-tab active"><span class="num">03</span> Pago</div>
+      </div>
+
+      <span class="eyebrow">Checkout</span>
+      <h1 style="margin-top: 14px;">Un solo paso. <span class="serif">Sin vueltas.</span></h1>
+
+      <h2 class="display-h3" style="margin-top: 48px;">Datos de envío</h2>
+      <div class="form-block">
+        <div class="field"><label>Nombre</label><input value="Marta" placeholder="Su nombre"></div>
+        <div class="field"><label>Apellidos</label><input value="Llorente" placeholder="Sus apellidos"></div>
+        <div class="field full"><label>Email</label><input value="marta@correo.com" type="email"></div>
+        <div class="field"><label>Teléfono</label><input value="+34 612 34 56 78"></div>
+        <div class="field"><label>País</label><select><option>España</option><option>Cuba</option><option>Portugal</option><option>Francia</option></select></div>
+        <div class="field full"><label>Dirección</label><input placeholder="Calle, número, piso"></div>
+        <div class="field"><label>Ciudad</label><input value="Madrid"></div>
+        <div class="field"><label>Código postal</label><input value="28004"></div>
+      </div>
+
+      <h2 class="display-h3" style="margin-top: 56px;">Método de pago</h2>
+      <div class="pay-options">
+        <label class="pay-opt active">
+          <div class="left">
+            <div class="icon">CARD</div>
+            <div>
+              <div class="name">Tarjeta · Visa / Mastercard / Amex</div>
+              <div class="meta">Pago seguro con Stripe</div>
+            </div>
+          </div>
+          <input type="radio" name="pay" checked>
+        </label>
+        <label class="pay-opt">
+          <div class="left">
+            <div class="icon" style="background: #000; color: white;"></div>
+            <div>
+              <div class="name">Apple Pay</div>
+              <div class="meta">Confirmar con Touch ID / Face ID</div>
+            </div>
+          </div>
+          <input type="radio" name="pay">
+        </label>
+        <label class="pay-opt">
+          <div class="left">
+            <div class="icon" style="background: #003087; color: white; font-size:9px;">PP</div>
+            <div>
+              <div class="name">PayPal</div>
+              <div class="meta">Comprador protegido</div>
+            </div>
+          </div>
+          <input type="radio" name="pay">
+        </label>
+        <label class="pay-opt">
+          <div class="left">
+            <div class="icon" style="background: oklch(0.78 0.04 70); color: var(--ink); font-size:9px;">BIZ</div>
+            <div>
+              <div class="name">Transferencia (Bizum)</div>
+              <div class="meta">Solo pedidos &gt; 200 €</div>
+            </div>
+          </div>
+          <input type="radio" name="pay">
+        </label>
+      </div>
+
+      <div class="form-block">
+        <div class="field full"><label>Número de tarjeta</label><input value="4242 4242 4242 4242"></div>
+        <div class="field"><label>Caducidad</label><input value="04 / 28"></div>
+        <div class="field"><label>CVC</label><input value="•••"></div>
+      </div>
+
+      <div style="margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap;">
+        <button class="btn btn-primary btn-lg" style="flex: 1; min-width: 240px;">Pagar <span id="pay-total">126,00 €</span></button>
+        <a href="tienda.html" class="btn btn-outline btn-lg">Seguir comprando</a>
+      </div>
+
+      <div class="secure">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        Pago cifrado · sus datos no se almacenan en nuestros servidores.
+      </div>
+    </div>
+
+    <aside class="summary">
+      <h3>Resumen del pedido</h3>
+      <div id="sum-lines"></div>
+      <div class="totals">
+        <div class="row"><span>Subtotal</span><span id="sum-sub">0 €</span></div>
+        <div class="row"><span>Envío · 24/48h</span><span>6,00 €</span></div>
+        <div class="row"><span>IVA incluido</span><span>—</span></div>
+        <div class="row total-row"><span>Total</span><span id="sum-total">0 €</span></div>
+      </div>
+      <div class="promo-row">
+        <input placeholder="Código promocional">
+        <button class="btn btn-outline">Aplicar</button>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<div data-slot="footer"></div>
+<div data-slot="fab"></div>
+<script src="assets/chrome.js?v=2"></script>
+<script>
+  // Default sample cart if empty
+  function readCart() {
+    try {
+      let c = JSON.parse(localStorage.getItem("nudo_cart") || "null");
+      if (!c || c.length === 0) {
+        c = [
+          { name: 'Caja "Antigua" — M', meta: 'Crudo · Sin personalizar', price: 48, qty: 2 },
+          { name: 'Vela cera de soja · ámbar', meta: '220 g', price: 24, qty: 1 }
+        ];
+      }
+      return c;
+    } catch(e) { return []; }
+  }
+
+  document.querySelectorAll(".pay-opt").forEach(p => p.addEventListener("click", () => {
+    document.querySelectorAll(".pay-opt").forEach(x => x.classList.remove("active"));
+    p.classList.add("active");
+  }));
+
+  const cart = readCart();
+  const lines = document.getElementById("sum-lines");
+  if (cart.length === 0) {
+    lines.innerHTML = '<p class="empty">El carrito está vacío.</p>';
+    document.getElementById("sum-sub").textContent = "0 €";
+    document.getElementById("sum-total").textContent = "0 €";
+    document.getElementById("pay-total").textContent = "0 €";
+  } else {
+    lines.innerHTML = cart.map(it => `
+      <div class="sum-line">
+        <div class="img-ph"></div>
+        <div>
+          <div class="name">${it.name}</div>
+          <div class="meta">${it.meta || ""} · ${it.qty} u.</div>
+        </div>
+        <div class="price">${it.price * it.qty} €</div>
+      </div>
+    `).join("");
+    const sub = cart.reduce((s,x) => s + x.price * x.qty, 0);
+    const total = sub + 6;
+    document.getElementById("sum-sub").textContent = sub + ",00 €";
+    document.getElementById("sum-total").textContent = total + ",00 €";
+    document.getElementById("pay-total").textContent = total + ",00 €";
+  }
+</script>
+</body>
+</html>

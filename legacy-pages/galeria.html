@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Galería de eventos producidos por Nudo Studio: bodas, comuniones, eventos corporativos y atelier. Madrid · La Habana.">
+<link rel="icon" href="assets/logo-nudo-trim.png">
+<title>Galería — Nudo Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=2">
+<style>
+  .page-hero {
+    padding: 80px 0 40px;
+  }
+  .page-hero h1 {
+    font-size: clamp(48px, 7vw, 110px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+    max-width: 14ch;
+  }
+
+  .filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 32px 0 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--line);
+  }
+  .filter {
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    font-size: 14px;
+    font-weight: 500;
+    background: white;
+    transition: all 0.18s;
+  }
+  .filter:hover { border-color: var(--ink); }
+  .filter.active { background: var(--ink); color: var(--ink-on-dark); border-color: var(--ink); }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 14px;
+    grid-auto-rows: 200px;
+  }
+  .gi { border-radius: var(--radius-card); cursor: pointer; transition: transform 0.3s; position: relative; overflow: hidden; }
+  .gi:hover { transform: translateY(-3px); }
+  .gi-overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 24px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    color: white;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .gi:hover .gi-overlay { opacity: 1; }
+  .gi-overlay .gi-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .gi-overlay .gi-name {
+    font-size: 18px;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  .gi.span-4 { grid-column: span 4; }
+  .gi.span-6 { grid-column: span 6; }
+  .gi.span-8 { grid-column: span 8; }
+  .gi.row-2 { grid-row: span 2; }
+  .gi.row-3 { grid-row: span 3; }
+
+  @media (max-width: 900px) {
+    .gallery-grid { grid-template-columns: repeat(6, 1fr); }
+    .gi.span-4, .gi.span-6, .gi.span-8 { grid-column: span 6; }
+    .gi.row-2, .gi.row-3 { grid-row: span 1; }
+    .gi { aspect-ratio: 4/3; }
+  }
+</style>
+</head>
+<body data-page="galeria.html" data-screen-label="Galería">
+
+<div data-slot="header"></div>
+
+<section class="page-hero">
+  <div class="container-wide">
+    <span class="eyebrow">Portfolio · 2018 — 2026</span>
+    <h1 style="margin-top: 18px;">El archivo del <span class="serif">estudio</span>.</h1>
+  </div>
+</section>
+
+<div class="container-wide">
+  <div class="filters">
+    <button class="filter active">Todo</button>
+    <button class="filter">Bodas</button>
+    <button class="filter">Comuniones</button>
+    <button class="filter">Privadas</button>
+    <button class="filter">Corporativo</button>
+    <button class="filter">Atelier</button>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="gi img-ph span-8 row-2 has-photo show-label" style="--photo: url('assets/photo-bodas.jpg');"><span class="img-ph-label">Boda · Finca El Espinar · 2025</span><div class="gi-overlay"><div class="gi-meta">Boda</div><div class="gi-name">Marta & Diego</div></div></div>
+    <div class="gi img-ph span-4 has-photo show-label" style="--photo: url('assets/photo-detalle.jpg');"><span class="img-ph-label">Detalle floral</span><div class="gi-overlay"><div class="gi-meta">Atelier</div><div class="gi-name">Ramo de novia</div></div></div>
+    <div class="gi img-ph span-4 has-photo show-label" style="--photo: url('assets/photo-mesa.jpg');"><span class="img-ph-label">Mesa dispuesta</span><div class="gi-overlay"><div class="gi-meta">Boda</div><div class="gi-name">Mise en place</div></div></div>
+    <div class="gi img-ph span-4 row-2 has-photo show-label" style="--photo: url('assets/photo-comuniones.jpg');"><span class="img-ph-label">Comunión · jardín</span><div class="gi-overlay"><div class="gi-meta">Comunión</div><div class="gi-name">Lucía · 2025</div></div></div>
+    <div class="gi img-ph span-4 has-photo show-label" style="--photo: url('assets/photo-recepcion.jpg');"><span class="img-ph-label">Press day</span><div class="gi-overlay"><div class="gi-meta">Corporativo</div><div class="gi-name">Lanzamiento SS26</div></div></div>
+    <div class="gi img-ph span-4 has-photo show-label" style="--photo: url('assets/photo-regalos.jpg');"><span class="img-ph-label">Welcome pack</span><div class="gi-overlay"><div class="gi-meta">Atelier</div><div class="gi-name">Cajas para invitados</div></div></div>
+    <div class="gi img-ph span-6 has-photo show-label" style="--photo: url('assets/photo-finca.jpg');"><span class="img-ph-label">Cena íntima</span><div class="gi-overlay"><div class="gi-meta">Privada</div><div class="gi-name">Aniversario · 2026</div></div></div>
+    <div class="gi img-ph span-6 has-photo show-label" style="--photo: url('assets/photo-comuniones.jpg');"><span class="img-ph-label">Bridal shower</span><div class="gi-overlay"><div class="gi-meta">Shower</div><div class="gi-name">Andrea · 2026</div></div></div>
+    <div class="gi img-ph span-4 has-photo show-label" style="--photo: url('assets/photo-regalos.jpg');"><span class="img-ph-label">Papelería</span><div class="gi-overlay"><div class="gi-meta">Atelier</div><div class="gi-name">Suite editorial</div></div></div>
+    <div class="gi img-ph span-8 has-photo show-label" style="--photo: url('assets/photo-destino.jpg');"><span class="img-ph-label">Boda · La Habana</span><div class="gi-overlay"><div class="gi-meta">Boda · destino</div><div class="gi-name">Catalina & Iván</div></div></div>
+    <div class="gi img-ph span-12 has-photo show-label" style="--photo: url('assets/photo-archway.jpg');"><span class="img-ph-label">Boda · ceremonia exterior · plano completo</span><div class="gi-overlay"><div class="gi-meta">Boda</div><div class="gi-name">Ceremonia · Madrid sierra</div></div></div>
+  </div>
+</div>
+
+<div data-slot="footer"></div>
+<div data-slot="fab"></div>
+<script src="assets/chrome.js?v=2"></script>
+<script>
+  document.querySelectorAll(".filter").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll(".filter").forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+  }));
+</script>
+</body>
+</html>

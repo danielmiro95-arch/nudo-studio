@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Habla con Nudo, el asistente IA de Nudo Studio. Mood-boards, presupuestos y propuestas para tu evento al instante.">
+<link rel="icon" href="assets/logo-nudo-trim.png">
+<title>Asistente Nudo — IA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=2">
+<style>
+  body { background: var(--bg-soft); }
+
+  .ai-page {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    min-height: calc(100vh - 72px);
+  }
+  @media (max-width: 900px) { .ai-page { grid-template-columns: 1fr; } }
+
+  .ai-side {
+    background: var(--bg);
+    border-right: 1px solid var(--line);
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  @media (max-width: 900px) { .ai-side { display: none; } }
+
+  .ai-side h2 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .preset {
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: white;
+    text-align: left;
+    transition: all 0.15s;
+    font-size: 14px;
+    line-height: 1.4;
+    cursor: pointer;
+  }
+  .preset:hover { border-color: var(--ink); }
+  .preset .lbl {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .ai-main {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 72px);
+    max-width: 880px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 32px 32px 24px;
+  }
+
+  .ai-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 24px;
+  }
+  .ai-avatar-lg {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--bg-soft) url('assets/logo-asistente-trim.png') center/82% no-repeat;
+    box-shadow: 0 0 0 1px var(--line) inset;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .ai-avatar-lg::after {
+    content: "";
+    position: absolute;
+    bottom: 2px; right: 2px;
+    width: 14px; height: 14px;
+    background: oklch(0.7 0.15 145);
+    border-radius: 50%;
+    border: 3px solid var(--bg-soft);
+  }
+
+  .ai-thread {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-right: 8px;
+  }
+  .bubble {
+    max-width: 78%;
+    padding: 14px 18px;
+    font-size: 15px;
+    line-height: 1.5;
+    border-radius: 20px 20px 20px 4px;
+    background: white;
+    border: 1px solid var(--line);
+  }
+  .bubble.user {
+    margin-left: auto;
+    background: var(--ink);
+    color: var(--ink-on-dark);
+    border-radius: 20px 20px 4px 20px;
+    border-color: var(--ink);
+  }
+
+  .moodboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    max-width: 78%;
+    margin-top: 8px;
+  }
+  .moodboard .img-ph {
+    aspect-ratio: 1/1;
+    border-radius: 14px;
+  }
+
+  .quick-reply-row {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    max-width: 78%;
+    margin-top: 4px;
+  }
+  .quick-reply {
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: white;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .quick-reply:hover { background: var(--ink); color: var(--ink-on-dark); border-color: var(--ink); }
+
+  .ai-input-bar {
+    margin-top: 16px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 12px 12px 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .ai-input-bar input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 15px;
+    background: transparent;
+    color: var(--ink);
+  }
+  .ai-send {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--ink-on-dark);
+    display: grid; place-items: center;
+  }
+
+  .ai-disclaimer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink-3);
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body data-page="asistente.html" data-screen-label="Asistente IA" data-hide-fab="true">
+
+<div data-slot="header"></div>
+
+<div class="ai-page">
+  <aside class="ai-side">
+    <div>
+      <span class="eyebrow">Empezar por</span>
+      <h2 style="margin-top: 12px;">¿Qué celebra hoy?</h2>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <button class="preset"><span class="lbl">Boda</span>Diseñar una boda íntima</button>
+      <button class="preset"><span class="lbl">Comunión</span>Comunión de tarde en jardín</button>
+      <button class="preset"><span class="lbl">Cumpleaños</span>Cumpleaños sorpresa en casa</button>
+      <button class="preset"><span class="lbl">Regalo</span>Recomiéndame un regalo</button>
+      <button class="preset"><span class="lbl">Corporativo</span>Press day para 80 personas</button>
+      <button class="preset"><span class="lbl">Presupuesto</span>Estimar presupuesto rápido</button>
+    </div>
+
+    <div style="margin-top: auto; padding-top: 24px; border-top: 1px solid var(--line);">
+      <div class="eyebrow" style="margin-bottom: 12px;">¿Prefiere persona?</div>
+      <a href="contacto.html" class="btn btn-outline" style="width: 100%; justify-content: center;">Pedir consulta humana</a>
+    </div>
+  </aside>
+
+  <main class="ai-main">
+    <div class="ai-header">
+      <div class="ai-avatar-lg"></div>
+      <div>
+        <div style="font-size: 17px; font-weight: 600; letter-spacing: -0.01em;">Nudo · Asistente</div>
+        <div style="font-size: 13px; color: var(--ink-3);">En línea · responde al instante · powered by IA</div>
+      </div>
+      <div style="margin-left: auto;">
+        <button class="chip">Nueva conversación</button>
+      </div>
+    </div>
+
+    <div class="ai-thread" id="thread">
+      <div class="bubble">
+        Buenas tardes. Soy <strong>Nudo</strong>, su asistente del estudio. Cuénteme qué está celebrando — fecha, número de invitados, lugar — y le propongo direcciones, mood-boards y una primera estimación.
+      </div>
+
+      <div class="quick-reply-row">
+        <button class="quick-reply">Una boda íntima</button>
+        <button class="quick-reply">Comunión en mayo</button>
+        <button class="quick-reply">Un regalo especial</button>
+        <button class="quick-reply">Solo decorar mi salón</button>
+      </div>
+
+      <div class="bubble user">
+        Una boda íntima en septiembre, en una finca cerca de Madrid, 70 invitados. Estilo más bien minimal pero cálido.
+      </div>
+
+      <div class="bubble">
+        Anotado. Para ese estilo le sugiero tres direcciones — todas dentro de su brief. Le adjunto mood-boards rápidos:
+      </div>
+
+      <div class="moodboard">
+        <div class="img-ph has-photo show-label" style="--photo: url('assets/photo-archway.jpg');"><span class="img-ph-label">Mediterráneo</span></div>
+        <div class="img-ph has-photo show-label" style="--photo: url('assets/photo-bodas.jpg');"><span class="img-ph-label">Jardín inglés</span></div>
+        <div class="img-ph has-photo show-label" style="--photo: url('assets/photo-finca.jpg');"><span class="img-ph-label">Minimal cubano</span></div>
+      </div>
+
+      <div class="bubble">
+        Para 70 invitados en una finca de Madrid, en septiembre, con producción completa de Nudo Studio, una estimación orientativa estaría entre <strong>14.500 € y 19.800 €</strong>, dependiendo de la dirección elegida y el catering.
+        <br><br>¿Le interesa que profundicemos en una de las tres direcciones, o prefiere reservar una consulta con el estudio?
+      </div>
+
+      <div class="quick-reply-row">
+        <button class="quick-reply">Mediterráneo →</button>
+        <button class="quick-reply">Jardín inglés →</button>
+        <button class="quick-reply">Minimal cubano →</button>
+        <button class="quick-reply">Reservar consulta</button>
+      </div>
+    </div>
+
+    <div class="ai-input-bar">
+      <input placeholder="Escriba su mensaje a Nudo…" id="msg-input">
+      <button class="ai-send" aria-label="Enviar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+      </button>
+    </div>
+    <div class="ai-disclaimer">Las respuestas son orientativas. Para presupuestos firmes, reserve una consulta con el estudio.</div>
+  </main>
+</div>
+
+<script src="assets/chrome.js?v=2"></script>
+<script>
+  // Send simulation
+  const input = document.getElementById("msg-input");
+  const thread = document.getElementById("thread");
+  function send(text) {
+    if (!text.trim()) return;
+    const u = document.createElement("div");
+    u.className = "bubble user";
+    u.textContent = text;
+    thread.appendChild(u);
+    input.value = "";
+    setTimeout(() => {
+      const r = document.createElement("div");
+      r.className = "bubble";
+      r.textContent = "Tomo nota. Permítame un instante mientras consulto la disponibilidad y le preparo una propuesta detallada…";
+      thread.appendChild(r);
+      thread.scrollTop = thread.scrollHeight;
+    }, 600);
+    thread.scrollTop = thread.scrollHeight;
+  }
+  document.querySelector(".ai-send").onclick = () => send(input.value);
+  input.addEventListener("keydown", e => { if (e.key === "Enter") send(input.value); });
+
+  document.querySelectorAll(".quick-reply").forEach(b => b.addEventListener("click", () => send(b.textContent)));
+  document.querySelectorAll(".preset").forEach(b => b.addEventListener("click", () => {
+    const text = b.querySelector(":not(.lbl)") ? b.lastChild.textContent.trim() : b.textContent.trim();
+    send(text);
+  }));
+</script>
+</body>
+</html>
