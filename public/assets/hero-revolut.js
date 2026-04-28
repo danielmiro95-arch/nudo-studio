@@ -25,8 +25,8 @@
 
   const CARD_W      = 290;
   const IMG_H       = 380;
-  const CARD_W_BIG  = 396;
-  const IMG_H_BIG   = 432;
+  const CARD_W_BIG  = 590;
+  const IMG_H_BIG   = 650;
   const SIDE_W      = 290;
   const SIDE_H      = 380;
   const GAP         = 24;
@@ -55,22 +55,26 @@
     const cL = Math.round((W - cW) / 2);
     // Anchor the card flush to the BOTTOM of the viewport so its lower edge
     // coincides with the background photo edge.
-    const BOTTOM_MARGIN = 0;
+    const BOTTOM_MARGIN = lerp(-8, 140, p);
     const cT = H - cH - BOTTOM_MARGIN;
+
+    const topR    = lerp(20, 32, p);
+    const bottomR = lerp(0,  32, p);
+    const radiusStr = `${topR}px ${topR}px ${bottomR}px ${bottomR}px`;
 
     if (heroMask) {
       heroMask.style.left         = `${cL}px`;
       heroMask.style.top          = `${cT}px`;
       heroMask.style.width        = `${cW}px`;
       heroMask.style.height       = `${cH}px`;
-      heroMask.style.borderRadius = `${RADIUS}px`;
+      heroMask.style.borderRadius = radiusStr;
       heroMask.style.border       = 'none';
       const dropShadow = p > 0.05
         ? `0 ${lerp(0, 40, p)}px ${lerp(0, 90, p)}px rgba(20,12,6,${lerp(0, 0.18, p)})`
         : '';
       heroMask.style.boxShadow = dropShadow
-        ? `0 0 0 2px rgba(255,255,255,0.55), ${dropShadow}`
-        : '0 0 0 2px rgba(255,255,255,0.55)';
+        ? `0 0 0 4px rgba(255,255,255,0.9), ${dropShadow}`
+        : '0 0 0 4px rgba(255,255,255,0.9)';
     }
 
     if (maskImg) {
@@ -78,8 +82,8 @@
       // Stronger initial zoom (2.2x) closes in on the couple at the arch,
       // then opens out to 1x revealing guests and the full scene.
       // yOff pushes the photo UP inside the card so the altar/couple is fully visible.
-      const zoom = lerp(2.2, 1, p) * 1.012;
-      const yOff = lerp(-30, -18, p);
+      const zoom = lerp(1.75, 1.90, p);
+      const yOff = lerp(-46.25, -40, p);
       maskImg.style.transform = `scale(${zoom.toFixed(3)}) translateY(${yOff.toFixed(1)}%)`;
     }
 
@@ -88,7 +92,7 @@
       heroCardRing.style.top          = `${cT}px`;
       heroCardRing.style.width        = `${cW}px`;
       heroCardRing.style.height       = `${cH}px`;
-      heroCardRing.style.borderRadius = `${RADIUS}px`;
+      heroCardRing.style.borderRadius = radiusStr;
       const ringP = Math.min(1, p * 2.5);
       // Use the section's bg-soft (cream) so the reveal blends with the page
       heroCardRing.style.boxShadow    = `0 0 0 ${Math.round(lerp(0, 2400, ringP))}px var(--bg-soft)`;
@@ -99,7 +103,7 @@
       heroCardCopy.style.top           = `${cT}px`;
       heroCardCopy.style.width         = `${cW}px`;
       heroCardCopy.style.height        = `${cH}px`;
-      heroCardCopy.style.borderRadius  = `${RADIUS}px`;
+      heroCardCopy.style.borderRadius  = radiusStr;
       heroCardCopy.style.opacity       = String(Math.max(0, (p - 0.7) / 0.3));
       heroCardCopy.style.pointerEvents = p > 0.85 ? 'auto' : 'none';
     }

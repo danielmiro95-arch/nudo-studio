@@ -112,7 +112,7 @@
     `;
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
+  function init() {
     const headerSlot = document.querySelector("[data-slot='header']");
     if (headerSlot) headerSlot.outerHTML = renderHeader();
     const footerSlot = document.querySelector("[data-slot='footer']");
@@ -129,5 +129,14 @@
         if (count === 0) el.style.display = "none";
       });
     } catch (e) {}
-  });
+  }
+
+  // chrome.js se carga vía Next.js <Script strategy="afterInteractive">,
+  // que dispara DESPUÉS de DOMContentLoaded. Si esperamos al evento, nunca
+  // llega y los slots quedan sin reemplazar. Comprobamos readyState.
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();
