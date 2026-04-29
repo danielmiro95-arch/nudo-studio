@@ -94,8 +94,8 @@
       heroCardRing.style.height       = `${cH}px`;
       heroCardRing.style.borderRadius = radiusStr;
       const ringP = Math.min(1, p * 2.5);
-      // Use the section's bg-soft (cream) so the reveal blends with the page
-      heroCardRing.style.boxShadow    = `0 0 0 ${Math.round(lerp(0, 2400, ringP))}px var(--bg-soft)`;
+      // Ring expands in white to match the new hero sticky background
+      heroCardRing.style.boxShadow    = `0 0 0 ${Math.round(lerp(0, 2400, ringP))}px #fff`;
     }
 
     if (heroCardCopy) {

@@ -173,7 +173,16 @@
         </div>
         <div class="actions"><a href="contacto.html?servicio=privados" class="btn btn-primary btn-lg">Reservar consulta</a></div>
       </div>
-      <div class="img-ph sb-visual has-photo" style="--photo: url('assets/photo-detalle.jpg');"><span class="img-ph-label">Cena privada</span></div>
+      <div class="img-ph sb-visual" style="position: relative; overflow: hidden;">
+        <video
+          src="assets/eventos-nudo.mp4"
+          autoplay muted loop playsinline preload="metadata"
+          poster="assets/photo-detalle.jpg"
+          aria-label="Eventos Nudo Studio en movimiento"
+          style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"
+        ></video>
+        <span class="img-ph-label" style="position: absolute; bottom: 14px; left: 14px; z-index: 2;">Cena privada</span>
+      </div>
     </div>
   </div>
 </section>
