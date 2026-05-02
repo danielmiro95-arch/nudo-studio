@@ -9,23 +9,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css?v=2">
 <style>
+  /* ─── CONTAINER ─────────────────────────────────────────── */
   .checkout {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 80px;
+    max-width: 760px;
+    margin: 0 auto;
     padding: 56px 0 96px;
-    align-items: start;
   }
-  @media (max-width: 900px) { .checkout { grid-template-columns: 1fr; gap: 48px; } }
 
+  /* ─── STEPPER (3 steps clickables) ───────────────────────── */
   .step-tabs {
     display: flex;
     align-items: center;
     gap: 0;
-    margin-bottom: 40px;
+    margin-bottom: 48px;
   }
   .step-tab {
     flex: 1;
+    background: none;
+    border: 0;
     padding: 16px 0;
     font-size: 13px;
     font-family: var(--font-mono);
@@ -34,83 +35,164 @@
     color: var(--ink-4);
     border-bottom: 1px solid var(--line);
     text-align: left;
-    position: relative;
+    cursor: pointer;
+    transition: color 0.18s, border-color 0.18s;
   }
-  .step-tab.active { color: var(--ink); border-bottom-color: var(--ink); }
-  .step-tab .num { display: inline-block; margin-right: 8px; }
+  .step-tab.is-active   { color: var(--ink); border-bottom-color: var(--ink); }
+  .step-tab.is-complete { color: var(--ink-2); }
+  .step-tab .num { display: inline-block; margin-right: 8px; font-weight: 600; }
 
-  h1 {
-    font-size: clamp(36px, 4.5vw, 56px);
-    line-height: 1.0;
+  /* ─── PASOS ─────────────────────────────────────────────── */
+  .checkout-step h1 {
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.05;
     letter-spacing: -0.03em;
     font-weight: 600;
+    margin: 0 0 32px;
+  }
+  .step-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 36px;
+  }
+  .step-actions .btn { flex: 1; min-width: 200px; }
+
+  /* ─── PASO 1: CESTA ─────────────────────────────────────── */
+  .cart-line {
+    display: grid;
+    grid-template-columns: 80px 1fr auto auto;
+    gap: 18px;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .cart-line .img-ph {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    background: var(--bg-soft);
+  }
+  .cart-line .name { font-size: 16px; font-weight: 500; }
+  .cart-line .meta { font-size: 13px; color: var(--ink-3); margin-top: 4px; }
+  .cart-line .qty {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px;
+  }
+  .cart-line .qty button {
+    background: none;
+    border: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    color: var(--ink);
+  }
+  .cart-line .qty button:hover { background: rgba(0,0,0,0.05); }
+  .cart-line .qty span { min-width: 20px; text-align: center; font-size: 14px; }
+  .cart-line .price-col { font-size: 16px; font-weight: 500; min-width: 80px; text-align: right; }
+  .cart-line .remove {
+    background: none; border: 0; cursor: pointer;
+    color: var(--ink-3); font-size: 13px;
+    margin-top: 4px;
+  }
+  .cart-line .remove:hover { color: var(--ink); }
+
+  .cart-totals {
+    margin-top: 24px;
+    padding: 24px;
+    background: var(--bg-soft);
+    border-radius: 16px;
+  }
+  .cart-totals .row {
+    display: flex; justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px; color: var(--ink-2);
+  }
+  .cart-totals .total-row {
+    border-top: 1px solid var(--line);
+    margin-top: 12px; padding-top: 14px;
+    font-size: 20px; font-weight: 600; color: var(--ink);
   }
 
-  .form-block { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
-  .form-block .full { grid-column: span 2; }
-  @media (max-width: 600px) { .form-block { grid-template-columns: 1fr; } .form-block .full { grid-column: span 1; } }
+  .cart-empty {
+    text-align: center;
+    padding: 80px 0;
+  }
+  .cart-empty .icon {
+    width: 64px; height: 64px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: var(--bg-soft);
+    display: grid; place-items: center;
+    color: var(--ink-3);
+  }
+  .cart-empty p {
+    font-size: 18px; color: var(--ink-2);
+    margin: 0 0 24px;
+  }
 
-  .pay-options { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+  /* ─── PASO 2: FORMULARIO ─────────────────────────────────── */
+  .form-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .form-block .full { grid-column: span 2; }
+  @media (max-width: 600px) {
+    .form-block { grid-template-columns: 1fr; }
+    .form-block .full { grid-column: span 1; }
+  }
+
+  /* ─── PASO 3: PAGO ──────────────────────────────────────── */
+  .pay-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
   .pay-opt {
-    display: flex; align-items: center; justify-content: space-between;
+    display: flex;
+    align-items: center;
+    gap: 16px;
     padding: 16px 18px;
-    border: 1px solid var(--line);
+    border: 1.5px solid var(--line);
     border-radius: 16px;
     background: white;
     cursor: pointer;
-    transition: border 0.15s;
+    transition: border-color 0.15s, box-shadow 0.15s;
   }
-  .pay-opt.active { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(0,0,0,0.04); }
-  .pay-opt .left { display: flex; gap: 12px; align-items: center; }
-  .pay-opt .icon {
-    width: 40px; height: 28px;
-    border-radius: 6px;
-    background: var(--bg-soft);
-    display: grid; place-items: center;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 600;
+  .pay-opt:hover { border-color: var(--ink-3); }
+  .pay-opt.is-active {
+    border-color: var(--ink);
+    box-shadow: 0 0 0 4px rgba(0,0,0,0.05);
   }
-  .pay-opt .name { font-size: 15px; font-weight: 500; }
-  .pay-opt .meta { font-size: 13px; color: var(--ink-3); }
-
-  .summary {
-    background: var(--bg-soft);
-    border-radius: var(--radius-lg);
-    padding: 32px;
-    position: sticky; top: 96px;
+  .pay-opt input[type="radio"] {
+    accent-color: var(--ink);
+    width: 18px; height: 18px;
+    margin-left: auto;
+    flex-shrink: 0;
   }
-  .summary h3 { font-size: 16px; font-weight: 600; margin-bottom: 20px; }
-  .sum-line {
-    display: grid;
-    grid-template-columns: 56px 1fr auto;
-    gap: 12px;
+  .pay-logo {
+    width: 56px;
+    height: 36px;
+    flex-shrink: 0;
+    display: flex;
     align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--line);
+    justify-content: center;
   }
-  .sum-line .img-ph { width: 56px; height: 56px; border-radius: 12px; }
-  .sum-line .name { font-size: 14px; font-weight: 500; }
-  .sum-line .meta { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
-  .sum-line .price { font-size: 14px; font-weight: 500; }
-
-  .totals { padding: 16px 0; }
-  .totals .row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; color: var(--ink-2); }
-  .totals .total-row { border-top: 1px solid var(--line); padding-top: 14px; margin-top: 12px; font-size: 18px; font-weight: 600; color: var(--ink); }
-
-  .promo-row { display: flex; gap: 8px; margin-top: 20px; }
-  .promo-row input { flex: 1; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; font-family: inherit; }
+  .pay-logo svg { width: 100%; height: 100%; display: block; }
+  .pay-meta { flex: 1; }
+  .pay-name { font-size: 15px; font-weight: 500; }
+  .pay-desc { font-size: 13px; color: var(--ink-3); margin-top: 2px; }
 
   .secure {
-    margin-top: 28px;
+    margin-top: 24px;
     display: flex; gap: 8px; align-items: center;
     font-size: 12px; color: var(--ink-3);
-  }
-
-  .empty {
-    text-align: center;
-    padding: 80px 0;
-    color: var(--ink-3);
   }
 </style>
 </head>
@@ -120,153 +202,167 @@
 
 <div class="container-wide">
   <div class="checkout">
-    <div>
-      <div class="step-tabs">
-        <div class="step-tab active"><span class="num">01</span> Cesta</div>
-        <div class="step-tab active"><span class="num">02</span> Envío</div>
-        <div class="step-tab active"><span class="num">03</span> Pago</div>
+
+    <!-- ─── STEPPER ─── -->
+    <div class="step-tabs" role="tablist">
+      <button class="step-tab is-active" data-step="cart" role="tab">
+        <span class="num">01</span> Cesta
+      </button>
+      <button class="step-tab" data-step="data" role="tab">
+        <span class="num">02</span> Datos
+      </button>
+      <button class="step-tab" data-step="pay" role="tab">
+        <span class="num">03</span> Pago
+      </button>
+    </div>
+
+    <!-- ─── PASO 1: CESTA ─── -->
+    <section class="checkout-step is-active" data-step="cart">
+      <h1>Tu cesta</h1>
+
+      <div id="cart-list"></div>
+
+      <div id="cart-empty" class="cart-empty" hidden>
+        <div class="icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 7h14l-1.5 11a2 2 0 0 1-2 1.7H8.5A2 2 0 0 1 6.5 18L5 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+        </div>
+        <p>Tu cesta está vacía.</p>
+        <a href="tienda.html" class="btn btn-primary btn-lg">Ir a la tienda</a>
       </div>
 
-      <span class="eyebrow">Checkout</span>
-      <h1 style="margin-top: 14px;">Un solo paso. <span class="serif">Sin vueltas.</span></h1>
-
-      <h2 class="display-h3" style="margin-top: 48px;">Datos de envío</h2>
-      <div class="form-block">
-        <div class="field"><label>Nombre</label><input value="Marta" placeholder="Su nombre"></div>
-        <div class="field"><label>Apellidos</label><input value="Llorente" placeholder="Sus apellidos"></div>
-        <div class="field full"><label>Email</label><input value="marta@correo.com" type="email"></div>
-        <div class="field"><label>Teléfono</label><input value="+34 612 34 56 78"></div>
-        <div class="field"><label>País</label><select><option>España</option><option>Cuba</option><option>Portugal</option><option>Francia</option></select></div>
-        <div class="field full"><label>Dirección</label><input placeholder="Calle, número, piso"></div>
-        <div class="field"><label>Ciudad</label><input value="Madrid"></div>
-        <div class="field"><label>Código postal</label><input value="28004"></div>
+      <div id="cart-totals-block" hidden>
+        <div class="cart-totals">
+          <div class="row"><span>Subtotal</span><span id="sub-amount">0 €</span></div>
+          <div class="row"><span>Envío · 24/48h</span><span>6,00 €</span></div>
+          <div class="row total-row"><span>Total</span><span id="total-amount">0 €</span></div>
+        </div>
+        <div class="step-actions">
+          <a href="tienda.html" class="btn btn-outline btn-lg">Seguir comprando</a>
+          <button class="btn btn-primary btn-lg" data-action="next">Continuar</button>
+        </div>
       </div>
+    </section>
 
-      <h2 class="display-h3" style="margin-top: 56px;">Método de pago</h2>
+    <!-- ─── PASO 2: DATOS ─── -->
+    <section class="checkout-step" data-step="data" hidden>
+      <h1>Datos de envío</h1>
+
+      <form id="data-form" novalidate>
+        <div class="form-block">
+          <div class="field"><label>Nombre</label><input name="nombre" required></div>
+          <div class="field"><label>Apellidos</label><input name="apellidos" required></div>
+          <div class="field full"><label>Email</label><input name="email" type="email" required></div>
+          <div class="field"><label>Teléfono</label><input name="telefono" type="tel"></div>
+          <div class="field">
+            <label>País</label>
+            <select name="pais">
+              <option>España</option>
+              <option>Cuba</option>
+              <option>Portugal</option>
+              <option>Francia</option>
+            </select>
+          </div>
+          <div class="field full"><label>Dirección</label><input name="direccion" placeholder="Calle, número, piso" required></div>
+          <div class="field"><label>Ciudad</label><input name="ciudad" required></div>
+          <div class="field"><label>Código postal</label><input name="cp" required></div>
+        </div>
+
+        <div class="step-actions">
+          <button type="button" class="btn btn-outline btn-lg" data-action="back">Atrás</button>
+          <button type="submit" class="btn btn-primary btn-lg">Continuar al pago</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ─── PASO 3: PAGO ─── -->
+    <section class="checkout-step" data-step="pay" hidden>
+      <h1>Método de pago</h1>
+
       <div class="pay-options">
-        <label class="pay-opt active">
-          <div class="left">
-            <div class="icon">CARD</div>
-            <div>
-              <div class="name">Tarjeta · Visa / Mastercard / Amex</div>
-              <div class="meta">Pago seguro con Stripe</div>
-            </div>
+        <label class="pay-opt is-active">
+          <span class="pay-logo">
+            <svg viewBox="0 0 56 36" xmlns="http://www.w3.org/2000/svg"><rect width="56" height="36" rx="4" fill="#1A1F71"/><text x="28" y="24" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="800" font-style="italic" fill="#fff">VISA</text></svg>
+          </span>
+          <div class="pay-meta">
+            <div class="pay-name">Tarjeta · Visa</div>
+            <div class="pay-desc">Pago seguro con cifrado SSL</div>
           </div>
-          <input type="radio" name="pay" checked>
+          <input type="radio" name="pay" value="visa" checked>
         </label>
+
         <label class="pay-opt">
-          <div class="left">
-            <div class="icon" style="background: #000; color: white;"></div>
-            <div>
-              <div class="name">Apple Pay</div>
-              <div class="meta">Confirmar con Touch ID / Face ID</div>
-            </div>
+          <span class="pay-logo">
+            <svg viewBox="0 0 56 36" xmlns="http://www.w3.org/2000/svg"><rect width="56" height="36" rx="4" fill="#fff" stroke="#e5e5e5"/><circle cx="22" cy="18" r="9" fill="#EB001B"/><circle cx="32" cy="18" r="9" fill="#F79E1B" opacity="0.88"/></svg>
+          </span>
+          <div class="pay-meta">
+            <div class="pay-name">Mastercard</div>
+            <div class="pay-desc">Débito o crédito</div>
           </div>
-          <input type="radio" name="pay">
+          <input type="radio" name="pay" value="mastercard">
         </label>
+
         <label class="pay-opt">
-          <div class="left">
-            <div class="icon" style="background: #003087; color: white; font-size:9px;">PP</div>
-            <div>
-              <div class="name">PayPal</div>
-              <div class="meta">Comprador protegido</div>
-            </div>
+          <span class="pay-logo">
+            <svg viewBox="0 0 56 36" xmlns="http://www.w3.org/2000/svg"><rect width="56" height="36" rx="4" fill="#000"/><text x="22" y="23" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#fff"></text><text x="32" y="23" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="13" font-weight="500" fill="#fff">Pay</text></svg>
+          </span>
+          <div class="pay-meta">
+            <div class="pay-name">Apple Pay</div>
+            <div class="pay-desc">Touch ID o Face ID</div>
           </div>
-          <input type="radio" name="pay">
+          <input type="radio" name="pay" value="apple">
         </label>
+
         <label class="pay-opt">
-          <div class="left">
-            <div class="icon" style="background: oklch(0.78 0.04 70); color: var(--ink); font-size:9px;">BIZ</div>
-            <div>
-              <div class="name">Transferencia (Bizum)</div>
-              <div class="meta">Solo pedidos &gt; 200 €</div>
-            </div>
+          <span class="pay-logo">
+            <svg viewBox="0 0 56 36" xmlns="http://www.w3.org/2000/svg"><rect width="56" height="36" rx="4" fill="#fff" stroke="#dadce0"/><text x="14" y="24" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#4285F4">G</text><text x="22" y="24" font-family="Arial,sans-serif" font-size="13" font-weight="500" fill="#5f6368">Pay</text></svg>
+          </span>
+          <div class="pay-meta">
+            <div class="pay-name">Google Pay</div>
+            <div class="pay-desc">Confirmación rápida</div>
           </div>
-          <input type="radio" name="pay">
+          <input type="radio" name="pay" value="google">
+        </label>
+
+        <label class="pay-opt">
+          <span class="pay-logo">
+            <svg viewBox="0 0 56 36" xmlns="http://www.w3.org/2000/svg"><rect width="56" height="36" rx="4" fill="#003087"/><text x="14" y="23" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#fff" font-style="italic">Pay</text><text x="28" y="23" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#009cde" font-style="italic">Pal</text></svg>
+          </span>
+          <div class="pay-meta">
+            <div class="pay-name">PayPal</div>
+            <div class="pay-desc">Comprador protegido</div>
+          </div>
+          <input type="radio" name="pay" value="paypal">
+        </label>
+
+        <label class="pay-opt">
+          <span class="pay-logo">
+            <svg viewBox="0 0 56 36" xmlns="http://www.w3.org/2000/svg"><rect width="56" height="36" rx="4" fill="#FFA8CD"/><text x="28" y="23" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#0a0a0a">Klarna</text></svg>
+          </span>
+          <div class="pay-meta">
+            <div class="pay-name">Klarna</div>
+            <div class="pay-desc">Paga ahora, en 3 plazos o en 30 días</div>
+          </div>
+          <input type="radio" name="pay" value="klarna">
         </label>
       </div>
 
-      <div class="form-block">
-        <div class="field full"><label>Número de tarjeta</label><input value="4242 4242 4242 4242"></div>
-        <div class="field"><label>Caducidad</label><input value="04 / 28"></div>
-        <div class="field"><label>CVC</label><input value="•••"></div>
-      </div>
-
-      <div style="margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap;">
-        <button class="btn btn-primary btn-lg" style="flex: 1; min-width: 240px;">Pagar <span id="pay-total">126,00 €</span></button>
-        <a href="tienda.html" class="btn btn-outline btn-lg">Seguir comprando</a>
+      <div class="step-actions">
+        <button type="button" class="btn btn-outline btn-lg" data-action="back">Atrás</button>
+        <button type="button" class="btn btn-primary btn-lg" id="pay-button">
+          Pagar <span id="pay-amount">0 €</span>
+        </button>
       </div>
 
       <div class="secure">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
         Pago cifrado · sus datos no se almacenan en nuestros servidores.
       </div>
-    </div>
+    </section>
 
-    <aside class="summary">
-      <h3>Resumen del pedido</h3>
-      <div id="sum-lines"></div>
-      <div class="totals">
-        <div class="row"><span>Subtotal</span><span id="sum-sub">0 €</span></div>
-        <div class="row"><span>Envío · 24/48h</span><span>6,00 €</span></div>
-        <div class="row"><span>IVA incluido</span><span>—</span></div>
-        <div class="row total-row"><span>Total</span><span id="sum-total">0 €</span></div>
-      </div>
-      <div class="promo-row">
-        <input placeholder="Código promocional">
-        <button class="btn btn-outline">Aplicar</button>
-      </div>
-    </aside>
   </div>
 </div>
 
 <div data-slot="footer"></div>
 <div data-slot="fab"></div>
-<script src="assets/chrome.js?v=2"></script>
-<script>
-  // Default sample cart if empty
-  function readCart() {
-    try {
-      let c = JSON.parse(localStorage.getItem("nudo_cart") || "null");
-      if (!c || c.length === 0) {
-        c = [
-          { name: 'Caja "Antigua" — M', meta: 'Crudo · Sin personalizar', price: 48, qty: 2 },
-          { name: 'Vela cera de soja · ámbar', meta: '220 g', price: 24, qty: 1 }
-        ];
-      }
-      return c;
-    } catch(e) { return []; }
-  }
-
-  document.querySelectorAll(".pay-opt").forEach(p => p.addEventListener("click", () => {
-    document.querySelectorAll(".pay-opt").forEach(x => x.classList.remove("active"));
-    p.classList.add("active");
-  }));
-
-  const cart = readCart();
-  const lines = document.getElementById("sum-lines");
-  if (cart.length === 0) {
-    lines.innerHTML = '<p class="empty">El carrito está vacío.</p>';
-    document.getElementById("sum-sub").textContent = "0 €";
-    document.getElementById("sum-total").textContent = "0 €";
-    document.getElementById("pay-total").textContent = "0 €";
-  } else {
-    lines.innerHTML = cart.map(it => `
-      <div class="sum-line">
-        <div class="img-ph"></div>
-        <div>
-          <div class="name">${it.name}</div>
-          <div class="meta">${it.meta || ""} · ${it.qty} u.</div>
-        </div>
-        <div class="price">${it.price * it.qty} €</div>
-      </div>
-    `).join("");
-    const sub = cart.reduce((s,x) => s + x.price * x.qty, 0);
-    const total = sub + 6;
-    document.getElementById("sum-sub").textContent = sub + ",00 €";
-    document.getElementById("sum-total").textContent = total + ",00 €";
-    document.getElementById("pay-total").textContent = total + ",00 €";
-  }
-</script>
 </body>
 </html>

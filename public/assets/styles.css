@@ -614,6 +614,27 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 /* (services-bento sustituido por carrusel — reglas .sc-* viven inline en index.html) */
 
+/* ============================================
+ * Productos placeholder (catálogo masivo en /tienda)
+ * ============================================ */
+.product-card.is-placeholder .img-ph {
+  background: var(--bg-soft);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.product-card.is-placeholder .img-ph .img-ph-label {
+  color: var(--ink-3);
+  opacity: 0.55;
+  font-family: var(--font-serif, Cormorant Garamond, serif);
+  font-style: italic;
+  font-size: 14px;
+}
+.product-card.is-placeholder .name {
+  color: var(--ink-2);
+}
+.product-card.is-placeholder .price {
+  color: var(--ink-3);
+}
+
 /* Shop cards (atelier de regalos) — 3D flip cara crema con logo */
 .shop-cards { perspective: 1400px; }
 .shop-card {
