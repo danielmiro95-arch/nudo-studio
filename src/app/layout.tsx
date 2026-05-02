@@ -26,9 +26,9 @@ export const metadata: Metadata = {
       'Estudio de eventos íntimos y atelier de regalos a mano. Madrid · La Habana.',
     images: [
       {
-        url: '/assets/photo-bodas.jpg',
-        width: 1536,
-        height: 1024,
+        url: '/assets/photo-principal.jpg',
+        width: 1800,
+        height: 1200,
         alt: SITE_NAME,
       },
     ],
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `${SITE_NAME} — Eventos & Regalos a mano`,
     description: 'Estudio de eventos íntimos y atelier de regalos a mano.',
-    images: ['/assets/photo-bodas.jpg'],
+    images: ['/assets/photo-principal.jpg'],
   },
   icons: {
     icon: '/assets/logo-nudo-trim.png',
