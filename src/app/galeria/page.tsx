@@ -1,3 +1,4 @@
+import Script from 'next/script';
 import type { Metadata } from 'next';
 import { readLegacyPage } from '@/lib/legacy-html';
 
@@ -13,6 +14,7 @@ export default async function GaleriaPage() {
     <>
       {styles && <style dangerouslySetInnerHTML={{ __html: styles }} />}
       <div dangerouslySetInnerHTML={{ __html: body }} />
+      <Script src="/assets/gallery.js" strategy="afterInteractive" />
     </>
   );
 }
