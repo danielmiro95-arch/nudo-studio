@@ -628,7 +628,10 @@
 
     <!-- ① BACKGROUND IMAGE: full-screen -->
     <div class="hero-image-bg" id="heroBg">
-      <img src="assets/photo-bodas.jpg" alt="" aria-hidden="true">
+      <picture>
+        <source type="image/webp" srcset="assets/photo-bodas.webp">
+        <img src="assets/photo-bodas.jpg" alt="" aria-hidden="true">
+      </picture>
     </div>
 
     <div id="heroCardRing"></div>
@@ -642,7 +645,10 @@
     <!-- Card lateral izquierda -->
     <article class="service-card-scroll left-card" id="leftCard">
       <a href="servicios.html#comuniones">
-        <img src="assets/photo-comuniones.jpg" alt="Comuniones">
+        <picture>
+          <source type="image/webp" srcset="assets/photo-comuniones.webp">
+          <img src="assets/photo-comuniones.jpg" alt="Comuniones">
+        </picture>
         <div class="scroll-card-copy">
           <h3>Comuniones</h3>
           <p>Atmósfera cálida y mesas pensadas para los pequeños del día.</p>
@@ -653,7 +659,10 @@
     <!-- Card lateral derecha -->
     <article class="service-card-scroll right-card" id="rightCard">
       <a href="tienda.html">
-        <img src="assets/photo-regalos.jpg" alt="Regalos">
+        <picture>
+          <source type="image/webp" srcset="assets/photo-regalos.webp">
+          <img src="assets/photo-regalos.jpg" alt="Regalos">
+        </picture>
         <div class="scroll-card-copy">
           <h3>Regalos a mano</h3>
           <p>Welcome packs y detalles cosidos uno a uno en el atelier.</p>
@@ -808,22 +817,22 @@
       </div>
       <div class="shop-cards">
         <a href="/producto/caja-antigua" class="shop-card">
-          <div class="img-ph dark has-photo" style="--photo: url('assets/producto-caja-regalo.jpg');"><span class="img-ph-label">Caja regalo · M</span></div>
+          <div class="img-ph dark has-photo" style="--photo: image-set(url('assets/producto-caja-regalo.webp') type('image/webp'), url('assets/producto-caja-regalo.jpg') type('image/jpeg'));"><span class="img-ph-label">Caja regalo · M</span></div>
           <div class="name">Caja "Antigua" — M</div>
           <div class="price">desde 48 €</div>
         </a>
         <a href="/producto/vela-velvet" class="shop-card">
-          <div class="img-ph dark has-photo" style="--photo: url('assets/producto-vela-ambar.jpg');"><span class="img-ph-label">Vela artesanal</span></div>
+          <div class="img-ph dark has-photo" style="--photo: image-set(url('assets/producto-vela-ambar.webp') type('image/webp'), url('assets/producto-vela-ambar.jpg') type('image/jpeg'));"><span class="img-ph-label">Vela artesanal</span></div>
           <div class="name">Vela cera de soja · ámbar</div>
           <div class="price">22 €</div>
         </a>
         <a href="/producto/ramo-conservado" class="shop-card">
-          <div class="img-ph dark has-photo" style="--photo: url('assets/producto-ramo-conservado.jpg');"><span class="img-ph-label">Ramo seco</span></div>
+          <div class="img-ph dark has-photo" style="--photo: image-set(url('assets/producto-ramo-conservado.webp') type('image/webp'), url('assets/producto-ramo-conservado.jpg') type('image/jpeg'));"><span class="img-ph-label">Ramo seco</span></div>
           <div class="name">Ramo preservado "Habana"</div>
           <div class="price">64 €</div>
         </a>
         <a href="/producto/set-papel" class="shop-card">
-          <div class="img-ph dark has-photo" style="--photo: url('assets/producto-set-papel.jpg');"><span class="img-ph-label">Papelería</span></div>
+          <div class="img-ph dark has-photo" style="--photo: image-set(url('assets/producto-set-papel.webp') type('image/webp'), url('assets/producto-set-papel.jpg') type('image/jpeg'));"><span class="img-ph-label">Papelería</span></div>
           <div class="name">Set papelería personalizada</div>
           <div class="price">desde 32 €</div>
         </a>
