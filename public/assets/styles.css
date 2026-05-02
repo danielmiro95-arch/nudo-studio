@@ -635,6 +635,150 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: var(--ink-3);
 }
 
+/* ============================================
+ * Chat flotante (panel desplegable del FAB)
+ * ============================================ */
+.ai-chat-panel {
+  position: fixed;
+  bottom: 96px;
+  right: 24px;
+  width: 360px;
+  height: 520px;
+  max-height: calc(100vh - 130px);
+  background: white;
+  border-radius: 20px;
+  box-shadow:
+    0 30px 80px -20px rgba(0,0,0,0.35),
+    0 8px 24px rgba(0,0,0,0.12);
+  z-index: 91;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: aiChatOpen 0.32s cubic-bezier(.22,1,.36,1);
+}
+.ai-chat-panel[hidden] { display: none; }
+@keyframes aiChatOpen {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.ai-chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  background: var(--ink);
+  color: var(--ink-on-dark);
+}
+.ai-chat-title {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; font-weight: 500;
+}
+.ai-chat-pulse {
+  width: 8px; height: 8px;
+  background: oklch(0.78 0.12 60);
+  border-radius: 50%;
+  box-shadow: 0 0 8px oklch(0.78 0.12 60 / 0.7);
+  animation: aiPulse 2.4s ease-in-out infinite;
+}
+@keyframes aiPulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+.ai-chat-actions { display: flex; gap: 4px; align-items: center; }
+.ai-chat-reset, .ai-chat-close {
+  background: none; border: 0;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  border-radius: 8px;
+  display: grid; place-items: center;
+  transition: color 0.15s, background 0.15s;
+}
+.ai-chat-reset { width: 30px; height: 30px; }
+.ai-chat-close { width: 32px; height: 32px; font-size: 22px; line-height: 1; }
+.ai-chat-reset:hover, .ai-chat-close:hover {
+  color: white;
+  background: rgba(255,255,255,0.1);
+}
+
+.ai-chat-thread {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #FAF8F5;
+}
+.ai-chat-bubble {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.45;
+  word-wrap: break-word;
+}
+.ai-chat-bubble.assistant {
+  background: white;
+  border: 1px solid rgba(0,0,0,0.06);
+  align-self: flex-start;
+  border-top-left-radius: 4px;
+  color: var(--ink);
+}
+.ai-chat-bubble.user {
+  background: var(--ink);
+  color: var(--ink-on-dark);
+  align-self: flex-end;
+  border-top-right-radius: 4px;
+}
+.ai-chat-bubble.thinking { opacity: 0.55; font-style: italic; }
+.ai-chat-bubble p { margin: 0; }
+.ai-chat-bubble p + p { margin-top: 6px; }
+
+.ai-chat-form {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  background: white;
+}
+.ai-chat-input {
+  flex: 1;
+  padding: 11px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  color: var(--ink);
+  background: #FAF8F5;
+  transition: border-color 0.15s, background 0.15s;
+}
+.ai-chat-input:focus { border-color: var(--ink); background: white; }
+.ai-chat-input:disabled { opacity: 0.6; }
+.ai-chat-send {
+  flex-shrink: 0;
+  width: 40px; height: 40px;
+  border: 0;
+  background: var(--ink);
+  color: var(--ink-on-dark);
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid; place-items: center;
+  transition: transform 0.15s, opacity 0.15s;
+}
+.ai-chat-send:hover { transform: translateY(-1px); }
+.ai-chat-send:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+@media (max-width: 700px) {
+  .ai-chat-panel {
+    width: calc(100vw - 24px);
+    right: 12px;
+    bottom: 86px;
+    height: 70vh;
+  }
+}
+
 /* Shop cards (atelier de regalos) — 3D flip cara crema con logo */
 .shop-cards { perspective: 1400px; }
 .shop-card {

@@ -108,12 +108,173 @@
 
   function renderFab() {
     if (document.body.dataset.hideFab === "true") return "";
+    // FAB sigue siendo <a href="/asistente"> para accesibilidad y para
+    // que Cmd+Click abra la página completa. El click normal lo
+    // intercepta initChatWidget() y abre el panel flotante.
     return `
-      <a href="/asistente" class="ai-fab" aria-label="Abrir asistente IA">
+      <a href="/asistente" class="ai-fab" id="aiFab" aria-label="Abrir chat con asistente IA">
         <span class="ai-fab-dot"></span>
         <span>Hola, soy Nudo · ¿hablamos?</span>
       </a>
+      <div class="ai-chat-panel" id="aiChatPanel" hidden role="dialog" aria-label="Chat con asistente Nudo">
+        <header class="ai-chat-header">
+          <div class="ai-chat-title">
+            <span class="ai-chat-pulse" aria-hidden="true"></span>
+            <span>Nudo · Asistente</span>
+          </div>
+          <div class="ai-chat-actions">
+            <button type="button" class="ai-chat-reset" id="aiChatReset" aria-label="Nueva conversación" title="Nueva conversación">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+            </button>
+            <button type="button" class="ai-chat-close" id="aiChatClose" aria-label="Cerrar chat">×</button>
+          </div>
+        </header>
+        <div class="ai-chat-thread" id="aiChatThread"></div>
+        <form class="ai-chat-form" id="aiChatForm">
+          <input type="text" class="ai-chat-input" id="aiChatInput" placeholder="Cuéntame qué celebráis…" autocomplete="off" maxlength="1000">
+          <button type="submit" class="ai-chat-send" id="aiChatSend" aria-label="Enviar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
+          </button>
+        </form>
+      </div>
     `;
+  }
+
+  // ─── CHAT WIDGET ─────────────────────────────────────────────────────
+  // Persistencia en localStorage("nudo_chat_history") como
+  // [{role: "user"|"assistant", content: string}]. Reusa /api/asistente
+  // (mismo formato que la página completa /asistente).
+  const CHAT_KEY = "nudo_chat_history";
+  const GREETING =
+    "Hola, soy Nudo. Cuéntame qué celebráis y empezamos a perfilar la idea " +
+    "— fecha, lugar aproximado, número de invitados o solo el ambiente que imagináis.";
+
+  function readHistory() {
+    try {
+      const raw = localStorage.getItem(CHAT_KEY);
+      const arr = raw ? JSON.parse(raw) : null;
+      return Array.isArray(arr) ? arr : [];
+    } catch { return []; }
+  }
+  function writeHistory(items) {
+    try { localStorage.setItem(CHAT_KEY, JSON.stringify(items)); } catch {}
+  }
+  function escapeChatHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+  function renderBubble(thread, role, content, opts) {
+    opts = opts || {};
+    const div = document.createElement("div");
+    div.className = "ai-chat-bubble " + (role === "user" ? "user" : "assistant");
+    if (opts.thinking) div.classList.add("thinking");
+    const html = escapeChatHtml(content)
+      .replace(/\n\n+/g, "</p><p>")
+      .replace(/\n/g, "<br>");
+    div.innerHTML = "<p>" + html + "</p>";
+    thread.appendChild(div);
+    thread.scrollTo({ top: thread.scrollHeight, behavior: "smooth" });
+    return div;
+  }
+  function renderHistory(thread) {
+    thread.innerHTML = "";
+    const history = readHistory();
+    if (!history.length) {
+      renderBubble(thread, "assistant", GREETING);
+    } else {
+      history.forEach((m) => renderBubble(thread, m.role, m.content));
+    }
+  }
+
+  function initChatWidget() {
+    const fab    = document.getElementById("aiFab");
+    const panel  = document.getElementById("aiChatPanel");
+    const close  = document.getElementById("aiChatClose");
+    const reset  = document.getElementById("aiChatReset");
+    const thread = document.getElementById("aiChatThread");
+    const form   = document.getElementById("aiChatForm");
+    const input  = document.getElementById("aiChatInput");
+    const send   = document.getElementById("aiChatSend");
+    if (!fab || !panel) return;
+
+    function openPanel() {
+      panel.hidden = false;
+      renderHistory(thread);
+      setTimeout(() => input && input.focus(), 50);
+    }
+    function closePanel() { panel.hidden = true; }
+    function togglePanel() { panel.hidden ? openPanel() : closePanel(); }
+
+    // Click normal en FAB: abre panel. Modificadores (Cmd/Ctrl/Shift,
+    // botón medio): deja al browser navegar a /asistente.
+    fab.addEventListener("click", (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      e.preventDefault();
+      togglePanel();
+    });
+    close && close.addEventListener("click", closePanel);
+    reset && reset.addEventListener("click", () => {
+      writeHistory([]);
+      renderHistory(thread);
+      input && input.focus();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !panel.hidden) closePanel();
+    });
+
+    if (!form) return;
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const text = (input.value || "").trim();
+      if (!text || send.disabled) return;
+      input.value = "";
+
+      const history = readHistory();
+      history.push({ role: "user", content: text });
+      writeHistory(history);
+      renderBubble(thread, "user", text);
+
+      const thinking = renderBubble(thread, "assistant", "·  ·  ·", { thinking: true });
+      send.disabled = true;
+      input.disabled = true;
+
+      try {
+        const res = await fetch("/api/asistente", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: history }),
+        });
+        let data = null;
+        try { data = await res.json(); } catch {}
+
+        thinking.remove();
+
+        if (res.ok && data && data.content) {
+          renderBubble(thread, "assistant", data.content);
+          history.push({ role: "assistant", content: data.content });
+          writeHistory(history);
+        } else {
+          const msg = (data && data.error)
+            || "No he podido responder. Inténtalo en unos minutos o escríbenos a hola@nudostudio.blog.";
+          renderBubble(thread, "assistant", msg);
+          if (res.status === 429) {
+            input.disabled = true;
+            send.disabled = true;
+            return;
+          }
+        }
+      } catch (err) {
+        thinking.remove();
+        renderBubble(thread, "assistant",
+          "Parece que hay un problema de conexión. Inténtalo en unos segundos.");
+      } finally {
+        input.disabled = false;
+        send.disabled = false;
+        input.focus();
+      }
+    });
   }
 
   function init() {
@@ -133,6 +294,9 @@
         if (count === 0) el.style.display = "none";
       });
     } catch (e) {}
+
+    // Wire up el chat flotante (solo si la página tiene FAB).
+    initChatWidget();
   }
 
   // chrome.js se carga vía Next.js <Script strategy="afterInteractive">,
