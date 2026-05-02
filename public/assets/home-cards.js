@@ -1,21 +1,9 @@
 // Nudo Studio — Home cards animations
-// 1. Services bento: highlight rotativo (cycle entre cards cada N seg).
-// 2. Shop cards (atelier): 3D flip lento con stagger.
+// Shop cards (atelier): 3D flip lento con stagger.
+// (El antiguo "highlight cycling" del services-bento se eliminó — la
+//  sección ahora es un carrusel auto-scroll en CSS, sin JS necesario.)
 
 (function () {
-  function initBentoHighlight() {
-    var cards = document.querySelectorAll('.services-bento .sb');
-    if (!cards.length) return;
-    var idx = 0;
-    function tick() {
-      cards.forEach(function (c) { c.classList.remove('is-featured'); });
-      cards[idx].classList.add('is-featured');
-      idx = (idx + 1) % cards.length;
-    }
-    tick();
-    setInterval(tick, 5000);
-  }
-
   function initShopFlip() {
     var cards = document.querySelectorAll('.shop-cards .shop-card');
     if (!cards.length) return;
@@ -35,7 +23,6 @@
   }
 
   function init() {
-    initBentoHighlight();
     initShopFlip();
   }
 

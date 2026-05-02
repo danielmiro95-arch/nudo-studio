@@ -249,61 +249,129 @@
   .values-marquee .marquee-item .serif { color: var(--ink); }
 
   /* ==== Bento servicios ==== */
+  /* ==== Sección de servicios — carrusel dark warm con tintes malva/crema ==== */
   .services {
     padding: var(--section-pad-y) 0;
-  }
-  .services-bento {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-auto-rows: 220px;
-    gap: 16px;
-  }
-  .sb { display: flex; flex-direction: column; justify-content: space-between; }
-  .sb-bodas       { grid-column: span 7; grid-row: span 2; background: var(--bg-dark); color: var(--ink-on-dark); border-radius: var(--radius-lg); padding: 40px; position: relative; overflow: hidden; }
-  .sb-comuniones  { grid-column: span 5; background: var(--accent-soft); border-radius: var(--radius-lg); padding: 36px; }
-  .sb-privadas    { grid-column: span 5; background: oklch(0.91 0.025 130); border-radius: var(--radius-lg); padding: 36px; }
-  .sb-corp        { grid-column: span 4; background: var(--bg-soft); border-radius: var(--radius-lg); padding: 36px; }
-  .sb-showers     { grid-column: span 4; background: var(--accent-blush); border-radius: var(--radius-lg); padding: 36px; }
-  .sb-coord       { grid-column: span 4; background: var(--bg-dark); color: var(--ink-on-dark); border-radius: var(--radius-lg); padding: 36px; }
-
-  .sb h3 {
-    font-size: clamp(22px, 2.4vw, 36px);
-    line-height: 1.05;
-    letter-spacing: -0.025em;
-    font-weight: 600;
-    max-width: 14ch;
-  }
-  .sb-bodas h3 { font-size: clamp(36px, 4vw, 64px); max-width: 12ch; }
-  .sb p { font-size: 15px; color: var(--ink-3); margin-top: 12px; max-width: 32ch; }
-  .sb-bodas p, .sb-coord p { color: var(--ink-on-dark-2); }
-  .sb-meta {
-    display: flex; gap: 8px; flex-wrap: wrap;
-    margin-top: auto;
-    padding-top: 20px;
-  }
-
-  .sb-bodas .bg-mark {
-    position: absolute;
-    bottom: -40px;
-    right: -20px;
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 360px;
-    line-height: 1;
-    opacity: 0.07;
+    background:
+      /* Glow malva/violeta suave arriba-izquierda */
+      radial-gradient(ellipse 80% 60% at 12% 18%, rgba(155, 110, 165, 0.28) 0%, transparent 60%),
+      /* Glow rosa-crema cálido abajo-derecha */
+      radial-gradient(ellipse 70% 55% at 88% 85%, rgba(220, 175, 145, 0.22) 0%, transparent 60%),
+      /* Base dark warm */
+      var(--bg-dark);
     color: var(--ink-on-dark);
-    pointer-events: none;
+  }
+  .services .section-head .eyebrow { color: var(--ink-on-dark-2); }
+  .services .section-head .display-h2 { color: var(--ink-on-dark); }
+  .services .section-head .lead { color: var(--ink-on-dark-2); }
+
+  .services-carousel {
+    margin-top: 48px;
+    overflow: hidden;
+  }
+  .services-track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    /* 12 cards (6 únicas + duplicadas) → animación recorre la mitad para hacer loop perfecto */
+    animation: scServicesScroll 50s linear infinite;
+  }
+  .services-carousel:hover .services-track {
+    animation-play-state: paused;
+  }
+  @keyframes scServicesScroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
   }
 
-  @media (max-width: 1100px) {
-    .services-bento { grid-template-columns: repeat(6, 1fr); grid-auto-rows: 200px; }
-    .sb-bodas { grid-column: span 6; grid-row: span 2; }
-    .sb-comuniones, .sb-privadas { grid-column: span 3; grid-row: span 1; }
-    .sb-corp, .sb-showers, .sb-coord { grid-column: span 2; grid-row: span 1; }
+  .sc-card {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    flex-shrink: 0;
+    width: clamp(280px, 30vw, 380px);
+    aspect-ratio: 4 / 5;
+    padding: 32px 28px;
+    /* Default: crema rosado. Cada card se sobreescribe por nth-child(6n+...) abajo. */
+    background: var(--bg-soft);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-lg);
+    color: var(--ink);
+    text-decoration: none;
+    transition: transform 0.4s cubic-bezier(.22,1,.36,1), filter 0.4s ease, box-shadow 0.4s ease;
+    /* Float sutil continuo. Variantes con delays decalados. */
+    animation: scCardFloat 6s ease-in-out infinite;
+    will-change: transform;
   }
+  /* Paleta pastel del bento original. Rota cada 6 cards para que los
+     duplicados (clones del loop) mantengan el mismo patrón visual. */
+  .sc-card:nth-child(6n+1) { background: var(--bg-soft); }                          /* crema rosado */
+  .sc-card:nth-child(6n+2) { background: var(--accent-soft); }                       /* salmón suave */
+  .sc-card:nth-child(6n+3) { background: oklch(0.91 0.025 130); }                    /* verde claro */
+  .sc-card:nth-child(6n+4) { background: var(--accent-blush); }                      /* blush rosa */
+  .sc-card:nth-child(6n+5) { background: var(--accent-softest); }                    /* wash */
+  .sc-card:nth-child(6n+6) { background: var(--bg-soft); }                           /* crema rosado */
+  .sc-card:nth-child(2n) { animation-delay: -2s; }
+  .sc-card:nth-child(3n) { animation-delay: -4s; }
+  @keyframes scCardFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-4px); }
+  }
+  .sc-card:hover {
+    transform: translateY(-6px) scale(1.04);
+    /* Mantenemos el color base (no override) y aplicamos un brillo sutil. */
+    filter: brightness(1.04) saturate(1.05);
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.55);
+    z-index: 2;
+    animation-play-state: paused;
+  }
+
+  .sc-eyebrow {
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+  }
+  .sc-title {
+    margin: 0;
+    font-size: clamp(22px, 1.9vw, 28px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .sc-desc {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink-3);
+    flex-grow: 1;
+  }
+  .sc-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: auto;
+  }
+  .sc-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.1);
+    font-size: 12px;
+    color: var(--ink);
+  }
+
   @media (max-width: 700px) {
-    .services-bento { grid-template-columns: 1fr; grid-auto-rows: auto; }
-    .sb-bodas, .sb-comuniones, .sb-privadas, .sb-corp, .sb-showers, .sb-coord { grid-column: span 1; grid-row: span 1; min-height: 240px; }
+    .sc-card { width: 75vw; aspect-ratio: 4 / 5; }
+    .services-track { animation-duration: 35s; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .services-track { animation: none; }
+    .sc-card { animation: none; }
   }
 
   /* ==== Sección oscura tienda ==== */
@@ -645,50 +713,82 @@
       <p class="lead">Desde la primera reunión hasta el último brindis, llevamos cada detalle. Diseño, decoración, coordinación y atelier de regalos — todo bajo el mismo techo.</p>
     </div>
 
-    <div class="services-bento">
-      <a href="servicios.html#bodas" class="sb sb-bodas">
-        <div>
-          <div class="card-eyebrow" style="color: var(--ink-on-dark-2);">Servicio insignia</div>
-          <h3>Bodas con narrativa propia.</h3>
-          <p>Diseño integral, decoración floral, papelería y coordinación del día. Capacidad de 30 a 250 invitados.</p>
-        </div>
-        <div class="sb-meta">
-          <span class="chip" style="background: rgba(255,255,255,0.06); color: var(--ink-on-dark); border-color: rgba(255,255,255,0.1);"><span class="chip-dot"></span> Disponibilidad 2026</span>
-          <span class="chip" style="background: rgba(255,255,255,0.06); color: var(--ink-on-dark); border-color: rgba(255,255,255,0.1);">Madrid + destinos</span>
-        </div>
-        <span class="bg-mark">N</span>
-      </a>
-
-      <a href="servicios.html#comuniones" class="sb sb-comuniones">
-        <div class="card-eyebrow">Familia</div>
-        <h3>Comuniones y bautizos con alma de tarde de jardín.</h3>
-        <div class="sb-meta">
-          <span class="chip">Catering opcional</span>
-        </div>
-      </a>
-
-      <a href="servicios.html#privados" class="sb sb-privadas">
-        <div class="card-eyebrow">Privado</div>
-        <h3>Cumpleaños y fiestas privadas.</h3>
-        <div class="sb-meta">
-          <span class="chip">Desde 12 invitados</span>
-        </div>
-      </a>
-
-      <a href="servicios.html#corporativo" class="sb sb-corp">
-        <div class="card-eyebrow">Corporativo</div>
-        <h3>Cenas, lanzamientos y press days.</h3>
-      </a>
-
-      <a href="servicios.html#showers" class="sb sb-showers">
-        <div class="card-eyebrow">Íntimo</div>
-        <h3>Baby showers y bridal showers.</h3>
-      </a>
-
-      <a href="servicios.html#coordinacion" class="sb sb-coord">
-        <div class="card-eyebrow" style="color: var(--ink-on-dark-2);">Solo coordinación</div>
-        <h3>Estás organizando tú. Nosotras llevamos el día.</h3>
-      </a>
+    <div class="services-carousel" aria-label="Servicios del estudio">
+      <div class="services-track">
+        <a href="servicios.html#bodas" class="sc-card">
+          <div class="sc-eyebrow">Servicio insignia</div>
+          <h3 class="sc-title">Bodas con narrativa propia.</h3>
+          <p class="sc-desc">Diseño integral, decoración floral, papelería y coordinación del día.</p>
+          <div class="sc-meta"><span class="sc-chip">Disponibilidad 2026</span></div>
+        </a>
+        <a href="servicios.html#comuniones" class="sc-card">
+          <div class="sc-eyebrow">Familia</div>
+          <h3 class="sc-title">Comuniones y bautizos con alma de jardín.</h3>
+          <p class="sc-desc">Tardes ligeras, mantelería natural, dulce mesa cuidada.</p>
+          <div class="sc-meta"><span class="sc-chip">Catering opcional</span></div>
+        </a>
+        <a href="servicios.html#privados" class="sc-card">
+          <div class="sc-eyebrow">Privado</div>
+          <h3 class="sc-title">Cumpleaños y fiestas privadas.</h3>
+          <p class="sc-desc">Cenas íntimas y celebraciones a medida en casa o espacio alquilado.</p>
+          <div class="sc-meta"><span class="sc-chip">Desde 12 invitados</span></div>
+        </a>
+        <a href="servicios.html#corporativo" class="sc-card">
+          <div class="sc-eyebrow">Corporativo</div>
+          <h3 class="sc-title">Cenas, lanzamientos y press days.</h3>
+          <p class="sc-desc">Eventos de marca con cuidado de boutique. Presupuesto a medida.</p>
+          <div class="sc-meta"><span class="sc-chip">Solicitar dossier</span></div>
+        </a>
+        <a href="servicios.html#showers" class="sc-card">
+          <div class="sc-eyebrow">Íntimo</div>
+          <h3 class="sc-title">Baby showers y bridal showers.</h3>
+          <p class="sc-desc">Pequeñas celebraciones con amigas, detalle floral y mesa dulce.</p>
+          <div class="sc-meta"><span class="sc-chip">10–25 personas</span></div>
+        </a>
+        <a href="servicios.html#coordinacion" class="sc-card">
+          <div class="sc-eyebrow">Solo coordinación</div>
+          <h3 class="sc-title">Estás organizando tú. Nosotras llevamos el día.</h3>
+          <p class="sc-desc">Si ya tienes proveedores cerrados, coordinamos el día para que tú disfrutes.</p>
+          <div class="sc-meta"><span class="sc-chip">Pack día-D</span></div>
+        </a>
+        <!-- Duplicado para loop infinito sin saltos -->
+        <a href="servicios.html#bodas" class="sc-card" aria-hidden="true" tabindex="-1">
+          <div class="sc-eyebrow">Servicio insignia</div>
+          <h3 class="sc-title">Bodas con narrativa propia.</h3>
+          <p class="sc-desc">Diseño integral, decoración floral, papelería y coordinación del día.</p>
+          <div class="sc-meta"><span class="sc-chip">Disponibilidad 2026</span></div>
+        </a>
+        <a href="servicios.html#comuniones" class="sc-card" aria-hidden="true" tabindex="-1">
+          <div class="sc-eyebrow">Familia</div>
+          <h3 class="sc-title">Comuniones y bautizos con alma de jardín.</h3>
+          <p class="sc-desc">Tardes ligeras, mantelería natural, dulce mesa cuidada.</p>
+          <div class="sc-meta"><span class="sc-chip">Catering opcional</span></div>
+        </a>
+        <a href="servicios.html#privados" class="sc-card" aria-hidden="true" tabindex="-1">
+          <div class="sc-eyebrow">Privado</div>
+          <h3 class="sc-title">Cumpleaños y fiestas privadas.</h3>
+          <p class="sc-desc">Cenas íntimas y celebraciones a medida en casa o espacio alquilado.</p>
+          <div class="sc-meta"><span class="sc-chip">Desde 12 invitados</span></div>
+        </a>
+        <a href="servicios.html#corporativo" class="sc-card" aria-hidden="true" tabindex="-1">
+          <div class="sc-eyebrow">Corporativo</div>
+          <h3 class="sc-title">Cenas, lanzamientos y press days.</h3>
+          <p class="sc-desc">Eventos de marca con cuidado de boutique. Presupuesto a medida.</p>
+          <div class="sc-meta"><span class="sc-chip">Solicitar dossier</span></div>
+        </a>
+        <a href="servicios.html#showers" class="sc-card" aria-hidden="true" tabindex="-1">
+          <div class="sc-eyebrow">Íntimo</div>
+          <h3 class="sc-title">Baby showers y bridal showers.</h3>
+          <p class="sc-desc">Pequeñas celebraciones con amigas, detalle floral y mesa dulce.</p>
+          <div class="sc-meta"><span class="sc-chip">10–25 personas</span></div>
+        </a>
+        <a href="servicios.html#coordinacion" class="sc-card" aria-hidden="true" tabindex="-1">
+          <div class="sc-eyebrow">Solo coordinación</div>
+          <h3 class="sc-title">Estás organizando tú. Nosotras llevamos el día.</h3>
+          <p class="sc-desc">Si ya tienes proveedores cerrados, coordinamos el día para que tú disfrutes.</p>
+          <div class="sc-meta"><span class="sc-chip">Pack día-D</span></div>
+        </a>
+      </div>
     </div>
   </div>
 </section>

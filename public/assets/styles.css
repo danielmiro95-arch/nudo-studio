@@ -612,29 +612,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
  * Home — animaciones de cards
  * ============================================ */
 
-/* Servicios bento — highlight rotativo cycling + hover tilt */
-.services-bento .sb {
-  transition: transform 0.5s cubic-bezier(.22,1,.36,1), box-shadow 0.5s ease;
-  transform-origin: center;
-}
-.services-bento .sb.is-featured {
-  transform: scale(1.025);
-  box-shadow: 0 30px 70px -20px rgba(0,0,0,0.28), 0 0 0 2px rgba(212, 184, 130, 0.55);
-  z-index: 2;
-  position: relative;
-}
-/* Hover: lift + ligera inclinación. Sobreescribe is-featured (más
-   especificidad por orden) para que la card en hover se "recoja" hacia
-   adelante en lugar de mantener el scale del cycling. */
-.services-bento .sb:hover {
-  transform: translateY(-6px) rotate(-0.5deg);
-  box-shadow: 0 36px 90px -22px rgba(0,0,0,0.32), 0 0 0 1px rgba(212, 184, 130, 0.4);
-  z-index: 3;
-}
-/* Pares hacia el lado contrario para que el efecto no sea uniforme. */
-.services-bento .sb:nth-child(even):hover {
-  transform: translateY(-6px) rotate(0.5deg);
-}
+/* (services-bento sustituido por carrusel — reglas .sc-* viven inline en index.html) */
 
 /* Shop cards (atelier de regalos) — 3D flip cara crema con logo */
 .shop-cards { perspective: 1400px; }
