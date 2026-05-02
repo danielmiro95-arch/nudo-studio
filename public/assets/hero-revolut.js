@@ -92,7 +92,9 @@
     //      dentro del rect de la card. Como solo hay una imagen, no
     //      hay disparidad entre lo que se ve fuera y dentro de la card.
     if (heroBgImg) {
-      const bgScale  = lerp(1.0, 1.45, p);
+      // Zoom moderado (1.0 → 1.20). Antes era 1.45 — demasiado, perdía
+      // a la pareja del sujeto durante la transición.
+      const bgScale  = lerp(1.0, 1.20, p);
       // Centro de la card en coords de viewport.
       const cardCY   = cT + cH / 2;
       // Translate Y para mover el centro de la imagen (que tras scale

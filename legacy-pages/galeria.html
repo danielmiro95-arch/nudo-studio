@@ -40,13 +40,16 @@
   .filter:hover { border-color: var(--ink); }
   .filter.active { background: var(--ink); color: var(--ink-on-dark); border-color: var(--ink); }
 
+  /* Layout bento dinámico — distintas spans + rows para variedad
+     visual. Las span-12 deben ir SIEMPRE con row-2 mínimo (full
+     width × 1 row = banda muy baja, se veían pequeñas). */
   .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 14px;
+    grid-auto-rows: 220px;
   }
   .gi {
-    aspect-ratio: 4 / 5;
     border-radius: var(--radius-card);
     cursor: pointer;
     transition: transform 0.3s;
@@ -77,17 +80,18 @@
     font-weight: 500;
   }
 
-  /* Las antiguas clases span-X / row-Y ya no se usan — quedan como
-     no-ops por si algún ítem las arrastra en el HTML. */
-  .gi.span-4, .gi.span-6, .gi.span-8, .gi.span-12,
-  .gi.row-2, .gi.row-3 {}
+  .gi.span-4  { grid-column: span 4; }
+  .gi.span-6  { grid-column: span 6; }
+  .gi.span-8  { grid-column: span 8; }
+  .gi.span-12 { grid-column: span 12; }
+  .gi.row-2 { grid-row: span 2; }
+  .gi.row-3 { grid-row: span 3; }
 
   @media (max-width: 900px) {
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 540px) {
-    .gallery-grid { grid-template-columns: 1fr; }
-    .gi { aspect-ratio: 4 / 3; }
+    .gallery-grid { grid-template-columns: repeat(6, 1fr); }
+    .gi.span-4, .gi.span-6, .gi.span-8, .gi.span-12 { grid-column: span 6; }
+    .gi.row-2, .gi.row-3 { grid-row: span 1; }
+    .gi { aspect-ratio: 4/3; }
   }
 </style>
 </head>
@@ -113,7 +117,7 @@
   </div>
 
   <div class="gallery-grid">
-    <div class="gi img-ph span-12 has-photo show-label" style="--photo: image-set(url('assets/photo-boda-pareja.webp') type('image/webp'), url('assets/photo-boda-pareja.jpg') type('image/jpeg'));"><span class="img-ph-label">Boda · pareja</span><div class="gi-overlay"><div class="gi-meta">Boda</div><div class="gi-name">Retrato editorial</div></div></div>
+    <div class="gi img-ph span-12 row-2 has-photo show-label" style="--photo: image-set(url('assets/photo-boda-pareja.webp') type('image/webp'), url('assets/photo-boda-pareja.jpg') type('image/jpeg'));"><span class="img-ph-label">Boda · pareja</span><div class="gi-overlay"><div class="gi-meta">Boda</div><div class="gi-name">Retrato editorial</div></div></div>
     <div class="gi img-ph span-8 row-2 has-photo show-label" style="--photo: image-set(url('assets/photo-bodas.webp') type('image/webp'), url('assets/photo-bodas.jpg') type('image/jpeg'));"><span class="img-ph-label">Boda · Finca El Espinar · 2025</span><div class="gi-overlay"><div class="gi-meta">Boda</div><div class="gi-name">Marta & Diego</div></div></div>
     <div class="gi img-ph span-4 has-photo show-label" style="--photo: image-set(url('assets/producto-decoracion-flores.webp') type('image/webp'), url('assets/producto-decoracion-flores.jpg') type('image/jpeg'));"><span class="img-ph-label">Detalle floral</span><div class="gi-overlay"><div class="gi-meta">Atelier</div><div class="gi-name">Ramo de novia</div></div></div>
     <div class="gi img-ph span-4 has-photo show-label" style="--photo: image-set(url('assets/photo-mesa.webp') type('image/webp'), url('assets/photo-mesa.jpg') type('image/jpeg'));"><span class="img-ph-label">Mesa dispuesta</span><div class="gi-overlay"><div class="gi-meta">Boda</div><div class="gi-name">Mise en place</div></div></div>
@@ -124,7 +128,7 @@
     <div class="gi img-ph span-6 has-photo show-label" style="--photo: image-set(url('assets/photo-bridal-showers.webp') type('image/webp'), url('assets/photo-bridal-showers.jpg') type('image/jpeg'));"><span class="img-ph-label">Bridal shower</span><div class="gi-overlay"><div class="gi-meta">Shower</div><div class="gi-name">Andrea · 2026</div></div></div>
     <div class="gi img-ph span-4 has-photo show-label" style="--photo: image-set(url('assets/producto-set-papel.webp') type('image/webp'), url('assets/producto-set-papel.jpg') type('image/jpeg'));"><span class="img-ph-label">Papelería</span><div class="gi-overlay"><div class="gi-meta">Atelier</div><div class="gi-name">Suite editorial</div></div></div>
     <div class="gi img-ph span-8 has-photo show-label" style="--photo: image-set(url('assets/photo-destino.webp') type('image/webp'), url('assets/photo-destino.jpg') type('image/jpeg'));"><span class="img-ph-label">Boda · La Habana</span><div class="gi-overlay"><div class="gi-meta">Boda · destino</div><div class="gi-name">Catalina & Iván</div></div></div>
-    <div class="gi img-ph span-12 has-photo show-label" style="--photo: image-set(url('assets/photo-archway.webp') type('image/webp'), url('assets/photo-archway.jpg') type('image/jpeg'));"><span class="img-ph-label">Boda · ceremonia exterior · plano completo</span><div class="gi-overlay"><div class="gi-meta">Boda</div><div class="gi-name">Ceremonia · Madrid sierra</div></div></div>
+    <div class="gi img-ph span-12 row-2 has-photo show-label" style="--photo: image-set(url('assets/photo-archway.webp') type('image/webp'), url('assets/photo-archway.jpg') type('image/jpeg'));"><span class="img-ph-label">Boda · ceremonia exterior · plano completo</span><div class="gi-overlay"><div class="gi-meta">Boda</div><div class="gi-name">Ceremonia · Madrid sierra</div></div></div>
   </div>
 </div>
 
