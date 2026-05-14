@@ -250,16 +250,13 @@
   /* ==== Marquee values ==== */
   .values-marquee .marquee-item .serif { color: var(--ink); }
 
-  /* ==== Bento servicios ==== */
-  /* ==== Sección de servicios — carrusel dark warm con tintes malva/crema ==== */
+  /* ==== Sección de servicios — carrusel dark warm con tinte malva ==== */
   .services {
     padding: var(--section-pad-y) 0;
     background:
-      /* Glow malva/violeta suave arriba-izquierda */
-      radial-gradient(ellipse 80% 60% at 12% 18%, rgba(155, 110, 165, 0.28) 0%, transparent 60%),
-      /* Glow rosa-crema cálido abajo-derecha */
-      radial-gradient(ellipse 70% 55% at 88% 85%, rgba(220, 175, 145, 0.22) 0%, transparent 60%),
-      /* Base dark warm */
+      /* Único glow malva — antes había también un glow rosa-crema en
+         abajo-derecha que competía con las cards pastel. */
+      radial-gradient(ellipse 100% 70% at 18% 22%, rgba(155, 110, 165, 0.32) 0%, transparent 65%),
       var(--bg-dark);
     color: var(--ink-on-dark);
   }
