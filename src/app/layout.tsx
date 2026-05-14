@@ -40,9 +40,20 @@ export const metadata: Metadata = {
     images: ['/assets/photo-principal.jpg'],
   },
   icons: {
-    icon: '/assets/logo-nudo-trim.png',
-    shortcut: '/assets/logo-nudo-trim.png',
-    apple: '/assets/logo-nudo-trim.png',
+    icon: [
+      { url: '/assets/favicon-16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/assets/favicon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/assets/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/assets/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    shortcut: '/assets/favicon-32.png',
+    apple: '/assets/apple-touch-icon.png',
+  },
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Nudo Studio',
   },
   robots: { index: true, follow: true },
 };
@@ -50,7 +61,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#FAF6F2',
+  themeColor: '#0A0A0A',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

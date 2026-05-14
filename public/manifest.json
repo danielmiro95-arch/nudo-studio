@@ -1,0 +1,33 @@
+{
+  "name": "Nudo Studio",
+  "short_name": "Nudo",
+  "description": "Estudio de eventos íntimos y atelier de regalos a mano en Madrid.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#0A0A0A",
+  "background_color": "#FAF6F2",
+  "lang": "es-ES",
+  "categories": ["lifestyle", "shopping"],
+  "icons": [
+    {
+      "src": "/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
