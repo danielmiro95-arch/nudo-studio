@@ -124,8 +124,11 @@
       const veil  = Math.round(lerp(0, Math.max(W, H) * 1.6, ringP));
       // inset: borde blanco de 4px JUSTO en el límite de la card.
       // outer: veil que crece desde 0 hasta cubrir el viewport.
+      // Veil color matchea el body bg (dark violet) para que el reveal
+      // se funda con la página tras la animación. El inset es el borde
+      // de la card — sigue blanco translúcido para destacar sobre dark.
       heroCardRing.style.boxShadow =
-        `inset 0 0 0 4px rgba(255,255,255,0.92), 0 0 0 ${veil}px #fff`;
+        `inset 0 0 0 4px rgba(255,255,255,0.92), 0 0 0 ${veil}px #15101e`;
     }
 
     // ─── CARD COPY (texto sobre la card al final del scroll) ──────────
