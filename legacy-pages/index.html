@@ -24,7 +24,7 @@
     height: 100vh;
     height: 100dvh;
     overflow: hidden;
-    background: #fff;
+    background: var(--bg);
   }
 
   /* ① BACKGROUND IMAGE */
@@ -57,7 +57,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    background: linear-gradient(to top, rgba(20,12,6,0.65) 0%, transparent 60%);
+    background: linear-gradient(to top, rgba(17,17,17,0.65) 0%, transparent 60%);
     padding: 28px 22px 22px;
     opacity: 0;
     pointer-events: none;
@@ -167,7 +167,7 @@
     position: absolute;
     bottom: 0; left: 0; right: 0;
     padding: 28px 18px 18px;
-    background: linear-gradient(to top, rgba(20,12,6,0.7) 0%, transparent 100%);
+    background: linear-gradient(to top, rgba(17,17,17,0.7) 0%, transparent 100%);
   }
   .scroll-card-copy h3 {
     margin: 0 0 4px;
@@ -250,13 +250,15 @@
   /* ==== Marquee values ==== */
   .values-marquee .marquee-item .serif { color: var(--ink); }
 
-  /* ==== Sección de servicios — carrusel dark warm con tinte malva ==== */
+  /* ==== Sección de servicios — carrusel dark con glow lavender (AI) + rosa ==== */
   .services {
     padding: var(--section-pad-y) 0;
     background:
-      /* Único glow malva — antes había también un glow rosa-crema en
-         abajo-derecha que competía con las cards pastel. */
-      radial-gradient(ellipse 100% 70% at 18% 22%, rgba(155, 110, 165, 0.32) 0%, transparent 65%),
+      /* Glow lavender arriba-izq · matchea acento AI de la paleta */
+      radial-gradient(ellipse 80% 60% at 18% 18%, rgba(184, 181, 255, 0.28) 0%, transparent 60%),
+      /* Glow rosa nude abajo-dcha · matchea acento de marca */
+      radial-gradient(ellipse 70% 55% at 88% 88%, rgba(216, 167, 177, 0.22) 0%, transparent 60%),
+      /* Base dark */
       var(--bg-dark);
     color: var(--ink-on-dark);
   }

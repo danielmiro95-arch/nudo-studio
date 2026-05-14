@@ -39,7 +39,7 @@
     font-weight: 500;
     transition: all 0.18s;
   }
-  .cat-pill.active { background: var(--ink); color: var(--ink-on-dark); border-color: var(--ink); }
+  .cat-pill.active { background: var(--accent); color: var(--ink); border-color: var(--accent); }
   .sort-select {
     padding: 10px 16px;
     border-radius: 999px;
@@ -70,8 +70,9 @@
   .product-card .tag {
     position: absolute;
     top: 14px; left: 14px;
-    background: var(--bg);
-    border: 1px solid var(--line);
+    background: var(--accent-deep);
+    border: 1px solid var(--accent-deep);
+    color: var(--ink);
     font-family: var(--font-mono);
     font-size: 10px;
     letter-spacing: 0.16em;
@@ -84,8 +85,8 @@
     bottom: 14px; right: 14px;
     width: 38px; height: 38px;
     border-radius: 50%;
-    background: var(--ink);
-    color: var(--ink-on-dark);
+    background: var(--accent);
+    color: var(--ink);
     display: grid; place-items: center;
     opacity: 0;
     transition: opacity 0.2s, transform 0.2s;
