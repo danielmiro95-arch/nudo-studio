@@ -75,11 +75,11 @@
       <h1 style="margin-top: 18px;">Lo que <span class="serif">suelen</span> preguntar.</h1>
       <p class="lead">¿No encuentra su pregunta? Hable con Nudo o escríbanos directamente.</p>
       <div class="faq-cats">
-        <a class="active" href="#">Eventos</a>
-        <a href="#">Tienda &amp; envíos</a>
-        <a href="#">Presupuestos</a>
-        <a href="#">Asistente IA</a>
-        <a href="#">Bodas destino</a>
+        <a class="active" href="#" data-cat="eventos">Eventos</a>
+        <a href="#" data-cat="tienda">Tienda &amp; envíos</a>
+        <a href="#" data-cat="presupuestos">Presupuestos</a>
+        <a href="#" data-cat="asistente">Asistente IA</a>
+        <a href="#" data-cat="destino">Bodas destino</a>
       </div>
       <div style="margin-top: 36px; display: flex; gap: 8px; flex-wrap: wrap;">
         <a href="asistente.html" class="btn btn-primary">Hablar con Nudo</a>
@@ -88,14 +88,14 @@
     </aside>
 
     <div class="faq-list" id="faq-list">
-      <div class="item open"><button class="q">¿Con cuánta antelación hay que reservar una boda?<span class="plus">+</span></button><div class="a">Lo ideal son entre 9 y 14 meses, especialmente si la fecha cae entre mayo y septiembre. Aceptamos un número limitado de eventos al año, así que cuanto antes mejor. Para celebraciones más pequeñas (showers, cumpleaños) trabajamos con 4–6 semanas.</div></div>
-      <div class="item"><button class="q">¿Trabajan fuera de Madrid?<span class="plus">+</span></button><div class="a">Sí. Hacemos eventos en toda la península y producimos bodas destino en La Habana, donde tenemos sede. Para destinos fuera de estas zonas pedimos cubrir desplazamiento del equipo.</div></div>
-      <div class="item"><button class="q">¿Pueden trabajar con mi presupuesto?<span class="plus">+</span></button><div class="a">Lo más probable es que sí. Adaptamos cada propuesta al presupuesto del cliente, ajustando el alcance del servicio y los proveedores. Tenemos un mínimo orientativo de 8.500 € para bodas con producción completa.</div></div>
-      <div class="item"><button class="q">¿Qué incluye el servicio de coordinación del día?<span class="plus">+</span></button><div class="a">Reunión previa, plan minuto a minuto, gestión de proveedores, briefing al equipo de catering, montaje y desmontaje, y dos coordinadoras presentes durante todo el evento.</div></div>
-      <div class="item"><button class="q">¿Puedo comprar regalos sin contratar evento?<span class="plus">+</span></button><div class="a">Por supuesto. La tienda online del atelier es independiente. Hacemos envíos a península en 24–48 h y a Cuba en 7–10 días.</div></div>
-      <div class="item"><button class="q">¿Qué fiabilidad tiene el asistente IA?<span class="plus">+</span></button><div class="a">El asistente está entrenado con nuestro proceso, paletas y referencias reales de eventos hechos por el estudio. Sus presupuestos son orientativos: para una propuesta firme siempre hace falta una consulta humana de 30 minutos.</div></div>
-      <div class="item"><button class="q">¿Hacen sólo la decoración sin coordinar?<span class="plus">+</span></button><div class="a">Sí. Es uno de nuestros formatos: diseño y producción de la decoración, instalación y retirada. La coordinación del día se contrata aparte si la necesita.</div></div>
-      <div class="item"><button class="q">Política de cancelación.<span class="plus">+</span></button><div class="a">La señal del 30% confirma la fecha y no es reembolsable. El resto se factura a 30 días del evento. Si la cancelación viene de fuerza mayor (enfermedad, restricciones), buscamos juntos una nueva fecha sin coste adicional.</div></div>
+      <div class="item open" data-category="eventos|presupuestos|destino"><button class="q">¿Con cuánta antelación hay que reservar una boda?<span class="plus">+</span></button><div class="a">Lo ideal son entre 9 y 14 meses, especialmente si la fecha cae entre mayo y septiembre. Aceptamos un número limitado de eventos al año, así que cuanto antes mejor. Para celebraciones más pequeñas (showers, cumpleaños) trabajamos con 4–6 semanas.</div></div>
+      <div class="item" data-category="eventos|destino"><button class="q">¿Trabajan fuera de Madrid?<span class="plus">+</span></button><div class="a">Sí. Hacemos eventos en toda la península y producimos bodas destino en La Habana, donde tenemos sede. Para destinos fuera de estas zonas pedimos cubrir desplazamiento del equipo.</div></div>
+      <div class="item" data-category="presupuestos|eventos|asistente"><button class="q">¿Pueden trabajar con mi presupuesto?<span class="plus">+</span></button><div class="a">Lo más probable es que sí. Adaptamos cada propuesta al presupuesto del cliente, ajustando el alcance del servicio y los proveedores. Tenemos un mínimo orientativo de 8.500 € para bodas con producción completa.</div></div>
+      <div class="item" data-category="eventos"><button class="q">¿Qué incluye el servicio de coordinación del día?<span class="plus">+</span></button><div class="a">Reunión previa, plan minuto a minuto, gestión de proveedores, briefing al equipo de catering, montaje y desmontaje, y dos coordinadoras presentes durante todo el evento.</div></div>
+      <div class="item" data-category="tienda"><button class="q">¿Puedo comprar regalos sin contratar evento?<span class="plus">+</span></button><div class="a">Por supuesto. La tienda online del atelier es independiente. Hacemos envíos a península en 24–48 h y a Cuba en 7–10 días.</div></div>
+      <div class="item" data-category="asistente"><button class="q">¿Qué fiabilidad tiene el asistente IA?<span class="plus">+</span></button><div class="a">El asistente está entrenado con nuestro proceso, paletas y referencias reales de eventos hechos por el estudio. Sus presupuestos son orientativos: para una propuesta firme siempre hace falta una consulta humana de 30 minutos.</div></div>
+      <div class="item" data-category="eventos|presupuestos"><button class="q">¿Hacen sólo la decoración sin coordinar?<span class="plus">+</span></button><div class="a">Sí. Es uno de nuestros formatos: diseño y producción de la decoración, instalación y retirada. La coordinación del día se contrata aparte si la necesita.</div></div>
+      <div class="item" data-category="presupuestos|eventos|tienda"><button class="q">Política de cancelación.<span class="plus">+</span></button><div class="a">La señal del 30% confirma la fecha y no es reembolsable. El resto se factura a 30 días del evento. Si la cancelación viene de fuerza mayor (enfermedad, restricciones), buscamos juntos una nueva fecha sin coste adicional.</div></div>
     </div>
   </div>
 </div>
