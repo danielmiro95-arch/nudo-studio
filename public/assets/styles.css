@@ -4,27 +4,27 @@
    ============================================ */
 
 :root {
-  /* Color — base dark con acento violeta. v2 (full dark rework). */
-  --bg:        #15101e;     /* Base dark con tinte violeta */
-  --bg-soft:   #1f1830;     /* Surface (cards, secciones light) */
-  --bg-dark:   #0d0817;     /* Más oscuro (carrusel servicios) */
-  --bg-darker: #050309;     /* Casi negro (footer, sombras) */
-  --ink:       #f5f1f8;     /* Texto principal (claro sobre dark) */
-  --ink-2:     #d4c8e0;
-  --ink-3:     #9485a8;
-  --ink-4:     #6d5d80;
-  --ink-on-dark:   #f5f1f8;
-  --ink-on-dark-2: #b8a8c8;
-  --line:      rgba(155, 110, 165, 0.18);
-  --line-dark: rgba(255, 255, 255, 0.06);
+  /* Color — base cálida con acento salmón */
+  --bg: #FAF6F2;            /* Blanco cálido con leve toque rosado */
+  --bg-soft: #F2EAE2;       /* Crema rosado */
+  --bg-dark: #0A0A0A;
+  --bg-darker: #050505;
+  --ink: #0A0A0A;
+  --ink-2: #2B2B2B;
+  --ink-3: #5C5A55;
+  --ink-4: #8E8B83;
+  --ink-on-dark: #FAF6F2;
+  --ink-on-dark-2: #B8B5AD;
+  --line: #E8DED4;
+  --line-dark: #1F1F1F;
 
-  /* Acentos violeta (oklch) */
-  --accent:        oklch(0.62 0.13 305);   /* Violeta principal */
-  --accent-soft:   oklch(0.32 0.08 305);   /* Violet surface */
-  --accent-softest: oklch(0.22 0.05 305);  /* Wash violet */
-  --accent-deep:   oklch(0.45 0.16 305);   /* Violeta saturado */
-  --accent-blush:  oklch(0.55 0.10 320);   /* Magenta-violet */
-  --accent-sage:   oklch(0.55 0.10 250);   /* Azul-violet complementario */
+  /* Acentos salmón / terracota (oklch suave) */
+  --accent: oklch(0.82 0.07 35);          /* Salmón claro */
+  --accent-soft: oklch(0.91 0.045 35);    /* Salmón muy suave */
+  --accent-softest: oklch(0.95 0.025 35); /* Wash */
+  --accent-deep: oklch(0.62 0.11 30);     /* Terracota */
+  --accent-blush: oklch(0.88 0.05 25);    /* Blush */
+  --accent-sage: oklch(0.82 0.04 130);    /* Verde oliva apagado complementario */
 
   /* Tipografía */
   --font-sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -66,14 +66,7 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: -0.005em;
 }
-body {
-  overflow-x: hidden;
-  /* Glow violeta sutil arriba que se diluye a la base, atmósfera nocturna. */
-  background:
-    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(155, 110, 200, 0.15) 0%, transparent 55%),
-    var(--bg);
-  min-height: 100vh;
-}
+body { overflow-x: hidden; }
 
 img, svg { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
@@ -156,18 +149,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   white-space: nowrap;
 }
 .btn:hover { transform: translateY(-1px); }
-/* Primary: violet bg + light text. La acción principal del sitio en dark theme. */
-.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 8px 24px -10px rgba(155,110,200,0.5); }
-.btn-primary:hover { background: var(--accent-deep); box-shadow: 0 12px 32px -10px rgba(155,110,200,0.65); }
-/* Light: para CTAs sobre fondos oscuros (claros sobre dark). */
-.btn-light { background: var(--ink-on-dark); color: #15101e; }
-.btn-light:hover { background: var(--bg-soft); }
-/* Outline: violet border, fill al hover. */
+.btn-primary { background: var(--ink); color: var(--ink-on-dark); }
+.btn-primary:hover { background: var(--ink-2); }
+.btn-light { background: var(--bg); color: var(--ink); }
+.btn-light:hover { background: #fff; }
 .btn-outline { border: 1px solid var(--line); color: var(--ink); background: transparent; }
-.btn-outline:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-/* Outline-light: para fondos dark (igual que outline pero color claro). */
+.btn-outline:hover { background: var(--ink); color: var(--ink-on-dark); border-color: var(--ink); }
 .btn-outline-light { border: 1px solid rgba(255,255,255,0.25); color: var(--ink-on-dark); background: transparent; }
-.btn-outline-light:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn-outline-light:hover { background: var(--ink-on-dark); color: var(--ink); border-color: var(--ink-on-dark); }
 .btn-lg { padding: 18px 30px; font-size: var(--fs-base); }
 
 /* Header */
@@ -175,7 +164,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: sticky;
   top: 0;
   z-index: 80;
-  background: rgba(21, 16, 30, 0.78);
+  background: rgba(250, 246, 242, 0.78);
   backdrop-filter: saturate(180%) blur(16px);
   -webkit-backdrop-filter: saturate(180%) blur(16px);
   border-bottom: 1px solid rgba(230, 227, 220, 0.6);
@@ -642,7 +631,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding: 14px 16px;
   border-radius: 14px;
   border: 1px solid var(--line);
-  background: var(--bg-soft);
+  background: white;
   font-family: inherit;
   font-size: 15px;
   color: var(--ink);
@@ -750,7 +739,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   width: 360px;
   height: 520px;
   max-height: calc(100vh - 130px);
-  background: var(--bg-soft);
+  background: white;
   border-radius: 20px;
   box-shadow:
     0 30px 80px -20px rgba(0,0,0,0.35),
@@ -824,7 +813,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   word-wrap: break-word;
 }
 .ai-chat-bubble.assistant {
-  background: var(--bg-soft);
+  background: white;
   border: 1px solid rgba(0,0,0,0.06);
   align-self: flex-start;
   border-top-left-radius: 4px;
@@ -845,7 +834,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   gap: 8px;
   padding: 12px;
   border-top: 1px solid rgba(0,0,0,0.06);
-  background: var(--bg-soft);
+  background: white;
 }
 .ai-chat-input {
   flex: 1;
@@ -859,7 +848,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background: #FAF8F5;
   transition: border-color 0.15s, background 0.15s;
 }
-.ai-chat-input:focus { border-color: var(--ink); background: var(--bg-soft); }
+.ai-chat-input:focus { border-color: var(--ink); background: white; }
 .ai-chat-input:disabled { opacity: 0.6; }
 .ai-chat-send {
   flex-shrink: 0;
@@ -1155,7 +1144,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding: 13px 16px;
   border: 1px solid var(--line);
   border-radius: 14px;
-  background: var(--bg-soft);
+  background: white;
   font-family: inherit;
   font-size: 15px;
   color: var(--ink);
@@ -1246,7 +1235,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding: 24px;
   border: 1px solid var(--line);
   border-radius: 18px;
-  background: var(--bg-soft);
+  background: white;
 }
 .pedido-head {
   display: flex;
