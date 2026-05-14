@@ -39,6 +39,10 @@
           <ul class="nav-links">${links}</ul>
           <div class="nav-cta">
             <a href="/contacto" class="btn btn-outline hide-on-mobile" style="${onDark ? 'border-color: rgba(255,255,255,0.25); color: inherit;' : ''}">Pedir consulta</a>
+            <a href="#" class="nav-account hide-on-mobile" id="navAccount" hidden>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+              <span id="navAccountLabel">Mi cuenta</span>
+            </a>
             <a href="/carrito" class="nav-cart" aria-label="Carrito">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 7h14l-1.5 11a2 2 0 0 1-2 1.7H8.5A2 2 0 0 1 6.5 18L5 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
               <span class="badge" data-cart-count>2</span>
@@ -64,6 +68,27 @@
         </div>
       </div>
     </div>`;
+  }
+
+  // Consulta /api/auth/me y muestra "Mi cuenta" o "Iniciar sesión" en el header.
+  async function initAccountLink() {
+    const el     = document.getElementById('navAccount');
+    const label  = document.getElementById('navAccountLabel');
+    if (!el || !label) return;
+    try {
+      const res = await fetch('/api/auth/me', { cache: 'no-store' });
+      const data = await res.json();
+      if (data.user) {
+        el.href = '/cuenta';
+        label.textContent = data.user.nombre || (data.user.email || '').split('@')[0] || 'Mi cuenta';
+      } else {
+        el.href = '/login';
+        label.textContent = 'Iniciar sesión';
+      }
+      el.hidden = false;
+    } catch {
+      // Sin red: ocultamos el botón. No es bloqueante.
+    }
   }
 
   function initMobileNav() {
@@ -351,6 +376,9 @@
     initChatWidget();
     // Wire up el menú hamburguesa móvil.
     initMobileNav();
+
+    // Wire up "Mi cuenta" / "Iniciar sesión" en el header.
+    initAccountLink();
 
     // Wire up el form del newsletter del footer.
     const nlForm = document.getElementById("newsletterForm");
