@@ -38,7 +38,7 @@
           </a>
           <ul class="nav-links">${links}</ul>
           <div class="nav-cta">
-            <a href="/contacto" class="btn btn-outline hide-on-mobile" style="${onDark ? 'border-color: rgba(255,255,255,0.25); color: inherit;' : ''}">Pedir presupuesto</a>
+            <a href="/contacto" class="btn btn-outline hide-on-mobile" style="${onDark ? 'border-color: rgba(255,255,255,0.25); color: inherit;' : ''}">Pedir consulta</a>
             <a href="/carrito" class="nav-cart" aria-label="Carrito">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 7h14l-1.5 11a2 2 0 0 1-2 1.7H8.5A2 2 0 0 1 6.5 18L5 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
               <span class="badge" data-cart-count>2</span>
@@ -59,7 +59,7 @@
           <li><a href="${n.href}" class="${active === n.href ? 'active' : ''}">${n.label}</a></li>
         `).join("")}</ul>
         <div class="nav-drawer-cta">
-          <a href="/contacto" class="btn btn-light btn-lg">Pedir presupuesto</a>
+          <a href="/contacto" class="btn btn-light btn-lg">Pedir consulta</a>
           <a href="/asistente" class="btn btn-outline-light btn-lg">Hablar con Nudo</a>
         </div>
       </div>
