@@ -102,7 +102,7 @@
               <span class="nav-brand-text">Nudo<span style="opacity:0.55"> Studio</span></span>
             </a>
             <p class="footer-tag">
-              Decoración y producción de eventos íntimos en Madrid y La Habana. Regalos hechos a mano para los días que se recuerdan.
+              Decoración y producción de eventos íntimos en Madrid. Regalos hechos a mano para los días que se recuerdan.
             </p>
           </div>
           <div class="footer-col">
@@ -136,7 +136,7 @@
           </div>
         </div>
         <div class="footer-bottom">
-          <span>© 2026 Nudo Studio · Madrid — La Habana</span>
+          <span>© 2026 Nudo Studio · Madrid</span>
           <div class="legal">
             <a href="/legal/aviso-legal">Aviso legal</a>
             <a href="/legal/privacidad">Privacidad</a>

@@ -18,7 +18,7 @@ const RequestSchema = z.object({
 
 // El "carácter" de Nudo. Define quién es, qué sabe y cómo responde.
 // Editable sin tocar código de la app.
-const SYSTEM_PROMPT = `Eres "Nudo", el asistente del estudio Nudo Studio — un atelier de eventos íntimos y regalos hechos a mano con sedes en Madrid y La Habana.
+const SYSTEM_PROMPT = `Eres "Nudo", el asistente del estudio Nudo Studio — un atelier de eventos íntimos y regalos hechos a mano con sede en Madrid.
 
 TU PAPEL
 - Ayudas a clientes potenciales a explorar ideas para su boda, comunión, evento privado o regalo.

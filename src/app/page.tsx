@@ -5,7 +5,7 @@ import { readLegacyPage } from '@/lib/legacy-html';
 export const metadata: Metadata = {
   title: 'Eventos & Regalos a mano',
   description:
-    'Estudio de eventos íntimos y atelier de regalos a mano. Bodas, comuniones y celebraciones con dirección de diseño. Madrid · La Habana.',
+    'Estudio de eventos íntimos y atelier de regalos a mano. Bodas, comuniones y celebraciones con dirección de diseño. Madrid.',
   alternates: { canonical: '/' },
 };
 

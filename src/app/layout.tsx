@@ -12,10 +12,10 @@ export const metadata: Metadata = {
     template: `%s — ${SITE_NAME}`,
   },
   description:
-    'Estudio de eventos íntimos y atelier de regalos a mano. Bodas, comuniones y celebraciones con dirección de diseño. Madrid · La Habana.',
+    'Estudio de eventos íntimos y atelier de regalos a mano. Bodas, comuniones y celebraciones con dirección de diseño. Madrid.',
   applicationName: SITE_NAME,
   authors: [{ name: SITE_NAME }],
-  keywords: ['bodas', 'eventos', 'comuniones', 'regalos', 'wedding planner', 'Madrid', 'La Habana'],
+  keywords: ['bodas', 'eventos', 'comuniones', 'regalos', 'wedding planner', 'Madrid'],
   openGraph: {
     type: 'website',
     locale: 'es_ES',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: `${SITE_NAME} — Eventos & Regalos a mano`,
     description:
-      'Estudio de eventos íntimos y atelier de regalos a mano. Madrid · La Habana.',
+      'Estudio de eventos íntimos y atelier de regalos a mano. Madrid.',
     images: [
       {
         url: '/assets/photo-principal.jpg',

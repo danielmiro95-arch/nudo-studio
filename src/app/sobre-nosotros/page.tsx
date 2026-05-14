@@ -3,7 +3,7 @@ import { readLegacyPage } from '@/lib/legacy-html';
 
 export const metadata: Metadata = {
   title: 'El estudio',
-  description: 'El estudio detrás de Nudo: equipo, filosofía y sedes en Madrid y La Habana. Diseño íntimo, producción cercana.',
+  description: 'El estudio detrás de Nudo: equipo, filosofía y sede en Madrid. Diseño íntimo, producción cercana.',
   alternates: { canonical: '/sobre-nosotros' },
 };
 

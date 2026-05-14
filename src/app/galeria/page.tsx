@@ -4,7 +4,7 @@ import { readLegacyPage } from '@/lib/legacy-html';
 
 export const metadata: Metadata = {
   title: 'Galería',
-  description: 'Galería de eventos producidos por Nudo Studio: bodas, comuniones, eventos corporativos y atelier. Madrid · La Habana.',
+  description: 'Galería de eventos producidos por Nudo Studio: bodas, comuniones, eventos corporativos y atelier. Madrid.',
   alternates: { canonical: '/galeria' },
 };
 

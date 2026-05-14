@@ -3,7 +3,7 @@ import { readLegacyPage } from '@/lib/legacy-html';
 
 export const metadata: Metadata = {
   title: 'Nuestros servicios',
-  description: 'Servicios de Nudo Studio: bodas, comuniones, fiestas privadas, eventos corporativos, baby & bridal showers y coordinación. Madrid · La Habana.',
+  description: 'Servicios de Nudo Studio: bodas, comuniones, fiestas privadas, eventos corporativos, baby & bridal showers y coordinación. Madrid.',
   alternates: { canonical: '/servicios' },
 };
 
