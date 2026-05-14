@@ -36,6 +36,10 @@
   .pdp-gallery .img-ph.thumb { aspect-ratio: 1/1; }
 
   .pdp-info { padding-top: 12px; position: sticky; top: 96px; align-self: start; }
+  /* En móvil (1-col) el sticky queda flotante raro — fluir normal. */
+  @media (max-width: 900px) {
+    .pdp-info { position: static; padding-top: 32px; }
+  }
   .pdp-info h1 {
     font-size: clamp(36px, 4vw, 56px);
     line-height: 1.0;
