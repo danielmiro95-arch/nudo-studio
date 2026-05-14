@@ -159,6 +159,15 @@
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
+  // Empuja una acción al servidor (silencioso si 401 — usuario anónimo).
+  function pushToServer(body) {
+    fetch('/api/cart/update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    }).catch(() => {});
+  }
+
   // Delegación de eventos en el cart-list para qty +/- y eliminar.
   document.addEventListener('click', (e) => {
     const cart = readCart();
@@ -167,18 +176,30 @@
     const rem = e.target.closest('[data-remove]');
     if (inc) {
       const i = Number(inc.dataset.qtyInc);
-      if (cart[i]) { cart[i].qty = (cart[i].qty || 1) + 1; writeCart(cart); renderCart(); syncCartBadge(); }
+      if (cart[i]) {
+        cart[i].qty = (cart[i].qty || 1) + 1;
+        writeCart(cart); renderCart(); syncCartBadge();
+        pushToServer({ action: 'set', slug: cart[i].slug, qty: cart[i].qty, item: cart[i] });
+      }
     } else if (dec) {
       const i = Number(dec.dataset.qtyDec);
       if (cart[i]) {
+        const slug = cart[i].slug;
         cart[i].qty = (cart[i].qty || 1) - 1;
-        if (cart[i].qty <= 0) cart.splice(i, 1);
+        if (cart[i].qty <= 0) {
+          cart.splice(i, 1);
+          if (slug) pushToServer({ action: 'remove', slug });
+        } else {
+          pushToServer({ action: 'set', slug, qty: cart[i].qty, item: cart[i] });
+        }
         writeCart(cart); renderCart(); syncCartBadge();
       }
     } else if (rem) {
       const i = Number(rem.dataset.remove);
+      const slug = cart[i]?.slug;
       cart.splice(i, 1);
       writeCart(cart); renderCart(); syncCartBadge();
+      if (slug) pushToServer({ action: 'remove', slug });
     }
   });
 
@@ -203,18 +224,86 @@
     });
   });
 
-  // Botón "Pagar" — cosmético por ahora. Stripe Payment Element pendiente
-  // de tu config (D2 del plan: requiere API keys + métodos activados).
+  // Botón "Pagar".
+  // - Si NO está logueado: redirige a /login?next=/carrito (no se puede
+  //   crear order sin user). Una vez logueado vuelve y reintenta.
+  // - Si SÍ está logueado: POST /api/orders/create con el cart + datos del
+  //   form de envío + total. La integración real con Stripe Payment Element
+  //   sigue pendiente — por ahora el order queda con status='pending'.
   const payBtn = document.getElementById('pay-button');
   if (payBtn) {
-    payBtn.addEventListener('click', () => {
-      const method = document.querySelector('input[name="pay"]:checked')?.value || 'visa';
-      const total  = document.getElementById('pay-amount')?.textContent || '';
-      alert(
-        `Pago simulado · método: ${method} · total: ${total}\n\n` +
-        `La integración real con Stripe Payment Element está pendiente ` +
-        `de tus credenciales (cuenta + métodos activados en el dashboard).`
-      );
+    payBtn.addEventListener('click', async () => {
+      // Comprueba sesión.
+      let user = null;
+      try {
+        const meRes = await fetch('/api/auth/me', { cache: 'no-store' });
+        const me = await meRes.json();
+        user = me?.user || null;
+      } catch {}
+
+      if (!user) {
+        if (confirm('Necesitas iniciar sesión para completar el pedido. ¿Vamos a /login?')) {
+          window.location.href = '/login?next=/carrito';
+        }
+        return;
+      }
+
+      // Recoge datos del form del paso 2.
+      const form = document.getElementById('data-form');
+      const fd   = form ? new FormData(form) : new FormData();
+      const shipping = {
+        nombre:    String(fd.get('nombre')    || '').trim(),
+        email:     String(fd.get('email')     || '').trim() || user.email,
+        telefono:  String(fd.get('telefono')  || '').trim(),
+        direccion: String(fd.get('direccion') || '').trim(),
+        ciudad:    String(fd.get('ciudad')    || '').trim(),
+        cp:        String(fd.get('cp')        || '').trim(),
+        pais:      String(fd.get('pais')      || 'España').trim(),
+      };
+
+      const cart = readCart();
+      if (!cart.length) {
+        alert('Tu cesta está vacía.');
+        return;
+      }
+      const items = cart.map((it) => ({
+        slug: it.slug || null,
+        name: it.name,
+        meta: it.meta || '',
+        priceCents: it.priceCents != null
+          ? Number(it.priceCents)
+          : Math.round(Number(it.price || 0) * 100),
+        qty: Math.max(1, Math.floor(Number(it.qty || 1))),
+      }));
+
+      payBtn.disabled = true;
+      const originalText = payBtn.innerHTML;
+      payBtn.textContent = 'Procesando…';
+
+      try {
+        const res = await fetch('/api/orders/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items, shipping, shippingCents: SHIPPING_CENTS }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          alert(`No se pudo crear el pedido: ${data?.error || res.statusText}`);
+          payBtn.disabled = false;
+          payBtn.innerHTML = originalText;
+          return;
+        }
+        // Vacía el cart local (el endpoint ya lo vació en DB).
+        writeCart([]);
+        syncCartBadge();
+        // Redirect a la página de pedidos.
+        alert(`Pedido #${String(data.orderId).slice(0, 8)} creado. Status: pendiente de pago.\n\nLa integración real con Stripe sigue pendiente — pero el pedido queda registrado en tu cuenta.`);
+        window.location.href = '/cuenta/pedidos';
+      } catch (err) {
+        alert('Error de conexión. Inténtalo en unos segundos.');
+        payBtn.disabled = false;
+        payBtn.innerHTML = originalText;
+      }
     });
   }
 

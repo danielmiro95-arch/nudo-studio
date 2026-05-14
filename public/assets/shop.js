@@ -176,6 +176,14 @@
     }, 2200);
   }
 
+  function slugify(s) {
+    return String(s).toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 80) || 'item';
+  }
+
   function addToCart(card) {
     // Nombre del item: data-cart-name (placeholders) o .name (reales)
     const name = card.dataset.cartName
@@ -189,13 +197,19 @@
       const priceText = (card.querySelector('.price')?.textContent || '').trim();
       priceCents = parsePriceCents(priceText);
     }
+    // Slug: si el <a> apunta a /producto/X, usamos X. Si no, derivamos del nombre.
+    const href = card.getAttribute('href') || '';
+    const productoMatch = href.match(/\/producto\/([a-z0-9-]+)/i);
+    const slug = productoMatch ? productoMatch[1] : slugify(name);
 
     const cart = readCart();
     const existing = cart.find((it) => it.name === name);
     if (existing) {
       existing.qty = (existing.qty || 1) + 1;
+      if (!existing.slug) existing.slug = slug;
     } else {
       cart.push({
+        slug,
         name,
         meta,
         priceCents,
@@ -206,6 +220,24 @@
     writeCart(cart);
     syncCartBadge();
     showToast(`Añadido a la cesta · ${name}`);
+
+    // Si el usuario está logueado, escribe también a la DB (fire-and-forget).
+    const finalQty = (cart.find((it) => it.name === name) || {}).qty || 1;
+    pushItemToServer({ slug, name, meta, priceCents, qty: finalQty });
+  }
+
+  // Empuja un cambio puntual al servidor. Silencia 401 (anónimo).
+  function pushItemToServer(item) {
+    fetch('/api/cart/update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'set',
+        slug: item.slug,
+        qty: item.qty,
+        item: { name: item.name, meta: item.meta || '', priceCents: item.priceCents },
+      }),
+    }).catch(() => {});
   }
 
   // Delegación: click en cualquier .quick-add dentro de la grid

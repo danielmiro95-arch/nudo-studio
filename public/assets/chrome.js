@@ -70,7 +70,8 @@
     </div>`;
   }
 
-  // Consulta /api/auth/me y muestra "Mi cuenta" o "Iniciar sesión" en el header.
+  // Consulta /api/auth/me, muestra "Mi cuenta" o "Iniciar sesión" y
+  // si está logueado sincroniza el carrito con la DB (merge).
   async function initAccountLink() {
     const el     = document.getElementById('navAccount');
     const label  = document.getElementById('navAccountLabel');
@@ -81,6 +82,8 @@
       if (data.user) {
         el.href = '/cuenta';
         label.textContent = data.user.nombre || (data.user.email || '').split('@')[0] || 'Mi cuenta';
+        // Sync carrito local ↔ DB. Merge bidireccional (MAX qty).
+        syncCartWithDB().catch(() => {});
       } else {
         el.href = '/login';
         label.textContent = 'Iniciar sesión';
@@ -88,6 +91,39 @@
       el.hidden = false;
     } catch {
       // Sin red: ocultamos el botón. No es bloqueante.
+    }
+  }
+
+  // Lleva el cart local a la DB y reemplaza local con el merged set.
+  async function syncCartWithDB() {
+    let local;
+    try { local = JSON.parse(localStorage.getItem('nudo_cart') || '[]'); }
+    catch { local = []; }
+    // Normaliza al formato que espera el endpoint.
+    const items = (Array.isArray(local) ? local : []).map((it) => ({
+      slug: it.slug || null,
+      name: it.name || 'Producto',
+      meta: it.meta || '',
+      priceCents: it.priceCents != null
+        ? Number(it.priceCents)
+        : Math.round(Number(it.price || 0) * 100),
+      qty: Math.max(1, Math.floor(Number(it.qty || 1))),
+    }));
+    const res = await fetch('/api/cart/sync', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items }),
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (Array.isArray(data.items)) {
+      localStorage.setItem('nudo_cart', JSON.stringify(data.items));
+      // Refresca el badge del header.
+      const count = data.items.reduce((n, it) => n + (it.qty || 1), 0);
+      document.querySelectorAll('[data-cart-count]').forEach((el) => {
+        el.textContent = String(count);
+        el.style.display = count === 0 ? 'none' : '';
+      });
     }
   }
 
