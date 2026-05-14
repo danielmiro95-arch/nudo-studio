@@ -123,9 +123,10 @@
       const ringP = Math.min(1, p * 2.5);
       const veil  = Math.round(lerp(0, Math.max(W, H) * 1.6, ringP));
       // inset: borde blanco de 4px JUSTO en el límite de la card.
-      // outer: veil que crece desde 0 hasta cubrir el viewport.
+      // outer: veil que crece hasta cubrir el viewport. Matchea el --bg
+      // de la paleta (warm white #FAF8F5) para fundirse con la página.
       heroCardRing.style.boxShadow =
-        `inset 0 0 0 4px rgba(255,255,255,0.92), 0 0 0 ${veil}px #fff`;
+        `inset 0 0 0 4px rgba(255,255,255,0.92), 0 0 0 ${veil}px #FAF8F5`;
     }
 
     // ─── CARD COPY (texto sobre la card al final del scroll) ──────────

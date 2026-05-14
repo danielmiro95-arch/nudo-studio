@@ -4,27 +4,30 @@
    ============================================ */
 
 :root {
-  /* Color — base blanco plateado con acento violeta. v2 (rework parcial). */
-  --bg: #EFEDF2;            /* Blanco plateado con tinte violet sutil */
-  --bg-soft: #E5E3EA;       /* Surface plateada */
-  --bg-dark: #0A0A0A;
-  --bg-darker: #050505;
-  --ink: #0A0A0A;
+  /* Color — paleta definida: warm white + rosa nude + champagne + lavender AI.
+     Estilo Apple/Revolut, minimalista premium, sin morados fuertes ni
+     rosas chillones. */
+  --bg: #FAF8F5;            /* Blanco cálido — fondo principal */
+  --bg-soft: #F1EAE2;       /* Beige suave — fondo secundario */
+  --bg-dark: #111111;       /* Negro profundo (botones, footer) */
+  --bg-darker: #050505;     /* Sombras ultraprofundas */
+  --ink: #111111;           /* Texto principal — negro profundo */
   --ink-2: #2B2B2B;
-  --ink-3: #5C5A55;
+  --ink-3: #6F6B67;         /* Texto secundario — gris cálido */
   --ink-4: #8E8B83;
-  --ink-on-dark: #EFEDF2;
+  --ink-on-dark: #FAF8F5;
   --ink-on-dark-2: #B8B5AD;
-  --line: #D8D5E0;
+  --line: #E8DED4;
   --line-dark: #1F1F1F;
 
-  /* Acentos violeta (sustituyen los pastels rosados/melocotón) */
-  --accent:        oklch(0.62 0.13 305);   /* Violeta medio */
-  --accent-soft:   oklch(0.82 0.06 305);   /* Violeta pastel claro */
-  --accent-softest: oklch(0.93 0.025 305); /* Violet wash casi blanco */
-  --accent-deep:   oklch(0.42 0.16 305);   /* Violeta saturado profundo */
-  --accent-blush:  oklch(0.75 0.10 320);   /* Magenta-violet (era blush rosa) */
-  --accent-sage:   oklch(0.82 0.04 130);   /* Verde se mantiene como contraste */
+  /* Acentos · paleta definida */
+  --accent:        #D8A7B1;   /* Rosa nude elegante — color principal de marca */
+  --accent-soft:   #ECCED4;   /* Rosa nude más claro · superficies suaves */
+  --accent-softest: #F8E9EC;  /* Rosa wash · casi imperceptible */
+  --accent-deep:   #C8A97E;   /* Dorado champagne — color premium */
+  --accent-blush:  #E89B8C;   /* Coral suave — hover / detalles */
+  --accent-ai:     #B8B5FF;   /* Lavanda suave — toques AI / tecnología */
+  --accent-sage:   #C8A97E;   /* Alias champagne para retrocompat (era verde) */
 
   /* Tipografía */
   --font-sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -149,10 +152,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   white-space: nowrap;
 }
 .btn:hover { transform: translateY(-1px); }
+/* Primary: negro profundo · hover champagne dorado */
 .btn-primary { background: var(--ink); color: var(--ink-on-dark); }
-.btn-primary:hover { background: var(--ink-2); }
-.btn-light { background: var(--bg); color: var(--ink); }
-.btn-light:hover { background: #fff; }
+.btn-primary:hover { background: var(--accent-deep); color: var(--ink-on-dark); }
+/* Secondary (rosa nude bg): para CTAs alternativos */
+.btn-light { background: var(--accent); color: var(--ink); }
+.btn-light:hover { background: var(--accent-blush); color: var(--ink); }
+/* Outline: hover rellena rosa nude para coherencia con el secondary */
 .btn-outline { border: 1px solid var(--line); color: var(--ink); background: transparent; }
 .btn-outline:hover { background: var(--ink); color: var(--ink-on-dark); border-color: var(--ink); }
 .btn-outline-light { border: 1px solid rgba(255,255,255,0.25); color: var(--ink-on-dark); background: transparent; }
