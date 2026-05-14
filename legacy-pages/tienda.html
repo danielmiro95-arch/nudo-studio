@@ -92,6 +92,11 @@
   }
   .product-card:hover .quick-add { opacity: 1; }
   .product-card .quick-add:hover { transform: scale(1.08); }
+  /* En táctil no hay hover → el botón sería invisible. Visible siempre
+     en dispositivos sin hover o pantallas pequeñas. */
+  @media (hover: none), (max-width: 800px) {
+    .product-card .quick-add { opacity: 1; }
+  }
   .product-card .name {
     font-size: 15px;
     font-weight: 500;
