@@ -419,14 +419,40 @@
     // Wire up el form del newsletter del footer.
     const nlForm = document.getElementById("newsletterForm");
     if (nlForm) {
-      nlForm.addEventListener("submit", (e) => {
+      nlForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const email = (nlForm.querySelector("input[name='email']").value || "").trim();
-        if (!email || !/^.+@.+\..+/.test(email)) return;
-        // TODO: integrar con proveedor real (Mailchimp/ConvertKit/etc).
-        // Por ahora: feedback simple y reset.
-        alert("Gracias. Te avisamos cuando abramos calendario 2026.");
-        nlForm.reset();
+        const input = nlForm.querySelector("input[name='email']");
+        const btn = nlForm.querySelector("button[type='submit']");
+        const email = (input?.value || "").trim();
+        if (!email || !/^.+@.+\..+/.test(email)) {
+          input?.focus();
+          return;
+        }
+        const originalText = btn ? btn.textContent : "Suscribirme";
+        if (btn) { btn.disabled = true; btn.textContent = "Enviando…"; }
+
+        try {
+          const res = await fetch("/api/newsletter/subscribe", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email }),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (res.ok) {
+            nlForm.reset();
+            // Feedback inline en vez de alert intrusivo
+            if (btn) btn.textContent = data.already ? "Ya suscrito ✓" : "¡Gracias! ✓";
+            setTimeout(() => {
+              if (btn) { btn.textContent = originalText; btn.disabled = false; }
+            }, 2500);
+          } else {
+            alert(data.error || "No se pudo procesar tu suscripción. Inténtalo en unos minutos.");
+            if (btn) { btn.textContent = originalText; btn.disabled = false; }
+          }
+        } catch (err) {
+          alert("Error de conexión. Inténtalo en unos segundos.");
+          if (btn) { btn.textContent = originalText; btn.disabled = false; }
+        }
       });
     }
   }
