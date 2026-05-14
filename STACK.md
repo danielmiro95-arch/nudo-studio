@@ -14,14 +14,20 @@ de qué cuenta es qué, para qué sirve, dónde están las claves y cuánto cues
 |----------------|--------------------------------------|------------|-----------------|---------------------|
 | GitHub         | Código fuente del proyecto           | Free       | ✅ Activo       | `danielmiro95-arch` |
 | Vercel         | Hosting + deploys + env vars         | Hobby/Free | ✅ Activo       | Vinculado a GitHub  |
-| Supabase       | Auth + base de datos (Postgres)      | Free       | ✅ Activo       | Creada hoy          |
-| Anthropic      | Asistente IA del sitio (Claude)      | Pay-as-you-go | 🟡 No configurado | Falta API key   |
-| Resend         | Emails transaccionales               | Free 3k/mes | 🟡 No configurado | Falta API key   |
+| Supabase       | Auth + base de datos (Postgres)      | Free       | ✅ Activo       | Creada en 2026-05-14 |
+| Anthropic      | Asistente IA del sitio (Claude)      | Pay-as-you-go | ✅ Activo en prod | API key en Vercel env vars |
+| Resend         | Emails transaccionales               | Free 3k/mes | ✅ Activo en prod | API key en Vercel env vars |
 | Stripe         | Pagos de tienda                       | Pay-per-tx | 🟡 Gated         | Falta API key + activar `ENABLE_SHOP=true` |
 | Google Fonts   | Tipografías (Inter, Cormorant, Mono) | Free       | ✅ Activo       | No requiere cuenta  |
 | Cloudflare / Namecheap / GoDaddy | DNS del dominio nudostudio.blog | Depende | ✅ Activo (donde sea) | Donde lo compraste |
 
 Leyenda · ✅ funcionando · 🟡 código listo pero falta dar de alta o pegar claves · ❌ roto.
+
+> ⚠️ Nota sobre `.env.local`: el archivo local tiene `REPLACE_ME` como
+> placeholder en `ANTHROPIC_API_KEY` y `RESEND_API_KEY`. **Eso solo afecta
+> al desarrollo local (`npm run dev`)** — en producción Vercel tiene las
+> claves reales y todo funciona. Si quieres testear esos servicios en
+> local, copia las claves reales de Vercel a tu `.env.local`.
 
 ---
 
@@ -116,14 +122,16 @@ Authentication → Providers → Email:
 - **Coste**: pay-as-you-go por tokens consumidos. Aprox 0,003 € por mensaje
   largo. Con un límite de 20 mensajes/IP/día (configurable en
   `ASSISTANT_RATE_LIMIT_PER_DAY`).
-- **Estado actual**: 🟡 **`ANTHROPIC_API_KEY` está como `REPLACE_ME`**. El
-  asistente da error 503 hasta que pegues una API key real.
+- **Estado actual**: ✅ Activo en producción — `ANTHROPIC_API_KEY` está en
+  Vercel env vars y el chat del FAB y `/asistente` funcionan.
+  - **En local** `.env.local` tiene `REPLACE_ME` como placeholder; si quieres
+    testear el chat en `npm run dev`, copia la key real desde Vercel.
 
-### Cómo activarlo
-1. Crea cuenta en https://console.anthropic.com.
-2. Settings → API Keys → "Create Key" → copia (empieza por `sk-ant-`).
-3. Pega en `.env.local` (line `ANTHROPIC_API_KEY=`) Y en Vercel env vars.
-4. (Opcional) Añade crédito a tu cuenta — por defecto Anthropic da $5 free.
+### Si necesitas la API key (o vuelves a crearla)
+1. https://console.anthropic.com → Settings → API Keys → "Create Key".
+2. Copia (empieza por `sk-ant-`).
+3. Pega en Vercel env vars (production + preview + development).
+4. Opcional: actualiza `.env.local` para dev local.
 
 ### Personalizar el carácter del asistente
 Editar la constante `SYSTEM_PROMPT` en `src/app/api/asistente/route.ts`.
@@ -136,17 +144,18 @@ Editar la constante `SYSTEM_PROMPT` en `src/app/api/asistente/route.ts`.
   `/api/contact` recibe el form y manda un email con los datos.
 - **Dashboard**: https://resend.com
 - **Coste**: Free 3.000 emails/mes + 100/día.
-- **Estado actual**: 🟡 **`RESEND_API_KEY` está como `REPLACE_ME`**. El form
-  del contacto guarda los datos pero no manda email hasta configurarlo.
+- **Estado actual**: ✅ Activo en producción — `RESEND_API_KEY` está en Vercel
+  env vars y los emails del formulario `/contacto` se envían correctamente.
+  - **En local** `.env.local` tiene `REPLACE_ME`; si quieres testear el
+    envío de emails en `npm run dev`, copia la key real desde Vercel.
 
-### Cómo activarlo
-1. Crea cuenta en https://resend.com.
-2. Domains → "Add Domain" → `nudostudio.blog` → seguir instrucciones para
-   añadir registros DNS (SPF, DKIM, DMARC) en tu registrar de dominio.
-3. Una vez verificado, API Keys → "Create" → copia.
-4. Pega en `.env.local` (`RESEND_API_KEY=`) y en Vercel env vars.
-5. `CONTACT_EMAIL_FROM` debe usar el dominio verificado (ej. `web@nudostudio.blog`).
-6. `CONTACT_EMAIL_TO` es a dónde llegan los mensajes (tu email personal).
+### Si necesitas la API key (o reverificar dominio)
+1. https://resend.com → Domains → comprobar que `nudostudio.blog` sigue
+   verificado (registros SPF/DKIM/DMARC en el registrar).
+2. API Keys → "Create" si necesitas una nueva.
+3. Pega en Vercel env vars.
+4. `CONTACT_EMAIL_FROM` debe usar el dominio verificado (ej. `web@nudostudio.blog`).
+5. `CONTACT_EMAIL_TO` es a dónde llegan los mensajes (tu email personal).
 
 ---
 
@@ -289,8 +298,6 @@ ffmpeg -i input.mp4 -c:v libx264 -crf 22 -vf "scale=-2:1080" -an \
 
 | # | Tarea | Bloquea |
 |---|---|---|
-| 1 | Cuenta Anthropic + API key | Asistente IA actualmente da error |
-| 2 | Cuenta Resend + verificar dominio | Form de contacto no envía emails |
-| 3 | Cuenta Stripe + activar métodos + ENABLE_SHOP=true | No se cobra en "Pagar" |
-| 4 | (Opcional) Confirm email Supabase activado | Hoy registros entran sin verificar |
-| 5 | (Opcional) Email custom `hola@nudostudio.blog` | Necesita MX records |
+| 1 | Cuenta Stripe + activar métodos + ENABLE_SHOP=true | No se cobra en "Pagar" |
+| 2 | (Opcional) Confirm email Supabase activado | Hoy registros entran sin verificar |
+| 3 | (Opcional) Email custom `hola@nudostudio.blog` | Necesita MX records configurados en el registrar |
