@@ -4,27 +4,27 @@
    ============================================ */
 
 :root {
-  /* Color — base cálida con acento salmón */
-  --bg: #FAF6F2;            /* Blanco cálido con leve toque rosado */
-  --bg-soft: #F2EAE2;       /* Crema rosado */
+  /* Color — base blanco plateado con acento violeta. v2 (rework parcial). */
+  --bg: #EFEDF2;            /* Blanco plateado con tinte violet sutil */
+  --bg-soft: #E5E3EA;       /* Surface plateada */
   --bg-dark: #0A0A0A;
   --bg-darker: #050505;
   --ink: #0A0A0A;
   --ink-2: #2B2B2B;
   --ink-3: #5C5A55;
   --ink-4: #8E8B83;
-  --ink-on-dark: #FAF6F2;
+  --ink-on-dark: #EFEDF2;
   --ink-on-dark-2: #B8B5AD;
-  --line: #E8DED4;
+  --line: #D8D5E0;
   --line-dark: #1F1F1F;
 
-  /* Acentos salmón / terracota (oklch suave) */
-  --accent: oklch(0.82 0.07 35);          /* Salmón claro */
-  --accent-soft: oklch(0.91 0.045 35);    /* Salmón muy suave */
-  --accent-softest: oklch(0.95 0.025 35); /* Wash */
-  --accent-deep: oklch(0.62 0.11 30);     /* Terracota */
-  --accent-blush: oklch(0.88 0.05 25);    /* Blush */
-  --accent-sage: oklch(0.82 0.04 130);    /* Verde oliva apagado complementario */
+  /* Acentos violeta (sustituyen los pastels rosados/melocotón) */
+  --accent:        oklch(0.62 0.13 305);   /* Violeta medio */
+  --accent-soft:   oklch(0.82 0.06 305);   /* Violeta pastel claro */
+  --accent-softest: oklch(0.93 0.025 305); /* Violet wash casi blanco */
+  --accent-deep:   oklch(0.42 0.16 305);   /* Violeta saturado profundo */
+  --accent-blush:  oklch(0.75 0.10 320);   /* Magenta-violet (era blush rosa) */
+  --accent-sage:   oklch(0.82 0.04 130);   /* Verde se mantiene como contraste */
 
   /* Tipografía */
   --font-sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;

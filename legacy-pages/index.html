@@ -302,14 +302,57 @@
     animation: scCardFloat 6s ease-in-out infinite;
     will-change: transform;
   }
-  /* Paleta pastel del bento original. Rota cada 6 cards para que los
-     duplicados (clones del loop) mantengan el mismo patrón visual. */
-  .sc-card:nth-child(6n+1) { background: var(--bg-soft); }                          /* crema rosado */
-  .sc-card:nth-child(6n+2) { background: var(--accent-soft); }                       /* salmón suave */
-  .sc-card:nth-child(6n+3) { background: oklch(0.91 0.025 130); }                    /* verde claro */
-  .sc-card:nth-child(6n+4) { background: var(--accent-blush); }                      /* blush rosa */
-  .sc-card:nth-child(6n+5) { background: var(--accent-softest); }                    /* wash */
-  .sc-card:nth-child(6n+6) { background: var(--bg-soft); }                           /* crema rosado */
+  /* Rotación · 4 variantes violeta→negro + 1 verde (acento de contraste). */
+  .sc-card:nth-child(6n+1) {
+    background: linear-gradient(155deg, #9b6fb5 0%, #1a1424 100%);
+    color: #fff;
+  }
+  .sc-card:nth-child(6n+2) {
+    background: linear-gradient(155deg, #c084d0 0%, #2a1a3a 100%);
+    color: #fff;
+  }
+  .sc-card:nth-child(6n+3) {
+    background: oklch(0.91 0.025 130);  /* verde claro · acento de contraste, se queda */
+  }
+  .sc-card:nth-child(6n+4) {
+    background: linear-gradient(155deg, #a874c0 0%, #15101e 100%);
+    color: #fff;
+  }
+  .sc-card:nth-child(6n+5) {
+    background: linear-gradient(155deg, #b890c8 0%, #3a2a50 100%);
+    color: #fff;
+  }
+  .sc-card:nth-child(6n+6) {
+    background: linear-gradient(155deg, #9b6fb5 0%, #1a1424 100%);
+    color: #fff;
+  }
+  /* Override de texto/eyebrow/chip para las cards violet (no la verde). */
+  .sc-card:nth-child(6n+1) .sc-title, .sc-card:nth-child(6n+1) .sc-desc,
+  .sc-card:nth-child(6n+2) .sc-title, .sc-card:nth-child(6n+2) .sc-desc,
+  .sc-card:nth-child(6n+4) .sc-title, .sc-card:nth-child(6n+4) .sc-desc,
+  .sc-card:nth-child(6n+5) .sc-title, .sc-card:nth-child(6n+5) .sc-desc,
+  .sc-card:nth-child(6n+6) .sc-title, .sc-card:nth-child(6n+6) .sc-desc {
+    color: rgba(255, 255, 255, 0.92);
+  }
+  .sc-card:nth-child(6n+1) .sc-desc,
+  .sc-card:nth-child(6n+2) .sc-desc,
+  .sc-card:nth-child(6n+4) .sc-desc,
+  .sc-card:nth-child(6n+5) .sc-desc,
+  .sc-card:nth-child(6n+6) .sc-desc { color: rgba(255, 255, 255, 0.72); }
+  .sc-card:nth-child(6n+1) .sc-eyebrow,
+  .sc-card:nth-child(6n+2) .sc-eyebrow,
+  .sc-card:nth-child(6n+4) .sc-eyebrow,
+  .sc-card:nth-child(6n+5) .sc-eyebrow,
+  .sc-card:nth-child(6n+6) .sc-eyebrow { color: rgba(212, 192, 232, 0.95); }
+  .sc-card:nth-child(6n+1) .sc-chip,
+  .sc-card:nth-child(6n+2) .sc-chip,
+  .sc-card:nth-child(6n+4) .sc-chip,
+  .sc-card:nth-child(6n+5) .sc-chip,
+  .sc-card:nth-child(6n+6) .sc-chip {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.92);
+  }
   .sc-card:nth-child(2n) { animation-delay: -2s; }
   .sc-card:nth-child(3n) { animation-delay: -4s; }
   @keyframes scCardFloat {
