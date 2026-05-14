@@ -213,6 +213,10 @@
             <a href="/legal/privacidad">Privacidad</a>
             <a href="/legal/cookies">Cookies</a>
             <a href="/legal/terminos">Términos</a>
+            <button type="button" class="pwa-install-btn" id="pwaInstallBtn" hidden>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4v12m0 0l-4-4m4 4l4-4M5 20h14"/></svg>
+              Instalar app
+            </button>
           </div>
         </div>
       </div>

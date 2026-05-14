@@ -1320,3 +1320,99 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .nav-account:hover { background: rgba(0,0,0,0.05); border-color: var(--ink); }
 .on-dark .nav-account { border-color: rgba(255,255,255,0.18); }
 .on-dark .nav-account:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.4); }
+
+/* ============================================
+ * PWA install button (footer) + modal iOS
+ * ============================================ */
+.pwa-install-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: linear-gradient(135deg, #B8B5FF 0%, #D8A7B1 100%);
+  color: var(--ink);
+  border: 0;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.pwa-install-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -6px rgba(184,181,255,0.5);
+}
+.pwa-install-btn[hidden] { display: none; }
+
+/* Modal iOS · instrucciones */
+.pwa-ios-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background: rgba(17,17,17,0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: pwaModalIn 0.22s ease;
+}
+@keyframes pwaModalIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.pwa-ios-content {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: var(--bg);
+  border-radius: 22px;
+  padding: 32px 28px 28px;
+  box-shadow: 0 30px 80px -20px rgba(0,0,0,0.4);
+}
+.pwa-ios-content .eyebrow {
+  display: block;
+  margin-bottom: 8px;
+}
+.pwa-ios-content h3 {
+  font-size: clamp(22px, 3vw, 28px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  margin: 0 0 18px;
+  color: var(--ink);
+}
+.pwa-ios-content ol {
+  margin: 0 0 18px;
+  padding-left: 20px;
+  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.pwa-ios-content ol li { margin-bottom: 8px; }
+.pwa-ios-foot {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink-3);
+  font-style: italic;
+}
+.pwa-ios-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px; height: 36px;
+  background: transparent;
+  border: 0;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--ink-3);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.15s, color 0.15s;
+}
+.pwa-ios-close:hover {
+  background: var(--bg-soft);
+  color: var(--ink);
+}

@@ -81,6 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             que tenga <div data-slot="header" /> etc. — patrón heredado
             del diseño original, lo mantenemos para no duplicar markup. */}
         <Script src="/assets/chrome.js" strategy="afterInteractive" />
+        <Script src="/assets/pwa-install.js" strategy="afterInteractive" />
       </body>
     </html>
   );
