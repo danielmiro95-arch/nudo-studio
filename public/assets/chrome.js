@@ -43,10 +43,52 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 7h14l-1.5 11a2 2 0 0 1-2 1.7H8.5A2 2 0 0 1 6.5 18L5 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
               <span class="badge" data-cart-count>2</span>
             </a>
+            <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            </button>
           </div>
         </nav>
       </div>
-    </header>`;
+    </header>
+    <div class="nav-drawer" id="navDrawer" hidden role="dialog" aria-label="Menú">
+      <button class="nav-drawer-close" id="navDrawerClose" aria-label="Cerrar menú">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6l-12 12"/></svg>
+      </button>
+      <div class="nav-drawer-inner">
+        <ul class="nav-drawer-links">${NAV.map(n => `
+          <li><a href="${n.href}" class="${active === n.href ? 'active' : ''}">${n.label}</a></li>
+        `).join("")}</ul>
+        <div class="nav-drawer-cta">
+          <a href="/contacto" class="btn btn-light btn-lg">Pedir presupuesto</a>
+          <a href="/asistente" class="btn btn-outline-light btn-lg">Hablar con Nudo</a>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function initMobileNav() {
+    const burger = document.getElementById('navBurger');
+    const drawer = document.getElementById('navDrawer');
+    const close  = document.getElementById('navDrawerClose');
+    if (!burger || !drawer) return;
+
+    function open()  {
+      drawer.hidden = false;
+      burger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function shut() {
+      drawer.hidden = true;
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    burger.addEventListener('click', open);
+    close && close.addEventListener('click', shut);
+    drawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', shut));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !drawer.hidden) shut();
+    });
   }
 
   function renderFooter() {
@@ -297,6 +339,8 @@
 
     // Wire up el chat flotante (solo si la página tiene FAB).
     initChatWidget();
+    // Wire up el menú hamburguesa móvil.
+    initMobileNav();
   }
 
   // chrome.js se carga vía Next.js <Script strategy="afterInteractive">,

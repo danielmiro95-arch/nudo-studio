@@ -888,3 +888,94 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .lb-next  { right: 12px; }
   .lb-close { top: 12px; right: 12px; }
 }
+
+/* ============================================
+ * Mobile nav — hamburguesa + drawer
+ * ============================================ */
+.nav-burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 42px; height: 42px;
+  margin-left: 6px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.nav-burger:hover { background: rgba(0,0,0,0.04); }
+.on-dark .nav-burger { border-color: rgba(255,255,255,0.22); }
+.on-dark .nav-burger:hover { background: rgba(255,255,255,0.08); }
+
+@media (max-width: 700px) {
+  .nav-burger { display: inline-flex; }
+}
+
+.nav-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  background: var(--ink);
+  color: var(--ink-on-dark);
+  overflow-y: auto;
+  animation: navDrawerIn 0.32s cubic-bezier(.22,1,.36,1);
+}
+.nav-drawer[hidden] { display: none; }
+@keyframes navDrawerIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.nav-drawer-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  width: 44px; height: 44px;
+  background: none;
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 50%;
+  color: inherit;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.15s;
+}
+.nav-drawer-close:hover { background: rgba(255,255,255,0.1); }
+.nav-drawer-inner {
+  min-height: 100%;
+  padding: 80px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.nav-drawer-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.nav-drawer-links li { border-bottom: 1px solid rgba(255,255,255,0.08); }
+.nav-drawer-links a {
+  display: block;
+  padding: 18px 0;
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
+  font-size: clamp(28px, 7vw, 36px);
+  font-style: italic;
+  letter-spacing: -0.02em;
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  transition: color 0.15s, padding-left 0.18s;
+}
+.nav-drawer-links a:hover,
+.nav-drawer-links a.active {
+  color: var(--ink-on-dark);
+  padding-left: 8px;
+}
+.nav-drawer-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.nav-drawer-cta .btn { justify-content: center; }
