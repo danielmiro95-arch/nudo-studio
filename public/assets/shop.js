@@ -50,7 +50,15 @@
     return frag;
   }
 
-  grid.appendChild(buildPlaceholderCards(200));
+  // Divider visual entre productos reales y placeholders (eyebrow
+   // centrado con hairline), para que no se note el salto de cards
+   // con foto a cards beige genéricas.
+  const divider = document.createElement('div');
+  divider.className = 'product-grid-divider';
+  divider.innerHTML = '<span class="eyebrow">Más del catálogo</span>';
+  grid.appendChild(divider);
+
+  grid.appendChild(buildPlaceholderCards(36));
 
   // Después de inyectar: refrescamos la lista de items.
   const items   = Array.from(grid.querySelectorAll('.product-card'));

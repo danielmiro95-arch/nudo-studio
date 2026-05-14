@@ -640,6 +640,30 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .product-card.is-placeholder .price {
   color: var(--ink-3);
 }
+/* Divider entre productos reales y placeholders en /tienda. */
+.product-grid-divider {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 48px 0 24px;
+  margin-top: 24px;
+}
+.product-grid-divider::before,
+.product-grid-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.product-grid-divider .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-weight: 500;
+}
 
 /* ============================================
  * Chat flotante (panel desplegable del FAB)
