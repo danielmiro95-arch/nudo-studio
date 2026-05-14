@@ -28,10 +28,16 @@
     item.dataset.category = metaText;
   });
 
+  // Estado inicial aria-pressed
+  filters.forEach((b) => b.setAttribute('aria-pressed', String(b.classList.contains('active'))));
   filters.forEach((btn) => {
     btn.addEventListener('click', () => {
-      filters.forEach((b) => b.classList.remove('active'));
+      filters.forEach((b) => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
       const label = btn.textContent.trim();
       const re = CATEGORY_MAP[label];
       items.forEach((item) => {

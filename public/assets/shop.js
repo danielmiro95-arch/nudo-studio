@@ -92,10 +92,16 @@
     return text.replace(/\s*\(.*\)\s*$/, '').trim();
   }
 
+  // Estado inicial aria-pressed
+  filters.forEach((b) => b.setAttribute('aria-pressed', String(b.classList.contains('active'))));
   filters.forEach((btn) => {
     btn.addEventListener('click', () => {
-      filters.forEach((b) => b.classList.remove('active'));
+      filters.forEach((b) => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
       const name = filterName(btn.textContent);
       items.forEach((item) => {
         const isPlaceholder = item.dataset.placeholder === '1';

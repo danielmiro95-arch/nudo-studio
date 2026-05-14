@@ -95,6 +95,16 @@
     return `
     <footer class="site-footer">
       <div class="container-wide">
+        <div class="footer-newsletter">
+          <div>
+            <h3>Reserva fecha para 2026</h3>
+            <p>Recibe novedades del estudio, eventos próximos y disponibilidad antes de que se cierre el calendario.</p>
+          </div>
+          <form class="newsletter-form" id="newsletterForm" novalidate>
+            <input type="email" name="email" placeholder="tu@email.com" required aria-label="Tu email">
+            <button type="submit">Suscribirme</button>
+          </form>
+        </div>
         <div class="footer-grid">
           <div class="footer-brand">
             <a href="/" class="nav-brand" style="color: var(--ink-on-dark);">
@@ -341,6 +351,20 @@
     initChatWidget();
     // Wire up el menú hamburguesa móvil.
     initMobileNav();
+
+    // Wire up el form del newsletter del footer.
+    const nlForm = document.getElementById("newsletterForm");
+    if (nlForm) {
+      nlForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = (nlForm.querySelector("input[name='email']").value || "").trim();
+        if (!email || !/^.+@.+\..+/.test(email)) return;
+        // TODO: integrar con proveedor real (Mailchimp/ConvertKit/etc).
+        // Por ahora: feedback simple y reset.
+        alert("Gracias. Te avisamos cuando abramos calendario 2026.");
+        nlForm.reset();
+      });
+    }
   }
 
   // chrome.js se carga vía Next.js <Script strategy="afterInteractive">,

@@ -8,9 +8,13 @@
     // ─── Accordion ──────────────────────────────────────────────────
     const questions = document.querySelectorAll('.faq-list .q');
     questions.forEach((q) => {
+      // Estado inicial aria-expanded coherente con .open
+      const item = q.closest('.item');
+      q.setAttribute('aria-expanded', String(!!(item && item.classList.contains('open'))));
       q.addEventListener('click', () => {
-        const item = q.closest('.item');
-        if (item) item.classList.toggle('open');
+        if (!item) return;
+        item.classList.toggle('open');
+        q.setAttribute('aria-expanded', String(item.classList.contains('open')));
       });
     });
 
@@ -26,11 +30,17 @@
       });
     }
 
+    // Estado inicial aria-pressed coherente con .active
+    tabs.forEach((t) => t.setAttribute('aria-pressed', String(t.classList.contains('active'))));
     tabs.forEach((tab) => {
       tab.addEventListener('click', (e) => {
         e.preventDefault();
-        tabs.forEach((t) => t.classList.remove('active'));
+        tabs.forEach((t) => {
+          t.classList.remove('active');
+          t.setAttribute('aria-pressed', 'false');
+        });
         tab.classList.add('active');
+        tab.setAttribute('aria-pressed', 'true');
         applyFilter(tab.dataset.cat);
       });
     });

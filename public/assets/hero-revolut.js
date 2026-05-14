@@ -101,8 +101,13 @@
       // desde origen "center" sigue en H/2) hasta cardCY.
       const targetTy = cardCY - H / 2;
       const bgTy     = lerp(0, targetTy, p);
+      // Translate X: en photo-principal la pareja está ligeramente a la
+      // derecha del centro. Desplazamos la imagen a la izquierda al
+      // final de la transición para que el sujeto quede centrado en la
+      // card. (Negativo = mueve imagen hacia la izquierda.)
+      const bgTx     = lerp(0, -70, p);
       heroBgImg.style.transformOrigin = 'center center';
-      heroBgImg.style.transform = `translate(0, ${bgTy.toFixed(1)}px) scale(${bgScale.toFixed(3)})`;
+      heroBgImg.style.transform = `translate(${bgTx.toFixed(1)}px, ${bgTy.toFixed(1)}px) scale(${bgScale.toFixed(3)})`;
     }
     // Limpia transform residual del padre por si la versión anterior
     // lo dejó puesto (cache de browser durante deploy).
