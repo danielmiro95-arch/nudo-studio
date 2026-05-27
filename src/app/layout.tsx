@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 
 const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME ?? 'Nudo Studio';
@@ -84,6 +86,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script src="/assets/nudo-ai-orb.js" strategy="beforeInteractive" />
         <Script src="/assets/chrome.js" strategy="afterInteractive" />
         <Script src="/assets/pwa-install.js" strategy="afterInteractive" />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
