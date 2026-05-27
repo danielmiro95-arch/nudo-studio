@@ -33,7 +33,15 @@
       <div class="container-wide">
         <nav class="nav">
           <a href="/" class="nav-brand">
-            <span class="nav-brand-mark" aria-hidden="true">N</span>
+            <span class="nav-brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <g fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="100" cy="74" r="38"/>
+                  <circle cx="73" cy="121" r="38"/>
+                  <circle cx="127" cy="121" r="38"/>
+                </g>
+              </svg>
+            </span>
             <span class="nav-brand-text">Nudo<span style="opacity:0.55"> Studio</span></span>
           </a>
           <ul class="nav-links">${links}</ul>
@@ -169,7 +177,15 @@
         <div class="footer-grid">
           <div class="footer-brand">
             <a href="/" class="nav-brand" style="color: var(--ink-on-dark);">
-              <span class="nav-brand-mark" aria-hidden="true" style="filter: invert(1);">N</span>
+              <span class="nav-brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                  <g fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="100" cy="74" r="38"/>
+                    <circle cx="73" cy="121" r="38"/>
+                    <circle cx="127" cy="121" r="38"/>
+                  </g>
+                </svg>
+              </span>
               <span class="nav-brand-text">Nudo<span style="opacity:0.55"> Studio</span></span>
             </a>
             <p class="footer-tag">
@@ -230,7 +246,7 @@
     // intercepta initChatWidget() y abre el panel flotante.
     return `
       <a href="/asistente" class="ai-fab" id="aiFab" aria-label="Abrir chat con asistente IA">
-        <span class="ai-fab-dot"></span>
+        <span class="ai-fab-dot"><nudo-ai-orb id="fab-orb" variant="orbe" state="idle" size="28"></nudo-ai-orb></span>
         <span>Hola, soy Nudo · ¿hablamos?</span>
       </a>
       <div class="ai-chat-panel" id="aiChatPanel" hidden role="dialog" aria-label="Chat con asistente Nudo">
@@ -315,6 +331,24 @@
     const send   = document.getElementById("aiChatSend");
     if (!fab || !panel) return;
 
+    // ── Orbe IA del FAB: control de estados conversacionales ──
+    const fabOrb = document.getElementById("fab-orb");
+    let orbResetTimer = null;
+    function setFabOrb(state) {
+      if (fabOrb) fabOrb.setAttribute("state", state);
+    }
+    function fabOrbReplyCycle() {
+      if (orbResetTimer) clearTimeout(orbResetTimer);
+      setFabOrb("reply");
+      orbResetTimer = setTimeout(() => {
+        setFabOrb("done");
+        orbResetTimer = setTimeout(() => {
+          setFabOrb("idle");
+          orbResetTimer = null;
+        }, 1400);
+      }, 900);
+    }
+
     function openPanel() {
       panel.hidden = false;
       renderHistory(thread);
@@ -342,6 +376,12 @@
     });
 
     if (!form) return;
+
+    input.addEventListener("input", () => {
+      if (orbResetTimer) return;
+      setFabOrb(input.value.trim() ? "listen" : "idle");
+    });
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const text = (input.value || "").trim();
@@ -356,6 +396,7 @@
       const thinking = renderBubble(thread, "assistant", "·  ·  ·", { thinking: true });
       send.disabled = true;
       input.disabled = true;
+      setFabOrb("think");
 
       try {
         const res = await fetch("/api/asistente", {
@@ -372,10 +413,12 @@
           renderBubble(thread, "assistant", data.content);
           history.push({ role: "assistant", content: data.content });
           writeHistory(history);
+          fabOrbReplyCycle();
         } else {
           const msg = (data && data.error)
             || "No he podido responder. Inténtalo en unos minutos o escríbenos a hola@nudostudio.blog.";
           renderBubble(thread, "assistant", msg);
+          setFabOrb("idle");
           if (res.status === 429) {
             input.disabled = true;
             send.disabled = true;
@@ -386,6 +429,7 @@
         thinking.remove();
         renderBubble(thread, "assistant",
           "Parece que hay un problema de conexión. Inténtalo en unos segundos.");
+        setFabOrb("idle");
       } finally {
         input.disabled = false;
         send.disabled = false;

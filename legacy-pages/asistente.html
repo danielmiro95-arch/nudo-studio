@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="description" content="Habla con Nudo, el asistente IA de Nudo Studio. Mood-boards, presupuestos y propuestas para tu evento al instante.">
-<link rel="icon" href="assets/logo-nudo-trim.png">
+<link rel="icon" type="image/svg+xml" href="/assets/logo-trifolio.svg">
 <title>Asistente Nudo — IA</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -77,8 +77,10 @@
   .ai-avatar-lg {
     width: 56px; height: 56px;
     border-radius: 50%;
-    background: var(--bg-soft) url('assets/logo-asistente-trim.png') center/82% no-repeat;
+    background: var(--bg-soft);
     box-shadow: 0 0 0 1px var(--line) inset;
+    display: grid;
+    place-items: center;
     position: relative;
     flex-shrink: 0;
   }
@@ -208,7 +210,9 @@
 
   <main class="ai-main">
     <div class="ai-header">
-      <div class="ai-avatar-lg"></div>
+      <div class="ai-avatar-lg">
+        <nudo-ai-orb id="main-orb" variant="orbe" state="idle" size="40"></nudo-ai-orb>
+      </div>
       <div>
         <div style="font-size: 17px; font-weight: 600; letter-spacing: -0.01em;">Nudo · Asistente</div>
         <div style="font-size: 13px; color: var(--ink-3);">En línea · responde al instante · powered by IA</div>
