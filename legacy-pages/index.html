@@ -483,8 +483,10 @@
   .ai-mock-avatar {
     width: 44px; height: 44px;
     border-radius: 50%;
-    background: var(--bg-soft) url('assets/logo-asistente-trim.png') center/82% no-repeat;
+    background: var(--bg-soft);
     box-shadow: 0 0 0 1px var(--line) inset;
+    display: grid;
+    place-items: center;
     position: relative;
     flex-shrink: 0;
   }
@@ -872,7 +874,9 @@
       </div>
       <div class="ai-mock" aria-hidden="true">
         <div class="ai-mock-head">
-          <div class="ai-mock-avatar"></div>
+          <div class="ai-mock-avatar">
+            <nudo-ai-orb variant="orbe" state="idle" size="32"></nudo-ai-orb>
+          </div>
           <div>
             <div style="font-weight:500;">Nudo · Asistente</div>
             <div style="font-size:13px; color: var(--ink-3);">en línea · responde al instante</div>
