@@ -174,6 +174,24 @@
     // Empezamos vacío — el system prompt vive en el servidor.
     var history = [];
 
+    // ── Orbe IA: control de estados conversacionales ──
+    var orb = document.getElementById('main-orb');
+    var orbResetTimer = null;
+    function setOrb(state) {
+      if (orb) orb.setAttribute('state', state);
+    }
+    function orbReplyCycle() {
+      if (orbResetTimer) clearTimeout(orbResetTimer);
+      setOrb('reply');
+      orbResetTimer = setTimeout(function () {
+        setOrb('done');
+        orbResetTimer = setTimeout(function () {
+          setOrb('idle');
+          orbResetTimer = null;
+        }, 1400);
+      }, 900);
+    }
+
     // Renderiza una burbuja en el thread.
     function appendBubble(role, content, opts) {
       opts = opts || {};
@@ -212,6 +230,7 @@
       var thinking = appendBubble('assistant', '·  ·  ·', { thinking: true });
       if (sendBtn) sendBtn.disabled = true;
       input.disabled = true;
+      setOrb('think');
 
       try {
         var res = await fetch('/api/asistente', {
@@ -227,10 +246,12 @@
         if (res.ok && data && data.content) {
           appendBubble('assistant', data.content);
           history.push({ role: 'assistant', content: data.content });
+          orbReplyCycle();
         } else {
           var msg = (data && data.error) ||
             'No he podido responder. Inténtalo en unos minutos o escríbenos a hola@nudostudio.com.';
           appendBubble('assistant', msg);
+          setOrb('idle');
           // No metemos errores en history para no contaminar el contexto
           if (res.status === 429) {
             input.disabled = true;
@@ -242,6 +263,7 @@
         thinking.remove();
         console.error('assistant error', err);
         appendBubble('assistant', 'Parece que hay un problema de conexión. Inténtalo en unos segundos.');
+        setOrb('idle');
       } finally {
         input.disabled = false;
         if (sendBtn) sendBtn.disabled = false;
@@ -255,6 +277,11 @@
         e.preventDefault();
         send(input.value);
       }
+    });
+    input.addEventListener('input', function () {
+      // Solo reflejamos listen/idle si no hay un ciclo de respuesta en curso
+      if (orbResetTimer) return;
+      setOrb(input.value.trim() ? 'listen' : 'idle');
     });
     if (sendBtn) sendBtn.addEventListener('click', function () { send(input.value); });
 

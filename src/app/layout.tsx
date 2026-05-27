@@ -41,6 +41,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: '/assets/logo-trifolio.svg', type: 'image/svg+xml' },
       { url: '/assets/favicon-16.png', sizes: '16x16', type: 'image/png' },
       { url: '/assets/favicon-32.png', sizes: '32x32', type: 'image/png' },
       { url: '/assets/icon-192.png', sizes: '192x192', type: 'image/png' },
@@ -80,6 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* chrome.js inyecta header / footer / FAB en cualquier página
             que tenga <div data-slot="header" /> etc. — patrón heredado
             del diseño original, lo mantenemos para no duplicar markup. */}
+        <Script src="/assets/nudo-ai-orb.js" strategy="beforeInteractive" />
         <Script src="/assets/chrome.js" strategy="afterInteractive" />
         <Script src="/assets/pwa-install.js" strategy="afterInteractive" />
       </body>
