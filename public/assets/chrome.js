@@ -193,7 +193,7 @@
             </p>
           </div>
           <div class="footer-col">
-            <h4>Estudio</h4>
+            <h3 class="footer-col-title">Estudio</h3>
             <ul>
               <li><a href="/sobre-nosotros">Sobre nosotros</a></li>
               <li><a href="/galeria">Portfolio</a></li>
@@ -202,7 +202,7 @@
             </ul>
           </div>
           <div class="footer-col">
-            <h4>Servicios</h4>
+            <h3 class="footer-col-title">Servicios</h3>
             <ul>
               <li><a href="/servicios#bodas">Bodas</a></li>
               <li><a href="/servicios#comuniones">Comuniones</a></li>
@@ -212,7 +212,7 @@
             </ul>
           </div>
           <div class="footer-col">
-            <h4>Tienda</h4>
+            <h3 class="footer-col-title">Tienda</h3>
             <ul>
               <li><a href="/tienda">Catálogo</a></li>
               <li><a href="/tienda?cat=decoracion">Decoración</a></li>

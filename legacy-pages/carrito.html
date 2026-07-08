@@ -43,7 +43,8 @@
   .step-tab .num { display: inline-block; margin-right: 8px; font-weight: 600; }
 
   /* ─── PASOS ─────────────────────────────────────────────── */
-  .checkout-step h1 {
+  .checkout-step h1,
+  .checkout-step h2.step-title {
     font-size: clamp(32px, 4vw, 48px);
     line-height: 1.05;
     letter-spacing: -0.03em;
@@ -245,7 +246,7 @@
 
     <!-- ─── PASO 2: DATOS ─── -->
     <section class="checkout-step" data-step="data" hidden>
-      <h1>Datos de envío</h1>
+      <h2 class="step-title">Datos de envío</h2>
 
       <form id="data-form" novalidate>
         <div class="form-block">
@@ -276,7 +277,7 @@
 
     <!-- ─── PASO 3: PAGO ─── -->
     <section class="checkout-step" data-step="pay" hidden>
-      <h1>Método de pago</h1>
+      <h2 class="step-title">Método de pago</h2>
 
       <div class="pay-options">
         <label class="pay-opt is-active">
