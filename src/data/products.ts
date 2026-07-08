@@ -115,18 +115,8 @@ export const products: Product[] = [
     category: 'papeleria',
     customizable: true,
   },
-  {
-    slug: 'set-papel',
-    name: 'Set de Papelería',
-    shortDescription: 'Hojas y sobres en papel hecho a mano.',
-    longDescription:
-      'Set de papelería en papel hecho a mano, tono crudo, textura ligera. Pensado para escritura a mano o impresión bajo demanda en pequeño formato.',
-    priceCents: 1400,
-    currency: 'EUR',
-    images: ['/assets/producto-set-papel.jpg'],
-    available: true,
-    category: 'papeleria',
-  },
+  // 'set-papel' retirado: su única imagen era un mockup de Freepik con
+  // marca de agua. Reincorporar cuando exista foto real del producto.
 ];
 
 export function getProductBySlug(slug: string): Product | null {

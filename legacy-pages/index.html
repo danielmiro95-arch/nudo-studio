@@ -243,6 +243,10 @@
 
   @media (max-width: 760px) {
     .front-copy { padding: 80px 6vw 0; }
+    /* Acota el copy al viewport: sin esto el bloque conserva ~520px
+       y se recorta por la derecha en pantallas estrechas. */
+    .front-copy-box { max-width: 88vw; }
+    .front-copy-box p { max-width: 100%; }
     .front-copy-box h1 { font-size: clamp(32px, 9vw, 48px); }
     .hero-end-heading { font-size: clamp(56px, 16vw, 88px); }
   }
@@ -638,7 +642,7 @@
     <div class="hero-image-bg" id="heroBg">
       <picture>
         <source type="image/webp" srcset="assets/photo-principal.webp">
-        <img src="assets/photo-principal.jpg" alt="" aria-hidden="true">
+        <img src="assets/photo-principal.jpg" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
       </picture>
     </div>
 
@@ -655,7 +659,7 @@
       <a href="servicios.html#comuniones">
         <picture>
           <source type="image/webp" srcset="assets/photo-comuniones.webp">
-          <img src="assets/photo-comuniones.jpg" alt="Comuniones">
+          <img src="assets/photo-comuniones.jpg" alt="Comuniones" loading="lazy" decoding="async">
         </picture>
         <div class="scroll-card-copy">
           <h3>Comuniones</h3>
@@ -839,10 +843,10 @@
           <div class="name">Ramo Conservado</div>
           <div class="price">64 €</div>
         </a>
-        <a href="/producto/set-papel" class="shop-card">
-          <div class="img-ph dark has-photo" style="--photo: image-set(url('assets/producto-set-papel.webp') type('image/webp'), url('assets/producto-set-papel.jpg') type('image/jpeg'));"><span class="img-ph-label">Papelería</span></div>
-          <div class="name">Set papelería personalizada</div>
-          <div class="price">desde 32 €</div>
+        <a href="/producto/sellos" class="shop-card">
+          <div class="img-ph dark has-photo" style="--photo: image-set(url('assets/producto-sellos.webp') type('image/webp'), url('assets/producto-sellos.jpg') type('image/jpeg'));"><span class="img-ph-label">Sellos de lacre</span></div>
+          <div class="name">Sellos de lacre · monograma</div>
+          <div class="price">9 €</div>
         </a>
       </div>
     </div>

@@ -10,7 +10,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nudostudio.blog';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — Eventos & Regalos a mano`,
+    default: `${SITE_NAME} — Bodas, eventos íntimos y regalos a mano en Madrid`,
     template: `%s — ${SITE_NAME}`,
   },
   description:
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     locale: 'es_ES',
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: `${SITE_NAME} — Eventos & Regalos a mano`,
+    title: `${SITE_NAME} — Bodas, eventos íntimos y regalos a mano en Madrid`,
     description:
       'Estudio de eventos íntimos y atelier de regalos a mano. Madrid.',
     images: [
@@ -67,6 +67,25 @@ export const viewport: Viewport = {
   themeColor: '#0A0A0A',
 };
 
+const LOCAL_BUSINESS_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: SITE_NAME,
+  description:
+    'Estudio de eventos íntimos y atelier de regalos a mano. Bodas, comuniones y celebraciones con dirección de diseño.',
+  url: SITE_URL,
+  logo: `${SITE_URL}/assets/icon-512.png`,
+  image: `${SITE_URL}/assets/photo-principal.jpg`,
+  email: 'hola@nudostudio.blog',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Madrid',
+    addressCountry: 'ES',
+  },
+  areaServed: 'Madrid',
+  priceRange: '€€',
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
@@ -76,6 +95,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap"
           rel="stylesheet"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(LOCAL_BUSINESS_LD) }}
         />
       </head>
       <body>

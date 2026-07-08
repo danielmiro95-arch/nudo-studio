@@ -13,7 +13,7 @@
   --bg-darker: #050505;     /* Sombras ultraprofundas */
   --ink: #111111;           /* Texto principal — negro profundo */
   --ink-2: #2B2B2B;
-  --ink-3: #6F6B67;         /* Texto secundario — gris cálido */
+  --ink-3: #6A6662;         /* Texto secundario — gris cálido (AA 4.5:1 también sobre --bg-soft) */
   --ink-4: #8E8B83;
   --ink-on-dark: #FAF8F5;
   --ink-on-dark-2: #B8B5AD;
@@ -350,7 +350,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: var(--ink-on-dark-2);
   max-width: 36ch;
 }
-.footer-col h4 {
+.footer-col h3.footer-col-title {
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.16em;
@@ -670,11 +670,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   box-shadow: 0 0 0 4px rgba(10,10,10,0.06);
 }
 
-/* Utility */
+/* Utility — !important para que ninguna regla posterior de componente
+   (p.ej. .nav-account { display:inline-flex }) la anule en móvil. */
 .hide-on-mobile { display: initial; }
 .show-on-mobile { display: none; }
 @media (max-width: 700px) {
-  .hide-on-mobile { display: none; }
+  .hide-on-mobile { display: none !important; }
   .show-on-mobile { display: initial; }
 }
 
