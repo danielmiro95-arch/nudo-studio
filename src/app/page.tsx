@@ -3,7 +3,9 @@ import type { Metadata } from 'next';
 import { readLegacyPage } from '@/lib/legacy-html';
 
 export const metadata: Metadata = {
-  title: 'Eventos & Regalos a mano',
+  // absolute: evita el template "%s — Nudo Studio" porque el título
+  // ya incluye la marca al principio.
+  title: { absolute: 'Nudo Studio — Bodas, eventos íntimos y regalos a mano en Madrid' },
   description:
     'Estudio de eventos íntimos y atelier de regalos a mano. Bodas, comuniones y celebraciones con dirección de diseño. Madrid.',
   alternates: { canonical: '/' },
