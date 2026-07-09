@@ -50,17 +50,11 @@
     return frag;
   }
 
-  // Divider visual entre productos reales y placeholders (eyebrow
-   // centrado con hairline), para que no se note el salto de cards
-   // con foto a cards beige genéricas.
-  const divider = document.createElement('div');
-  divider.className = 'product-grid-divider';
-  divider.innerHTML = '<span class="eyebrow">Más del catálogo</span>';
-  grid.appendChild(divider);
+  // Placeholders retirados: el catálogo muestra solo productos reales.
+  // buildPlaceholderCards() se conserva por si hiciera falta previsualizar
+  // el layout de un catálogo grande durante el desarrollo.
+  void buildPlaceholderCards;
 
-  grid.appendChild(buildPlaceholderCards(36));
-
-  // Después de inyectar: refrescamos la lista de items.
   const items   = Array.from(grid.querySelectorAll('.product-card'));
   const filters = Array.from(document.querySelectorAll('.cat-pill'));
   if (!filters.length) return;
@@ -91,6 +85,16 @@
   function filterName(text) {
     return text.replace(/\s*\(.*\)\s*$/, '').trim();
   }
+
+  // Contadores reales calculados del catálogo (los del HTML eran estáticos
+  // y quedaban desfasados al añadir o retirar productos).
+  filters.forEach((btn) => {
+    const name = filterName(btn.textContent);
+    const count = name === 'Todo'
+      ? items.length
+      : items.filter((it) => (it.dataset.categories || '').split('|').includes(name)).length;
+    btn.textContent = `${name} (${count})`;
+  });
 
   // Estado inicial aria-pressed
   filters.forEach((b) => b.setAttribute('aria-pressed', String(b.classList.contains('active'))));
