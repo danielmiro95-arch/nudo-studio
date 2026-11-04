@@ -65,6 +65,11 @@ export async function readLegacyPage(filename: string): Promise<LegacyPage> {
     return `${attr}="${route}${suffix}"`;
   });
 
+  // Destino del enlace «Saltar al contenido» (layout.tsx).
+  if (!/id="contenido"/.test(body)) {
+    body = body.replace(/(<div data-slot="header"><\/div>)/, '$1<span id="contenido" tabindex="-1"></span>');
+  }
+
   return { body, styles };
 }
 

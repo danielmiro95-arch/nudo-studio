@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type Props = {
   slug: string;
@@ -18,6 +18,18 @@ export default function AddToCart({ slug, name, priceCents, options }: Props) {
   const [qty, setQty] = useState(1);
   const [opt, setOpt] = useState(options?.values[0] ?? '');
   const [added, setAdded] = useState(false);
+  const [sticky, setSticky] = useState(false);
+  const addRef = useRef<HTMLButtonElement>(null);
+
+  // Barra fija en móvil cuando el botón principal sale de pantalla.
+  useEffect(() => {
+    const el = addRef.current;
+    if (!el) return;
+    const onScroll = () => setSticky(el.getBoundingClientRect().bottom < 0);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   function add() {
     let cart: CartItem[] = [];
@@ -59,9 +71,13 @@ export default function AddToCart({ slug, name, priceCents, options }: Props) {
           <span aria-live="polite">{qty}</span>
           <button type="button" aria-label="Añadir uno" onClick={() => setQty((q) => q + 1)}>+</button>
         </div>
-        <button type="button" className="pdp26-add" onClick={add}>
+        <button ref={addRef} type="button" className="pdp26-add" onClick={add}>
           {added ? 'Añadido ✓' : `Añadir al carrito · ${fmt(priceCents * qty)}`}
         </button>
+      </div>
+      <div className={`pdp26-sticky${sticky ? ' on' : ''}`} aria-hidden={!sticky}>
+        <span className="n"><b>{name}</b>{fmt(priceCents * qty)}</span>
+        <button type="button" tabIndex={sticky ? 0 : -1} onClick={add}>{added ? 'Añadido ✓' : 'Añadir'}</button>
       </div>
       {added && (
         <p className="pdp26-added" role="status">
