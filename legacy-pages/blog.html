@@ -36,6 +36,12 @@
     margin-top: 14px;
   }
 
+  .post-img{display:block}.post-img img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:var(--radius-card);background:#F1EAE2}
+  .feat .post-img img{aspect-ratio:4/3;border-radius:var(--radius-lg)}
+  .post .post-img{margin-bottom:18px;overflow:hidden;border-radius:var(--radius-card)}
+  .post .post-img img{transition:transform .6s cubic-bezier(.22,1,.36,1)}.post:hover .post-img img{transform:scale(1.03)}
+  .post h3 a,.feat h2 a{color:inherit;text-decoration:none}.post h3 a::after{content:"";position:absolute;inset:0}
+  .post{position:relative}
   .post-grid {
     margin-top: 64px;
     display: grid;
@@ -69,50 +75,50 @@
 
 <div class="container-wide">
   <article class="feat">
-    <div class="img-ph"><span class="img-ph-label">Reportaje principal</span></div>
+    <a href="/blog/boda-intima-finca-madrid" class="post-img" aria-hidden="true" tabindex="-1"><picture><source type="image/avif" srcset="assets/photo-finca-800.avif 800w, assets/photo-finca.avif 1600w" sizes="(max-width:800px) 100vw, 50vw"><img src="assets/photo-finca-800.webp" alt="" loading="lazy" decoding="async"></picture></a>
     <div>
       <span class="meta" style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; color: var(--ink-3); text-transform: uppercase;">Bodas · 12 min</span>
-      <h2>Cómo diseñamos una boda íntima en una finca de Madrid sin caer en el típico "rústico-elegante".</h2>
-      <p style="margin-top: 14px; color: var(--ink-3); max-width: 56ch;">El proceso, los proveedores, el presupuesto real y los tres errores que casi cometemos. Una crónica de la boda de M&D, septiembre de 2025.</p>
-      <a href="#" class="btn btn-outline" style="margin-top: 24px;">Leer →</a>
+      <h2><a href="/blog/boda-intima-finca-madrid">Cómo diseñamos una boda íntima en una finca de Madrid sin caer en el típico "rústico-elegante".</a></h2>
+      <p style="margin-top: 14px; color: var(--ink-3); max-width: 56ch;">El proceso, las decisiones de diseño y los tres errores que casi cometemos. Crónica de la boda de Marta y Diego en Finca El Espinar, septiembre de 2025.</p>
+      <a href="/blog/boda-intima-finca-madrid" class="btn btn-outline" style="margin-top: 24px;">Leer la crónica →</a>
     </div>
   </article>
 
   <div class="post-grid">
     <article class="post">
-      <div class="img-ph"><span class="img-ph-label">Paleta otoño</span></div>
+      <a href="/blog/paletas-otono" class="post-img" aria-hidden="true" tabindex="-1"><picture><source type="image/avif" srcset="assets/photo-detalle-800.avif 800w, assets/photo-detalle.avif 1600w" sizes="(max-width:800px) 100vw, 50vw"><img src="assets/photo-detalle-800.webp" alt="" loading="lazy" decoding="async"></picture></a>
       <div class="meta">Estilo · 6 min</div>
-      <h3>Paletas de otoño que no son ni rojo ni naranja.</h3>
+      <h3><a href="/blog/paletas-otono">Paletas de otoño que no son ni rojo ni naranja.</a></h3>
       <p>Cinco direcciones cromáticas para celebrar entre octubre y noviembre.</p>
     </article>
     <article class="post">
-      <div class="img-ph"><span class="img-ph-label">Mesa</span></div>
+      <a href="/blog/mesa-sin-centro-de-mesa" class="post-img" aria-hidden="true" tabindex="-1"><picture><source type="image/avif" srcset="assets/photo-mesa-800.avif 800w, assets/photo-mesa.avif 1600w" sizes="(max-width:800px) 100vw, 50vw"><img src="assets/photo-mesa-800.webp" alt="" loading="lazy" decoding="async"></picture></a>
       <div class="meta">Diseño · 4 min</div>
-      <h3>Una mesa bonita no necesita centro de mesa.</h3>
+      <h3><a href="/blog/mesa-sin-centro-de-mesa">Una mesa bonita no necesita centro de mesa.</a></h3>
       <p>Cuándo prescindir del centro y qué poner en su lugar.</p>
     </article>
     <article class="post">
-      <div class="img-ph"><span class="img-ph-label">Atelier</span></div>
+      <a href="/blog/recorrido-caja-nudo" class="post-img" aria-hidden="true" tabindex="-1"><picture><source type="image/avif" srcset="assets/producto-caja-regalo-800.avif 800w, assets/producto-caja-regalo.avif 1600w" sizes="(max-width:800px) 100vw, 50vw"><img src="assets/producto-caja-regalo-800.webp" alt="" loading="lazy" decoding="async"></picture></a>
       <div class="meta">Atelier · 8 min</div>
-      <h3>El recorrido de una caja Nudo, de la idea al lazo.</h3>
+      <h3><a href="/blog/recorrido-caja-nudo">El recorrido de una caja Nudo, de la idea al lazo.</a></h3>
       <p>Cómo se hace cada caja en el taller, paso a paso.</p>
     </article>
     <article class="post">
-      <div class="img-ph"><span class="img-ph-label">Destino</span></div>
+      <a href="/blog/boda-destino-tres-dias" class="post-img" aria-hidden="true" tabindex="-1"><picture><source type="image/avif" srcset="assets/photo-destino-800.avif 800w, assets/photo-destino.avif 1600w" sizes="(max-width:800px) 100vw, 50vw"><img src="assets/photo-destino-800.webp" alt="" loading="lazy" decoding="async"></picture></a>
       <div class="meta">Crónica · 10 min</div>
-      <h3>Tres días produciendo una boda destino.</h3>
+      <h3><a href="/blog/boda-destino-tres-dias">Tres días produciendo una boda destino.</a></h3>
       <p>Logística, materiales locales y el clima como variable.</p>
     </article>
     <article class="post">
-      <div class="img-ph"><span class="img-ph-label">Comunión</span></div>
+      <a href="/blog/comuniones-para-ninos" class="post-img" aria-hidden="true" tabindex="-1"><picture><source type="image/avif" srcset="assets/photo-comuniones-800.avif 800w, assets/photo-comuniones.avif 1600w" sizes="(max-width:800px) 100vw, 50vw"><img src="assets/photo-comuniones-800.webp" alt="" loading="lazy" decoding="async"></picture></a>
       <div class="meta">Familia · 5 min</div>
-      <h3>Comuniones sin disfraces de adulto pequeño.</h3>
+      <h3><a href="/blog/comuniones-para-ninos">Comuniones sin disfraces de adulto pequeño.</a></h3>
       <p>Diez ideas para que el día sea de los niños, no de los adultos.</p>
     </article>
     <article class="post">
-      <div class="img-ph"><span class="img-ph-label">Regalos</span></div>
+      <a href="/blog/regalos-que-no-se-quedan-en-un-cajon" class="post-img" aria-hidden="true" tabindex="-1"><picture><source type="image/avif" srcset="assets/photo-regalos-800.avif 800w, assets/photo-regalos.avif 1600w" sizes="(max-width:800px) 100vw, 50vw"><img src="assets/photo-regalos-800.webp" alt="" loading="lazy" decoding="async"></picture></a>
       <div class="meta">Atelier · 3 min</div>
-      <h3>Cinco regalos que no se quedan en un cajón.</h3>
+      <h3><a href="/blog/regalos-que-no-se-quedan-en-un-cajon">Cinco regalos que no se quedan en un cajón.</a></h3>
       <p>La diferencia entre un regalo bonito y un regalo útil.</p>
     </article>
   </div>

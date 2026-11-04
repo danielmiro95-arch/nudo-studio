@@ -1,28 +1,32 @@
-import Link from 'next/link';
-
 export default function NotFound() {
   return (
-    <main style={{
-      minHeight: '70vh', display: 'grid', placeItems: 'center',
-      padding: '64px 24px', fontFamily: 'Inter, system-ui, sans-serif', color: '#0A0A0A',
-    }}>
-      <div style={{ textAlign: 'center', maxWidth: 480 }}>
-        <p style={{ fontSize: 12, letterSpacing: '.18em', textTransform: 'uppercase', color: '#8a857d', margin: '0 0 16px', fontFamily: 'JetBrains Mono, monospace' }}>404</p>
-        <h1 style={{ fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 600, letterSpacing: '-.03em', margin: '0 0 16px' }}>
-          Esta página no existe.
-        </h1>
-        <p style={{ fontSize: 16, lineHeight: 1.6, opacity: .7, margin: '0 0 32px' }}>
-          Quizá la moviste o nunca llegó a publicarse. Vuelve al inicio o cuéntanos qué buscabas.
-        </p>
-        <Link href="/" style={{
-          display: 'inline-block', padding: '14px 28px',
-          background: '#0A0A0A', color: '#FAF6F2',
-          borderRadius: 999, textDecoration: 'none',
-          fontSize: 14, letterSpacing: '.04em',
-        }}>
-          Volver al inicio
-        </Link>
-      </div>
-    </main>
+    <>
+      <style dangerouslySetInnerHTML={{ __html: `
+.nf26{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;background:#FAF8F5;color:#111}
+.nf26-img{background:#F1EAE2 url(/assets/photo-detalle.webp) center/cover}
+.nf26-txt{display:flex;flex-direction:column;justify-content:center;gap:22px;padding:64px clamp(24px,6vw,96px)}
+.nf26-txt small{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#6B5E55}
+.nf26-txt h1{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;font-size:clamp(44px,6vw,80px);line-height:1}
+.nf26-txt p{margin:0;max-width:44ch;font-size:17px;line-height:1.6;color:#3D3530}
+.nf26-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.nf26-links a{display:inline-flex;align-items:center;height:48px;padding:0 22px;border-radius:999px;border:1px solid #D9CCBF;color:#111;text-decoration:none;font-size:15px}
+.nf26-links a:first-child{background:#111;border-color:#111;color:#FAF8F5}
+@media (max-width:800px){.nf26{grid-template-columns:1fr}.nf26-img{min-height:38vh}}
+` }} />
+      <main className="nf26" id="contenido">
+        <div className="nf26-img" role="img" aria-label="Detalle de papelería de Nudo Studio" />
+        <div className="nf26-txt">
+          <small>Error 404</small>
+          <h1>Este hilo se ha soltado.</h1>
+          <p>La página que buscas no existe o ha cambiado de sitio. Te dejamos algunos caminos para seguir.</p>
+          <nav className="nf26-links" aria-label="Enlaces útiles">
+            <a href="/">Volver al inicio</a>
+            <a href="/servicios">Servicios</a>
+            <a href="/tienda">Tienda</a>
+            <a href="/contacto">Contacto</a>
+          </nav>
+        </div>
+      </main>
+    </>
   );
 }
