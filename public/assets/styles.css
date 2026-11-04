@@ -263,6 +263,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding: 0 5px;
 }
 
+.nav-links a, .nav-account { white-space: nowrap; }
+@media (max-width: 1180px) {
+  .nav { gap: 16px; }
+  .nav-links { gap: 0; }
+  .nav-links a { padding: 10px 9px; font-size: 13.5px; }
+}
 @media (max-width: 900px) {
   .nav-links { display: none; }
 }
@@ -1032,7 +1038,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .on-dark .nav-burger { border-color: rgba(255,255,255,0.22); }
 .on-dark .nav-burger:hover { background: rgba(255,255,255,0.08); }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .nav-burger { display: inline-flex; }
 }
 
@@ -1427,4 +1433,20 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .pwa-ios-close:hover {
   background: var(--bg-soft);
   color: var(--ink);
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * Móvil: objetivos táctiles ≥44px y botón del asistente
+ * (auditoría visual nov. 2026)
+ * ───────────────────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .footer-col ul { gap: 0; }
+  .footer-col a,
+  .site-footer a { display: inline-flex; align-items: center; min-height: 44px; }
+  .nav-drawer-close, .nav-burger, .nav-cart { min-width: 44px; min-height: 44px; }
+  .pwa-install-btn { min-height: 44px; }
+  /* El botón del asistente se encoge y se pega más a la esquina para
+     tapar menos contenido. */
+  .ai-fab { bottom: 14px; right: 14px; padding: 6px; }
+  .ai-fab-dot { width: 32px; height: 32px; }
 }
