@@ -19,7 +19,6 @@ export default async function HomePage() {
       {styles && <style dangerouslySetInnerHTML={{ __html: styles }} />}
       {/* Markup del body legacy. Es contenido nuestro, estático y confiable. */}
       <div dangerouslySetInnerHTML={{ __html: body }} />
-      <Script src="/assets/hero-revolut.js" strategy="afterInteractive" />
       <Script src="/assets/home-cards.js" strategy="afterInteractive" />
     </>
   );
