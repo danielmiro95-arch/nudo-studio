@@ -635,6 +635,23 @@
 
 
   
+
+  /* ===== Bodas reales + Consulta tu fecha (bloque 3) ===== */
+  .reales-26{padding:120px 0 40px}
+  .reales-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:48px}
+  .real-card{display:flex;flex-direction:column;gap:12px;color:var(--ink);text-decoration:none}
+  .real-card img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:6px;display:block;transition:transform .8s cubic-bezier(.22,1,.36,1)}
+  .real-card picture{overflow:hidden;border-radius:6px;display:block}
+  .real-card:hover img{transform:scale(1.04)}
+  .real-meta{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#6B5E55;margin-top:8px}
+  .real-name{font-family:var(--font-serif);font-size:32px;line-height:1.1}
+  .real-quote{margin:0;font-size:15px;line-height:1.6;color:#3D3530}
+  .real-card:nth-child(2){margin-top:72px}
+  .fecha-26{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:14px;margin:36px auto 0;max-width:760px}
+  .fecha-26 label{display:flex;flex-direction:column;gap:8px;font-size:13px;text-align:left;color:inherit;flex:1 1 200px}
+  .fecha-26 select,.fecha-26 input{height:54px;border:1px solid #D9CCBF;border-radius:6px;background:#fff;padding:0 14px;font:inherit;font-size:15px;color:#111}
+  .fecha-26 .btn{flex:1 1 240px;justify-content:center}
+  @media (max-width:900px){.reales-26{padding:72px 0 24px}.reales-grid{grid-template-columns:1fr;gap:40px}.real-card:nth-child(2){margin-top:0}}
   /* ===== Hero Revolut con tipografía 2026 ===== */
   .front-copy-box h1{font-family:var(--font-serif);font-weight:400;letter-spacing:-.015em;line-height:.98}
   .front-copy-box h1 em{font-family:var(--font-serif);font-style:italic;color:#F3D3DA}
@@ -974,6 +991,45 @@
   </div>
 </section>
 
+<!-- ============= BODAS REALES ============= -->
+<section class="reales-26" id="section-bodas-reales">
+  <div class="container-wide">
+    <div class="section-head">
+      <span class="eyebrow">Bodas reales</span>
+      <h2 class="display-h2">Tres historias, <span class="serif">contadas por ellos</span>.</h2>
+    </div>
+    <div class="reales-grid">
+      <a class="real-card" href="galeria.html">
+        <picture>
+          <source type="image/avif" srcset="assets/photo-finca-800.avif 800w, assets/photo-finca.avif 1600w" sizes="(max-width: 900px) 100vw, 33vw">
+          <img src="assets/photo-finca-800.webp" alt="Ceremonia de Marta y Diego en Finca El Espinar" loading="lazy" decoding="async">
+        </picture>
+        <span class="real-meta">Finca El Espinar · 2025</span>
+        <span class="real-name">Marta y Diego</span>
+        <p class="real-quote">«Nos sentimos invitados en nuestra propia boda. Cada detalle estaba pensado, y ningún detalle pesaba.»</p>
+      </a>
+      <a class="real-card" href="galeria.html">
+        <picture>
+          <source type="image/avif" srcset="assets/photo-bodas-800.avif 800w, assets/photo-bodas.avif 1600w" sizes="(max-width: 900px) 100vw, 33vw">
+          <img src="assets/photo-bodas-800.webp" alt="Boda destino de Carolina e Iván" loading="lazy" decoding="async">
+        </picture>
+        <span class="real-meta">Boda destino · 2024</span>
+        <span class="real-name">Carolina &amp; Iván</span>
+        <p class="real-quote">«Encontramos al estudio por Pinterest. Nos quedamos por la primera reunión.»</p>
+      </a>
+      <a class="real-card" href="galeria.html">
+        <picture>
+          <source type="image/avif" srcset="assets/photo-destino-800.avif 800w, assets/photo-destino.avif 1600w" sizes="(max-width: 900px) 100vw, 33vw">
+          <img src="assets/photo-destino-800.webp" alt="Boda de Pablo y Tania en la sierra de Madrid" loading="lazy" decoding="async">
+        </picture>
+        <span class="real-meta">Sierra de Madrid · 2024</span>
+        <span class="real-name">Pablo &amp; Tania</span>
+        <p class="real-quote">«Lo que más recuerdo es la calma. En ningún momento sentí que algo se nos iba de las manos.»</p>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ============= TESTIMONIOS ============= -->
 <section class="quotes" id="section-testimonios">
   <div class="container-wide">
@@ -1023,8 +1079,19 @@
       <span class="eyebrow">Comencemos</span>
       <h2 style="margin-top: 18px;">Cuéntenos qué celebran. <span class="serif">Nosotros lo hacemos posible.</span></h2>
       <p class="lead" style="margin: 24px auto 0;">Respondemos en menos de 24 horas. Sin compromisos hasta firmar propuesta.</p>
+      <form class="fecha-26" action="contacto.html" method="get" aria-label="Consulta tu fecha">
+        <label>¿Qué celebráis?
+          <select name="tipo">
+            <option>Boda</option><option>Comunión / bautizo</option><option>Cumpleaños</option><option>Corporativo</option><option>Shower</option>
+          </select>
+        </label>
+        <label>¿Cuándo?
+          <input type="month" name="fecha" required>
+        </label>
+        <button type="submit" class="btn btn-primary btn-lg">Consultar disponibilidad</button>
+      </form>
       <div class="cta-actions">
-        <a href="contacto.html" class="btn btn-primary btn-lg">Pedir consulta</a>
+        <a href="contacto.html" class="btn btn-outline btn-lg">Pedir consulta</a>
         <a href="asistente.html" class="btn btn-outline btn-lg">Hablar con Nudo</a>
       </div>
     </div>
