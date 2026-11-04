@@ -110,6 +110,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script src="/assets/chrome.js" strategy="afterInteractive" />
         <Script src="/assets/reveal.js" strategy="afterInteractive" />
         <Script src="/assets/whatsapp.js" strategy="afterInteractive" />
+        <Script src="/assets/motion.js" strategy="afterInteractive" />
         <Script src="/assets/pwa-install.js" strategy="afterInteractive" />
         <Analytics />
         <SpeedInsights />
