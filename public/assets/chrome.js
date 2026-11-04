@@ -248,7 +248,7 @@
     // intercepta initChatWidget() y abre el panel flotante.
     return `
       <a href="/asistente" class="ai-fab" id="aiFab" aria-label="Abrir chat con asistente IA">
-        <span class="ai-fab-dot"><nudo-ai-orb id="fab-orb" variant="orbe" state="idle" size="28"></nudo-ai-orb></span>
+        <span class="ai-fab-dot"><nudo-ai-orb id="fab-orb" variant="seda" state="idle" size="36"></nudo-ai-orb></span>
         <span>Hola, soy Nudo · ¿hablamos?</span>
       </a>
       <div class="ai-chat-panel" id="aiChatPanel" hidden role="dialog" aria-label="Chat con asistente Nudo">

@@ -167,12 +167,67 @@
         0%   { stroke-dashoffset: 0; }
         100% { stroke-dashoffset: 28; }
       }
+      /* ====== SEDA (2026) — esfera fluida con nudo de hilo ====== */
+      .seda-blobs { transform-origin: 50px 50px; animation: seda-spin 14s linear infinite; }
+      .seda-b { transform-box: fill-box; transform-origin: center; }
+      .seda-b1 { animation: seda-float 7s ease-in-out infinite; }
+      .seda-b2 { animation: seda-float 9s ease-in-out infinite -3s; }
+      .seda-b3 { animation: seda-float 8s ease-in-out infinite -5s; }
+      .seda-knot { opacity: .95; }
+      .seda-knot-draw { stroke-dasharray: 160; stroke-dashoffset: 0; }
+      .seda-glow { transform-origin: 50px 50px; transition: opacity .5s ease; opacity: 0; }
+      .seda-done { opacity: 0; transition: opacity .5s ease; }
+      :host([state="listen"]) .seda-blobs { animation-duration: 5s; }
+      :host([state="listen"]) .seda-glow { opacity: .55; animation: seda-pulse 1.4s ease-in-out infinite; }
+      :host([state="think"])  .seda-blobs { animation-duration: 2.6s; }
+      :host([state="think"])  .seda-knot-draw { animation: seda-draw 1.8s ease-in-out infinite; }
+      :host([state="reply"])  .seda-blobs { animation-duration: 4s; }
+      :host([state="reply"])  .seda-glow { opacity: .6; animation: seda-pulse .9s ease-in-out infinite; }
+      :host([state="done"])   .seda-done { opacity: 1; }
+      @keyframes seda-spin  { to { transform: rotate(360deg); } }
+      @keyframes seda-float { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(6px,-5px) scale(1.12); } }
+      @keyframes seda-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+      @keyframes seda-draw  { 0% { stroke-dashoffset: 160; } 60%,100% { stroke-dashoffset: 0; } }
+      @media (prefers-reduced-motion: reduce) {
+        .seda-blobs, .seda-b, .seda-glow, .seda-knot-draw { animation: none !important; }
+      }
     </style>
     <div class="stage"></div>
   `;
 
   /* ---- SVG per variant ---- */
   const SVG = {
+    /* Esfera fluida en la paleta de la marca + nudo de hilo (2026) */
+    seda: `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="sc"><circle cx="50" cy="50" r="48"/></clipPath>
+          <filter id="sb" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter>
+          <radialGradient id="sh" cx="35%" cy="28%" r="60%">
+            <stop offset="0" stop-color="#fff" stop-opacity=".55"/>
+            <stop offset=".5" stop-color="#fff" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="sg" cx="50%" cy="50%" r="50%">
+            <stop offset=".7" stop-color="#D8A7B1" stop-opacity=".0"/>
+            <stop offset="1" stop-color="#D8A7B1" stop-opacity=".6"/>
+          </radialGradient>
+        </defs>
+        <circle class="seda-glow" cx="50" cy="50" r="50" fill="url(#sg)"/>
+        <g clip-path="url(#sc)">
+          <rect width="100" height="100" fill="#C9877A"/>
+          <g class="seda-blobs" filter="url(#sb)">
+            <circle class="seda-b seda-b1" cx="28" cy="30" r="30" fill="#E9C6BE"/>
+            <circle class="seda-b seda-b2" cx="74" cy="62" r="32" fill="#8E4E5C"/>
+            <circle class="seda-b seda-b3" cx="38" cy="78" r="26" fill="#E3B58A"/>
+          </g>
+          <circle class="seda-done" cx="50" cy="50" r="48" fill="#8FA58A" opacity="0"/>
+          <rect width="100" height="100" fill="url(#sh)"/>
+        </g>
+        <circle cx="50" cy="50" r="47.5" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1"/>
+        <path class="seda-knot seda-knot-draw" fill="none" stroke="#FFFDFB" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" d="M50 50 C 40 36, 26 38, 28 50 C 30 62, 42 60, 50 50 C 58 40, 70 38, 72 50 C 74 62, 60 64, 50 50 Z"/>
+        <path class="seda-knot" fill="none" stroke="#FFFDFB" stroke-linecap="round" d="M47 55 L 40 68 M53 55 L 60 68" stroke-width="3.6"/>
+      </svg>
+    `,
     /* A continuous looped path forming an abstract knot */
     hilo: `
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
