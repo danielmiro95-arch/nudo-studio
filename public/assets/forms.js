@@ -335,8 +335,8 @@
 // mensaje para que solo falte escribir.
 (function () {
   var q = new URLSearchParams(location.search);
-  var tipo = q.get('tipo'), fecha = q.get('fecha');
-  if (!tipo && !fecha) return;
+  var tipo = q.get('tipo'), fecha = q.get('fecha'), texto = q.get('msg');
+  if (!tipo && !fecha && !texto) return;
   function fill() {
     var form = document.querySelector('form.contact-form');
     if (!form) return setTimeout(fill, 150);
@@ -355,6 +355,7 @@
       var mes = d.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
       msg.value = '¿Tenéis disponibilidad en ' + mes + '? ';
     }
+    if (msg && !msg.value && texto) msg.value = texto.slice(0, 1500) + '\n\n';
     form.scrollIntoView({ block: 'start' });
     if (msg) setTimeout(function () { msg.focus(); msg.setSelectionRange(msg.value.length, msg.value.length); }, 400);
   }
