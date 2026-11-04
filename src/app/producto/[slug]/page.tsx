@@ -10,6 +10,7 @@ export function generateStaticParams() {
 }
 
 const webp = (src: string) => src.replace(/\.jpg$/, '.webp');
+const base = (src: string) => src.replace(/\.(jpg|webp)$/, '');
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -119,8 +120,22 @@ export default async function ProductoPage({ params }: Props) {
         <section className="pdp26-main">
           <div className="pdp26-media">
             {product.images[0] && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={webp(product.images[0])} alt={product.name} fetchPriority="high" decoding="async" />
+              <picture>
+                <source
+                  type="image/avif"
+                  srcSet={`${base(product.images[0])}-800.avif 800w, ${base(product.images[0])}.avif 1600w`}
+                  sizes="(max-width: 900px) 100vw, 55vw"
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={webp(product.images[0])}
+                  srcSet={`${base(product.images[0])}-800.webp 800w, ${webp(product.images[0])} 1600w`}
+                  sizes="(max-width: 900px) 100vw, 55vw"
+                  alt={product.name}
+                  fetchPriority="high"
+                  decoding="async"
+                />
+              </picture>
             )}
           </div>
 
@@ -158,7 +173,7 @@ export default async function ProductoPage({ params }: Props) {
                 <a key={p.slug} href={`/producto/${p.slug}`}>
                   {p.images[0] && (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={webp(p.images[0])} alt={p.name} loading="lazy" decoding="async" />
+                    <img src={`${base(p.images[0])}-800.webp`} alt={p.name} loading="lazy" decoding="async" />
                   )}
                   <span className="row"><span>{p.name}</span><span>{fmt(p.priceCents)}</span></span>
                 </a>
