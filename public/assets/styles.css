@@ -547,10 +547,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   align-items: center;
   gap: 0;
   padding: 8px;
-  /* Gradient AI · lavender → rosa nude · toque tecnológico/futurista */
-  background: linear-gradient(135deg, #B8B5FF 0%, #D8A7B1 100%);
-  color: var(--ink);
-  border: 1px solid rgba(255,255,255,0.5);
+  /* 2026: píldora tinta, el color lo pone el orbe «seda». */
+  background: #111;
+  color: #FAF8F5;
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 999px;
   font-size: 14px;
   font-weight: 500;
@@ -578,12 +578,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .ai-fab-dot {
   width: 36px; height: 36px;
   border-radius: 50%;
-  background: var(--ink-on-dark);
+  background: transparent;
   display: grid;
   place-items: center;
   position: relative;
   flex-shrink: 0;
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.15) inset;
 }
 .ai-fab-dot nudo-ai-orb {
   /* El FAB vive sobre fondo oscuro. El orbe está dentro de un círculo cream,
