@@ -107,7 +107,11 @@
       // card. (Negativo = mueve imagen hacia la izquierda.)
       const bgTx     = lerp(0, -70, p);
       heroBgImg.style.transformOrigin = 'center center';
-      heroBgImg.style.transform = `translate(${bgTx.toFixed(1)}px, ${bgTy.toFixed(1)}px) scale(${bgScale.toFixed(3)})`;
+      // En p=0 sin transform: algunos navegadores móviles no pintaban la
+      // imagen con un transform identidad hasta el primer repintado.
+      heroBgImg.style.transform = p < 0.001
+        ? 'none'
+        : `translate(${bgTx.toFixed(1)}px, ${bgTy.toFixed(1)}px) scale(${bgScale.toFixed(3)})`;
     }
     // Limpia transform residual del padre por si la versión anterior
     // lo dejó puesto (cache de browser durante deploy).
@@ -126,7 +130,7 @@
       // outer: veil que crece hasta cubrir el viewport. Matchea el --bg
       // de la paleta (warm white #FAF8F5) para fundirse con la página.
       heroCardRing.style.boxShadow =
-        `inset 0 0 0 4px rgba(255,255,255,0.92), 0 0 0 ${veil}px #FAF8F5`;
+        `inset 0 0 0 4px rgba(255,255,255,${(0.92 * Math.min(1, p * 4)).toFixed(3)}), 0 0 0 ${veil}px #FAF8F5`;
     }
 
     // ─── CARD COPY (texto sobre la card al final del scroll) ──────────
@@ -197,7 +201,7 @@
         return;
       }
       e.preventDefault();
-      heroRaw = Math.max(0, Math.min(1, heroRaw + e.deltaY / 2800));
+      heroRaw = Math.max(0, Math.min(1, heroRaw + e.deltaY / 1500));
       update();
       if (heroRaw >= 1) setLocked(false);
     }, { passive: false });
@@ -209,7 +213,7 @@
       e.preventDefault();
       const delta = touchY - e.touches[0].clientY;
       touchY = e.touches[0].clientY;
-      heroRaw = Math.max(0, Math.min(1, heroRaw + delta / 1400));
+      heroRaw = Math.max(0, Math.min(1, heroRaw + delta / 800));
       update();
       if (heroRaw >= 1) setLocked(false);
     }, { passive: false });
@@ -244,6 +248,8 @@
     update();
     requestAnimationFrame(() => requestAnimationFrame(update));
   }
+  // Fuerza un repintado cuando la foto termina de decodificarse.
+  if (heroBgImg && heroBgImg.decode) heroBgImg.decode().then(update).catch(function () {});
   if (document.readyState === 'complete') initialUpdate();
   else window.addEventListener('load', initialUpdate);
   window.__heroUpdate = update;
