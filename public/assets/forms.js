@@ -249,7 +249,7 @@
           orbReplyCycle();
         } else {
           var msg = (data && data.error) ||
-            'No he podido responder. Inténtalo en unos minutos o escríbenos a hola@nudostudio.com.';
+            'No he podido responder. Inténtalo en unos minutos o escríbenos a hola@nudostudio.blog.';
           appendBubble('assistant', msg);
           setOrb('idle');
           // No metemos errores en history para no contaminar el contexto

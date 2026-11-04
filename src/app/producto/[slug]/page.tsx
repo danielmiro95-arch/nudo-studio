@@ -93,7 +93,14 @@ const CSS = `
   .pdp26-info{position:static}
   .pdp26-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
   .pdp26-grid a:nth-child(3){display:none}
+  .pdp26-sticky{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;align-items:center;gap:12px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(250,248,245,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid #E8DED4;transform:translateY(110%);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+  .pdp26-sticky.on{transform:none}
+  .pdp26-sticky .n{flex:1;min-width:0;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pdp26-sticky .n b{display:block;font-weight:500}
+  .pdp26-sticky button{height:46px;padding:0 20px;border:0;border-radius:999px;background:#111;color:#FAF8F5;font:inherit;font-size:14px;font-weight:500}
+  body:has(.pdp26-sticky.on) .nudo-wa{bottom:86px}
 }
+@media (min-width:901px){.pdp26-sticky{display:none}}
 `;
 
 export default async function ProductoPage({ params }: Props) {
@@ -106,11 +113,42 @@ export default async function ProductoPage({ params }: Props) {
     .sort((a, b) => Number(b.category === product.category) - Number(a.category === product.category))
     .slice(0, 3);
 
+  const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nudostudio.blog';
+  const ld = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: product.name,
+      description: product.shortDescription,
+      image: product.images.map((i) => `${SITE}${webp(i)}`),
+      brand: { '@type': 'Brand', name: 'Nudo Studio' },
+      category: CATEGORY[product.category],
+      offers: {
+        '@type': 'Offer',
+        url: `${SITE}/producto/${product.slug}`,
+        priceCurrency: 'EUR',
+        price: (product.priceCents / 100).toFixed(2),
+        availability: product.available ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+        itemCondition: 'https://schema.org/NewCondition',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${SITE}/` },
+        { '@type': 'ListItem', position: 2, name: 'Tienda', item: `${SITE}/tienda` },
+        { '@type': 'ListItem', position: 3, name: product.name, item: `${SITE}/producto/${product.slug}` },
+      ],
+    },
+  ];
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <div data-slot="header" />
-      <main className="pdp26">
+      <main className="pdp26" id="contenido">
         <nav className="pdp26-crumbs" aria-label="Migas de pan">
           <a href="/">Inicio</a><span aria-hidden="true">/</span>
           <a href="/tienda">Tienda</a><span aria-hidden="true">/</span>

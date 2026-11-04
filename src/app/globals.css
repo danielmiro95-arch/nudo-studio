@@ -3,3 +3,8 @@
  * Este archivo lo importa para que Next.js lo aplique al layout root.
  */
 @import url('/assets/styles.css');
+
+/* Accesibilidad 2026: enlace de salto y foco visible coherente. */
+.skip-link{position:fixed;left:16px;top:-60px;z-index:10000;padding:12px 18px;border-radius:999px;background:#111;color:#FAF8F5;font:500 14px/1 Inter,system-ui,sans-serif;text-decoration:none;transition:top .2s}
+.skip-link:focus{top:16px}
+:where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{outline:2px solid #8E4E5C;outline-offset:3px}

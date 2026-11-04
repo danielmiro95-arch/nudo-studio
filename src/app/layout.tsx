@@ -77,6 +77,7 @@ const LOCAL_BUSINESS_LD = {
   logo: `${SITE_URL}/assets/icon-512.png`,
   image: `${SITE_URL}/assets/photo-principal.jpg`,
   email: 'hola@nudostudio.blog',
+  telephone: '+34624324882',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Madrid',
@@ -102,6 +103,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
+        <a href="#contenido" className="skip-link">Saltar al contenido</a>
         {children}
         {/* chrome.js inyecta header / footer / FAB en cualquier página
             que tenga <div data-slot="header" /> etc. — patrón heredado
