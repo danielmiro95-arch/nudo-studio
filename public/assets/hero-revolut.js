@@ -92,33 +92,44 @@
     //      dentro del rect de la card. Como solo hay una imagen, no
     //      hay disparidad entre lo que se ve fuera y dentro de la card.
     if (heroBgImg) {
-      // Zoom moderado (1.0 → 1.20). Antes era 1.45 — demasiado, perdía
-      // a la pareja del sujeto durante la transición.
-      // En escritorio, al inicio la foto se desplaza a la derecha para que
-      // el titular (a la izquierda) no tape a la pareja. Escala 1.3 para
-      // que el desplazamiento no deje hueco en el borde izquierdo.
-      const SHIFT    = W > 900 ? W * 0.13 : 0;
-      const bgScale  = lerp(SHIFT ? 1.3 : 1.0, 1.20, p);
-      // Centro de la card en coords de viewport.
-      const cardCY   = cT + cH / 2;
-      // Translate Y para mover el centro de la imagen (que tras scale
-      // desde origen "center" sigue en H/2) hasta cardCY.
-      const targetTy = cardCY - H / 2;
-      const bgTy     = lerp(0, targetTy, p);
-      // Translate X: en photo-principal la pareja está ligeramente a la
-      // derecha del centro. Desplazamos la imagen a la izquierda al
-      // final de la transición para que el sujeto quede centrado en la
-      // card. (Negativo = mueve imagen hacia la izquierda.)
-      const bgTx     = lerp(SHIFT, 0, p);
+      // PUNTO FOCAL: las caras de la pareja. Se lee de data-focus="x y"
+      // (0–1 sobre la foto original). La animación lleva ESE punto, no el
+      // centro de la foto, al centro de la card, así que al reducirse se
+      // sigue viendo a los dos.
+      const f   = (heroBgImg.dataset.focus || '0.5 0.5').split(/\s+/).map(Number);
+      const iw  = heroBgImg.naturalWidth  || 1920;
+      const ih  = heroBgImg.naturalHeight || 1280;
+      const cov = Math.max(W / iw, H / ih);           // object-fit: cover
+      const Fx  = (W - iw * cov) / 2 + f[0] * iw * cov; // foco en px del viewport
+      const Fy  = (H - ih * cov) / 2 + f[1] * ih * cov;
+      const Cx  = W / 2, Cy = H / 2;                  // transform-origin
+
+      // Inicio: en escritorio el foco se coloca a ~64% del ancho para que
+      // el titular (izquierda) no tape a la pareja. En móvil, en su sitio.
+      const wide   = W > 900;
+      const s0     = wide ? 1.12 : 1.0;
+      const startX = wide ? W * 0.64 : Fx;
+      const startY = Fy;
+      // Final: foco en el centro de la card, con zoom suave para que
+      // las caras llenen la tarjeta.
+      const s1   = 1.6;
+      const endX = cL + cW / 2;
+      const endY = cT + cH * 0.42;
+
+      const s  = lerp(s0, s1, p);
+      const tx = lerp(startX, endX, p) - Cx - s * (Fx - Cx);
+      const ty = lerp(startY, endY, p) - Cy - s * (Fy - Cy);
+      // Al inicio la foto se ve entera: no dejar hueco en los bordes.
+      // Según avanza, el velo blanco tapa todo salvo la card y el límite
+      // se relaja para que el foco pueda llegar a ella.
+      const slack = p * p * Math.max(W, H) * 2;
+      const maxX = (s * iw * cov - W) / 2 + slack, maxY = (s * ih * cov - H) / 2 + slack;
+      const ctx = Math.max(-maxX, Math.min(maxX, tx));
+      const cty = Math.max(-maxY, Math.min(maxY, ty));
       heroBgImg.style.transformOrigin = 'center center';
-      // En p=0 sin transform: algunos navegadores móviles no pintaban la
-      // imagen con un transform identidad hasta el primer repintado.
-      heroBgImg.style.transform = (p < 0.001 && !SHIFT)
-        ? 'none'
-        : `translate(${bgTx.toFixed(1)}px, ${bgTy.toFixed(1)}px) scale(${bgScale.toFixed(3)})`;
+      heroBgImg.style.transform =
+        `translate(${ctx.toFixed(1)}px, ${cty.toFixed(1)}px) scale(${s.toFixed(3)})`;
     }
-    // Limpia transform residual del padre por si la versión anterior
-    // lo dejó puesto (cache de browser durante deploy).
     if (heroBg) heroBg.style.transform = '';
 
     // ─── RING: agujero de la card + veil blanco + borde 4px interior ──
