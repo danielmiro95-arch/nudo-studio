@@ -1,3 +1,9 @@
+// Retirado en el rediseño 2026: si el hero antiguo no existe, no hacer nada
+// (antes bloqueaba el scroll con overflow:hidden y lanzaba un TypeError).
+if (!document.getElementById("heroSticky")) {
+  document.documentElement.style.overflow = "";
+  document.body.style.overflow = "";
+} else {
 // Nudo Studio — Hero Revolut scroll animation (v2: single-image)
 //
 // CAMBIO ARQUITECTÓNICO v2:
@@ -255,3 +261,5 @@
   window.__heroUpdate = update;
   window.__heroSetRaw = (v) => { heroRaw = v; update(); };
 })();
+
+}
