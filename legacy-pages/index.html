@@ -634,7 +634,13 @@
   }
 
 
-  /* ===== Hero editorial 2026 ===== */
+  
+  /* ===== Hero Revolut con tipografía 2026 ===== */
+  .front-copy-box h1{font-family:var(--font-serif);font-weight:400;letter-spacing:-.015em;line-height:.98}
+  .front-copy-box h1 em{font-family:var(--font-serif);font-style:italic;color:#F3D3DA}
+  .hero-end-heading{font-family:var(--font-serif);font-weight:400;letter-spacing:-.02em}
+  .hero-card-copy h3,.scroll-card-copy h3{font-family:var(--font-serif);font-weight:400;font-size:1.5em;letter-spacing:0}
+/* ===== Hero editorial 2026 ===== */
   .hero-26{max-width:1360px;margin:0 auto;padding:32px 40px 72px;display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:end}
   .hero-26-eyebrow{display:block;margin-bottom:28px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#6B5E55}
   .hero-26 h1{margin:0;font-family:var(--font-serif);font-weight:400;font-size:clamp(52px,7.2vw,104px);line-height:.95;letter-spacing:-.02em}
@@ -662,23 +668,77 @@
 
 <div data-slot="header"></div>
 
-<!-- ============= HERO EDITORIAL 2026 ============= -->
-<section class="hero-26" id="section-hero">
-  <div class="hero-26-copy">
-    <span class="hero-26-eyebrow">Estudio de eventos · Madrid</span>
-    <h1>Eventos que se recuerdan, <em>detalles</em> que se guardan.</h1>
-    <p>Diseñamos bodas, comuniones y celebraciones íntimas con la calma de un atelier y la mirada de un estudio de diseño.</p>
-    <div class="hero-26-ctas">
-      <a class="btn btn-primary btn-lg" href="contacto.html">Cuéntanos tu evento</a>
-      <a class="btn btn-outline btn-lg" href="servicios.html">Ver servicios</a>
+<!-- ============= HERO REVOLUT ============= -->
+<section class="hero-revolut" id="section-hero">
+  <div class="hero-revolut-sticky" id="heroSticky">
+
+    <!-- ① BACKGROUND IMAGE: full-screen -->
+    <div class="hero-image-bg" id="heroBg">
+      <picture>
+        <source type="image/webp" srcset="assets/photo-principal.webp">
+        <img src="assets/photo-principal.jpg" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
+      </picture>
     </div>
+
+    <div id="heroCardRing"></div>
+
+    <!-- Label overlay sobre la card -->
+    <div class="hero-card-copy" id="heroCardCopy">
+      <h3>Bodas editoriales</h3>
+      <p>Flores suaves, luz natural y una puesta en escena impecable.</p>
+    </div>
+
+    <!-- Card lateral izquierda -->
+    <article class="service-card-scroll left-card" id="leftCard">
+      <a href="servicios.html#comuniones">
+        <picture>
+          <source type="image/webp" srcset="assets/photo-comuniones.webp">
+          <img src="assets/photo-comuniones.jpg" alt="Comuniones" loading="lazy" decoding="async">
+        </picture>
+        <div class="scroll-card-copy">
+          <h3>Comuniones</h3>
+          <p>Atmósfera cálida y mesas pensadas para los pequeños del día.</p>
+        </div>
+      </a>
+    </article>
+
+    <!-- Card lateral derecha -->
+    <article class="service-card-scroll right-card" id="rightCard">
+      <a href="tienda.html">
+        <picture>
+          <source type="image/webp" srcset="assets/photo-regalos.webp">
+          <img src="assets/photo-regalos.jpg" alt="Regalos">
+        </picture>
+        <div class="scroll-card-copy">
+          <h3>Regalos a mano</h3>
+          <p>Welcome packs y detalles cosidos uno a uno en el atelier.</p>
+        </div>
+      </a>
+    </article>
+
+    <!-- Título final tras el scroll -->
+    <div class="hero-end-title" id="heroEndTitle">
+      <span class="hero-end-eyebrow">Estudio de eventos · Madrid</span>
+      <h2 class="hero-end-heading">Nudo<br>Studio</h2>
+      <a class="hero-end-btn" href="contacto.html">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Pedir consulta
+      </a>
+    </div>
+
+    <!-- Copy inicial superpuesto -->
+    <div class="front-copy" id="frontCopy">
+      <div class="front-copy-box">
+        <span class="eyebrow-front">Estudio de eventos · Madrid</span>
+        <h1>
+          Eventos que se recuerdan,<br>
+          <em>detalles</em> que se guardan.
+        </h1>
+        <p>Diseñamos bodas, comuniones y celebraciones íntimas con la calma de un atelier y la mirada de un estudio de diseño.</p>
+      </div>
+    </div>
+
   </div>
-  <figure class="hero-26-media">
-    <picture>
-      <source type="image/webp" srcset="assets/photo-boda-pareja.webp">
-      <img src="assets/photo-boda-pareja.webp" alt="Pareja de novios en una finca" fetchpriority="high" decoding="async">
-    </picture>
-  </figure>
 </section>
 
 <!-- Barra fija móvil -->
@@ -972,6 +1032,7 @@
 <div data-slot="fab"></div>
 
 <script src="assets/chrome.js?v=2"></script>
+<script src="assets/hero-revolut.js?v=5"></script>
 
 
 </body>
