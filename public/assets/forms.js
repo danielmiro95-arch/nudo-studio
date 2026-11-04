@@ -329,3 +329,35 @@
     init();
   }
 })();
+
+// ─── «Consulta tu fecha» (portada → contacto) ───────────────────────
+// Rellena el formulario con ?tipo=…&fecha=YYYY-MM y lleva el foco al
+// mensaje para que solo falte escribir.
+(function () {
+  var q = new URLSearchParams(location.search);
+  var tipo = q.get('tipo'), fecha = q.get('fecha');
+  if (!tipo && !fecha) return;
+  function fill() {
+    var form = document.querySelector('form.contact-form');
+    if (!form) return setTimeout(fill, 150);
+    if (fecha && /^\d{4}-\d{2}$/.test(fecha)) {
+      var m = form.querySelector('input[type="month"]');
+      if (m) m.value = fecha;
+    }
+    if (tipo) {
+      form.querySelectorAll('.chip-toggle').forEach(function (b) {
+        b.classList.toggle('active', b.textContent.trim().toLowerCase() === tipo.trim().toLowerCase());
+      });
+    }
+    var msg = form.querySelector('textarea');
+    if (msg && !msg.value && fecha) {
+      var d = new Date(fecha + '-01T12:00:00');
+      var mes = d.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+      msg.value = '¿Tenéis disponibilidad en ' + mes + '? ';
+    }
+    form.scrollIntoView({ block: 'start' });
+    if (msg) setTimeout(function () { msg.focus(); msg.setSelectionRange(msg.value.length, msg.value.length); }, 400);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fill);
+  else fill();
+})();
