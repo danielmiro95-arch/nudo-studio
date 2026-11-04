@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/galeria',
     '/tienda',
     '/cajas-a-medida',
+    '/empresas',
     '/sobre-nosotros',
     '/contacto',
     '/blog',

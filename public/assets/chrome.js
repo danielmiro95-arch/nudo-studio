@@ -216,6 +216,7 @@
             <ul>
               <li><a href="/tienda">Catálogo</a></li>
               <li><a href="/cajas-a-medida">Cajas a medida</a></li>
+              <li><a href="/empresas">Regalos para empresas</a></li>
               <li><a href="/tienda?cat=decoracion">Decoración</a></li>
               <li><a href="/tienda?cat=regalos">Regalos a mano</a></li>
               <li><a href="/carrito">Mi carrito</a></li>
