@@ -120,7 +120,7 @@ export default async function ProductoPage({ params }: Props) {
         <section className="pdp26-main">
           <div className="pdp26-media">
             {product.images[0] && (
-              <picture>
+              <picture style={{ viewTransitionName: 'producto-media', display: 'block' }}>
                 <source
                   type="image/avif"
                   srcSet={`${base(product.images[0])}-800.avif 800w, ${base(product.images[0])}.avif 1600w`}

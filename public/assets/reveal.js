@@ -18,7 +18,7 @@
   st.textContent = css;
   document.head.appendChild(st);
 
-  var SKIP = '#section-hero, header, footer, nav, [data-slot="header"], [data-slot="footer"], .nav-drawer, .drawer, .ai-fab, .ai-panel, .marquee, .nudo-wa, dialog';
+  var SKIP = '#section-hero, header, footer, nav, [data-slot="header"], [data-slot="footer"], .nav-drawer, .drawer, .ai-fab, .ai-panel, .marquee, .nudo-wa, dialog, .lightbox, [role="dialog"], .cart-drawer, .pdp26-media';
 
   // OJO: no usamos IntersectionObserver porque Chrome tiene en cuenta el
   // clip-path del propio elemento (oculto = área 0) y nunca lo detecta.
