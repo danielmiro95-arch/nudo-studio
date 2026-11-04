@@ -227,7 +227,7 @@ export default function Configurador() {
         <div><span>01</span><b>Diseñas</b><p>Configuras la caja aquí o nos cuentas la idea.</p></div>
         <div><span>02</span><b>Confirmamos</b><p>Revisamos contenido, plazos y precio final contigo.</p></div>
         <div><span>03</span><b>Montamos</b><p>Cada caja se monta y se cierra a mano en el atelier.</p></div>
-        <div><span>04</span><b>Entregamos</b><p>Envío a tu casa o directamente al lugar del evento.</p></div>
+        <div><span>04</span><b>Entregamos</b><p>Envío a tu casa o directamente al lugar del evento. ¿Es para tu empresa? <a href="/empresas" style={{ color: '#8E4E5C' }}>Regalos corporativos →</a></p></div>
       </section>
     </main>
   );
