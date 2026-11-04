@@ -94,7 +94,11 @@
     if (heroBgImg) {
       // Zoom moderado (1.0 → 1.20). Antes era 1.45 — demasiado, perdía
       // a la pareja del sujeto durante la transición.
-      const bgScale  = lerp(1.0, 1.20, p);
+      // En escritorio, al inicio la foto se desplaza a la derecha para que
+      // el titular (a la izquierda) no tape a la pareja. Escala 1.3 para
+      // que el desplazamiento no deje hueco en el borde izquierdo.
+      const SHIFT    = W > 900 ? W * 0.13 : 0;
+      const bgScale  = lerp(SHIFT ? 1.3 : 1.0, 1.20, p);
       // Centro de la card en coords de viewport.
       const cardCY   = cT + cH / 2;
       // Translate Y para mover el centro de la imagen (que tras scale
@@ -105,11 +109,11 @@
       // derecha del centro. Desplazamos la imagen a la izquierda al
       // final de la transición para que el sujeto quede centrado en la
       // card. (Negativo = mueve imagen hacia la izquierda.)
-      const bgTx     = lerp(0, -70, p);
+      const bgTx     = lerp(SHIFT, 0, p);
       heroBgImg.style.transformOrigin = 'center center';
       // En p=0 sin transform: algunos navegadores móviles no pintaban la
       // imagen con un transform identidad hasta el primer repintado.
-      heroBgImg.style.transform = p < 0.001
+      heroBgImg.style.transform = (p < 0.001 && !SHIFT)
         ? 'none'
         : `translate(${bgTx.toFixed(1)}px, ${bgTy.toFixed(1)}px) scale(${bgScale.toFixed(3)})`;
     }
