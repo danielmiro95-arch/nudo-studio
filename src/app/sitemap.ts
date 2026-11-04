@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getAvailableProducts } from '@/data/products';
+import { posts } from '@/data/posts';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nudostudio.blog';
@@ -30,5 +31,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...productRoutes];
+  const postRoutes = posts.map((p) => ({
+    url: `${base}/blog/${p.slug}`,
+    lastModified: new Date(p.date),
+    changeFrequency: 'yearly' as const,
+    priority: 0.5,
+  }));
+
+  return [...staticRoutes, ...productRoutes, ...postRoutes];
 }
