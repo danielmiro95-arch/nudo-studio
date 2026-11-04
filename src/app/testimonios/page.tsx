@@ -3,7 +3,7 @@ import { readLegacyPage } from '@/lib/legacy-html';
 
 export const metadata: Metadata = {
   title: 'Testimonios',
-  description: 'Lo que dicen nuestros clientes — testimonios reales de bodas, comuniones y celebraciones producidas por Nudo Studio.',
+  description: 'Lo que dicen nuestros clientes — testimonios de bodas, comuniones y celebraciones producidas por Nudo Studio.',
   alternates: { canonical: '/testimonios' },
 };
 
