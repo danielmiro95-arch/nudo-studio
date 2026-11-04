@@ -1450,3 +1450,21 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .ai-fab { bottom: 14px; right: 14px; padding: 6px; }
   .ai-fab-dot { width: 32px; height: 32px; }
 }
+
+/* =========================================================
+   REDISEÑO 2026 — serif editorial, acento accesible, radios sobrios
+   ========================================================= */
+:root{
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --accent-text: #8E4E5C;
+  --radius-card: 6px;
+  --radius-lg: 8px;
+  --radius-md: 6px;
+}
+h1, h2, .display-hero, .display-h1, .display-h2, .display-h3, .sc-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+h1 em, h2 em, .display-h2 em, .display-h1 em { font-style: italic; color: var(--accent-text); }
+.btn { border-radius: 999px; }
